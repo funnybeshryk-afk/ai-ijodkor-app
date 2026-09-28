@@ -30,6 +30,8 @@ lib/
 ```
 
 ## База данных (Supabase, источник правды — ai-ijodkor-platform/supabase/migrations)
+Рабочий проект: `ai-ijodkor-platform`, URL `https://coojogmncenhkrvytyzz.supabase.co`
+(не путать со старым проектом `ai-ijodkor` / jyivrotkqulvcdnwweed — он на паузе и не используется).
 Роли в `profiles.role`: `student | parent | teacher | admin` (admin использует экраны учителя).
 Таблицы: `profiles` (teacher_id, archived_at), `parent_child_links`, `lessons` (module, order_index,
 content_url), `lesson_access` (ученик видит урок только при наличии строки), `lesson_progress`
@@ -51,6 +53,26 @@ RPC: `get_class_leaderboard()`, `get_certificate_for_verification(cert_id)`.
 logic, python, python-brain, code-output, debug, prompting, prompt-checklist, critical-thinking,
 internet-safety, experiment-lab, teacher-simulator, godot. Сессию Supabase передавать в WebView,
 чтобы ученик не входил повторно.
+
+## Дизайн (обязательно — приложение не должно выглядеть «сгенерированным»)
+Источник правды — брендбук «AI Ijodkor brend kitobi» (https://claude.ai/artifact/PL6Y68t2ftUzKPYRfzi9H1)
+и утверждённые макеты экранов (https://claude.ai/artifact/ExYrUVJJhAWR1mi5DYe5iK). Верстать по макетам.
+- Цвета (светлая тема): фон `#FFFCF6`, карточки `#FFFFFF`, приглушённый `#F7F0E2`, граница `#ECE1CB`,
+  текст `#241C10`, вторичный текст `#7C6F58`, акцент brand-500 `#F2A93B` (единственный акцент на экране),
+  текст на акценте `#241C10`, success `#2F7D4F`, danger `#C4432E`.
+  Цвета треков — только для обозначения направлений: Digital Start `#3C6E58`, AI & Creative `#2F7FC9`,
+  Code & Technology `#8858B0`. Тёмная тема — значения из брендбука (tokens.json).
+- Шрифты: Baloo 2 (заголовки, 600/700), Manrope (текст и интерфейс), JetBrains Mono (код).
+- Радиусы: 8 (поля), 14 (карточки, кнопки), 20 (крупные панели), pill. Отступы: шаг 4/8/12/16/24/32.
+- Кнопки: основная — янтарная с тёмным текстом, высота 52–56; второстепенная — тёмная `#241C10`
+  или контурная. Касаемые элементы ≥ 44px.
+- **Запрещено:** `ColorScheme.fromSeed` с фиолетовым, фиолетовые/синие градиенты, стандартный
+  Material 3 «из коробки», эмодзи вместо иконок (в т.ч. эмодзи треков из tracks.ts платформы),
+  одинаковые карточки с тенью подряд, заглушки «Lorem ipsum»/«Coming soon».
+- Иконки: одна библиотека (`lucide_icons`), линейные, один стиль.
+- Все значения — токены в `lib/core/theme.dart`; в виджетах никаких «магических» цветов и размеров.
+- Логотип-знак — в «badge» с радиусом 20 на белом/нейтральном фоне (правила — в брендбуке).
+- Экран готов только с реальными состояниями: загрузка (skeleton), пусто, ошибка.
 
 ## Правила работы
 - Маленькие, законченные шаги; после каждого — `flutter analyze` и `flutter test` без ошибок.
