@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'models/profile.dart';
 import 'repositories/auth_repository.dart';
+import 'repositories/parent_repository.dart';
 import 'repositories/profile_repository.dart';
 import 'repositories/student_repository.dart';
 
@@ -36,4 +37,9 @@ final currentProfileProvider = FutureProvider<Profile?>((ref) async {
 final studentRepositoryProvider = Provider<StudentRepository?>((ref) {
   final client = ref.watch(supabaseClientProvider);
   return client == null ? null : SupabaseStudentRepository(client);
+});
+
+final parentRepositoryProvider = Provider<ParentRepository?>((ref) {
+  final client = ref.watch(supabaseClientProvider);
+  return client == null ? null : SupabaseParentRepository(client);
 });

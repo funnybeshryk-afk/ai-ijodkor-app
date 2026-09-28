@@ -18,6 +18,7 @@ class HomeworkSubmission {
     required this.submittedAt,
     this.contentText,
     this.reviewerNotes,
+    this.reviewedAt,
   });
 
   final String id;
@@ -27,6 +28,9 @@ class HomeworkSubmission {
   final String? reviewerNotes;
   final DateTime submittedAt;
 
+  /// When a teacher approved/rejected it (null while pending).
+  final DateTime? reviewedAt;
+
   factory HomeworkSubmission.fromJson(Map<String, dynamic> json) =>
       HomeworkSubmission(
         id: json['id'] as String,
@@ -35,6 +39,7 @@ class HomeworkSubmission {
         contentText: json['content_text'] as String?,
         reviewerNotes: json['reviewer_notes'] as String?,
         submittedAt: DateTime.parse(json['submitted_at'] as String),
+        reviewedAt: DateTime.tryParse((json['reviewed_at'] as String?) ?? ''),
       );
 }
 

@@ -543,4 +543,151 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get openPlatformButton => 'Saytda ochish';
+
+  @override
+  String get parentTitleOne => 'Farzandim';
+
+  @override
+  String childLessonsOpened(int count) {
+    return '$count ta dars ochilgan';
+  }
+
+  @override
+  String get parentProgressTitle => 'Kurs bo‘yicha o‘zlashtirish';
+
+  @override
+  String parentProgressCaption(int done, int total) {
+    return '$done ta dars o‘tildi · $total tadan';
+  }
+
+  @override
+  String percentValue(int value) {
+    return '$value%';
+  }
+
+  @override
+  String get tileApproved => 'qabul qilindi';
+
+  @override
+  String get tilePending => 'tekshiruvda';
+
+  @override
+  String get tilePoints => 'ball';
+
+  @override
+  String get paymentTitle => 'To‘lov';
+
+  @override
+  String get paymentPaid => 'To‘langan';
+
+  @override
+  String get paymentUnpaid => 'To‘lanmagan';
+
+  @override
+  String get payClick => 'Click orqali';
+
+  @override
+  String get payPayme => 'Payme orqali';
+
+  @override
+  String get paymentContactHint =>
+      'Onlayn to‘lov tez orada. Hozircha to‘lov bo‘yicha biz bilan bog‘laning.';
+
+  @override
+  String get contactButton => 'Bog‘lanish';
+
+  @override
+  String get contactTelegram => 'Telegram orqali yozish';
+
+  @override
+  String get contactCall => 'Qo‘ng‘iroq qilish';
+
+  @override
+  String get paymentAllPaid => 'Barcha to‘lovlar amalga oshirilgan';
+
+  @override
+  String get paymentNone => 'To‘lov ma’lumotlari hali kiritilmagan';
+
+  @override
+  String paymentRowPaid(String month) {
+    return '$month — to‘langan';
+  }
+
+  @override
+  String paymentRowUnpaid(String month) {
+    return '$month — to‘lanmagan';
+  }
+
+  @override
+  String moneySum(String amount) {
+    return '$amount so‘m';
+  }
+
+  @override
+  String monthName(String month) {
+    String _temp0 = intl.Intl.selectLogic(month, {
+      'm1': 'Yanvar',
+      'm2': 'Fevral',
+      'm3': 'Mart',
+      'm4': 'Aprel',
+      'm5': 'May',
+      'm6': 'Iyun',
+      'm7': 'Iyul',
+      'm8': 'Avgust',
+      'm9': 'Sentabr',
+      'm10': 'Oktabr',
+      'm11': 'Noyabr',
+      'm12': 'Dekabr',
+      'other': '?',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String monthYear(String month, int year) {
+    return '$month $year';
+  }
+
+  @override
+  String get eventsTitle => 'So‘nggi yangiliklar';
+
+  @override
+  String get eventsEmpty => 'Hali yangiliklar yo‘q';
+
+  @override
+  String get eventHomeworkSubmitted => 'Uy vazifasi topshirildi';
+
+  @override
+  String get eventHomeworkApproved => 'Uy vazifasi qabul qilindi';
+
+  @override
+  String get eventHomeworkRejected => 'Uy vazifasi qaytarildi';
+
+  @override
+  String get eventLessonCompleted => 'Dars yakunlandi';
+
+  @override
+  String eventPoints(String points) {
+    return '$points ball';
+  }
+
+  @override
+  String get eventPaymentPaid => 'To‘lov qabul qilindi';
+
+  @override
+  String whenToday(String time) {
+    return 'Bugun, $time';
+  }
+
+  @override
+  String whenYesterday(String time) {
+    return 'Kecha, $time';
+  }
+
+  @override
+  String get noChildrenTitle => 'Farzand bog‘lanmagan';
+
+  @override
+  String get noChildrenBody =>
+      'Hisobingizga hali farzand bog‘lanmagan. O‘qituvchi yoki administratorga murojaat qiling.';
 }

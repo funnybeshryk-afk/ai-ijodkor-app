@@ -194,6 +194,9 @@ abstract final class AppSize {
   static const emptyBadge = 72.0;
   static const iconTile = 44.0;
   static const avatar = 48.0;
+  static const avatarLg = 56.0;
+  static const logoBadgeSm = 44.0;
+  static const eventDot = 8.0;
   static const avatarBorder = 2.0;
   static const pillHeight = 40.0;
   static const segmentHeight = 36.0;
@@ -205,6 +208,7 @@ abstract final class AppSize {
   static const listRow = 64.0;
   static const statTile = 76.0;
   static const progressBar = 8.0;
+  static const progressBarLg = 12.0;
   static const progressThin = 3.0;
   static const borderInput = 1.5;
 
@@ -235,6 +239,12 @@ abstract final class AppText {
     fontFamily: AppFonts.display,
     fontSize: 28,
     height: 32 / 28,
+    fontWeight: FontWeight.w700,
+  );
+  static const amount = TextStyle(
+    fontFamily: AppFonts.display,
+    fontSize: 32,
+    height: 36 / 32,
     fontWeight: FontWeight.w700,
   );
   static const displaySm = TextStyle(
@@ -290,6 +300,12 @@ abstract final class AppText {
     fontSize: 14,
     height: 18 / 14,
     fontWeight: FontWeight.w700,
+  );
+  static const eventLine = TextStyle(
+    fontFamily: AppFonts.sans,
+    fontSize: 14,
+    height: 20 / 14,
+    fontWeight: FontWeight.w500,
   );
   static const metric = TextStyle(
     fontFamily: AppFonts.sans,
