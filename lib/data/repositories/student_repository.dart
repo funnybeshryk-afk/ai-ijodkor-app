@@ -160,7 +160,8 @@ class SupabaseStudentRepository implements StudentRepository {
     final rows = await _client
         .from('homework_submissions')
         .select(
-          'id, lesson_id, status, content_text, reviewer_notes, submitted_at',
+          'id, lesson_id, status, content_text, reviewer_notes, submitted_at, '
+          'reviewed_at',
         )
         .eq('student_id', studentId)
         .order('submitted_at', ascending: false);

@@ -287,5 +287,124 @@
   "myHomeworkLink": "Uy vazifalarim",
   "parentSectionBody": "Ota-onalar bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha farzandingiz natijalarini saytda ko‘ring.",
   "teacherSectionBody": "O‘qituvchi bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha o‘quvchilar va vazifalarni saytda boshqaring.",
-  "openPlatformButton": "Saytda ochish"
+  "openPlatformButton": "Saytda ochish",
+  "parentTitleOne": "Farzandim",
+  "childLessonsOpened": "{count} ta dars ochilgan",
+  "@childLessonsOpened": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "parentProgressTitle": "Kurs bo‘yicha o‘zlashtirish",
+  "parentProgressCaption": "{done} ta dars o‘tildi · {total} tadan",
+  "@parentProgressCaption": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "percentValue": "{value}%",
+  "@percentValue": {
+    "placeholders": {
+      "value": {
+        "type": "int"
+      }
+    }
+  },
+  "tileApproved": "qabul qilindi",
+  "tilePending": "tekshiruvda",
+  "tilePoints": "ball",
+  "paymentTitle": "To‘lov",
+  "paymentPaid": "To‘langan",
+  "paymentUnpaid": "To‘lanmagan",
+  "payClick": "Click orqali",
+  "payPayme": "Payme orqali",
+  "paymentContactHint": "Onlayn to‘lov tez orada. Hozircha to‘lov bo‘yicha biz bilan bog‘laning.",
+  "contactButton": "Bog‘lanish",
+  "contactTelegram": "Telegram orqali yozish",
+  "contactCall": "Qo‘ng‘iroq qilish",
+  "paymentAllPaid": "Barcha to‘lovlar amalga oshirilgan",
+  "paymentNone": "To‘lov ma’lumotlari hali kiritilmagan",
+  "paymentRowPaid": "{month} — to‘langan",
+  "@paymentRowPaid": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "paymentRowUnpaid": "{month} — to‘lanmagan",
+  "@paymentRowUnpaid": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "moneySum": "{amount} so‘m",
+  "@moneySum": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "monthName": "{month, select, m1{Yanvar} m2{Fevral} m3{Mart} m4{Aprel} m5{May} m6{Iyun} m7{Iyul} m8{Avgust} m9{Sentabr} m10{Oktabr} m11{Noyabr} m12{Dekabr} other{?}}",
+  "@monthName": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "monthYear": "{month} {year}",
+  "@monthYear": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "year": {
+        "type": "int"
+      }
+    }
+  },
+  "eventsTitle": "So‘nggi yangiliklar",
+  "eventsEmpty": "Hali yangiliklar yo‘q",
+  "eventHomeworkSubmitted": "Uy vazifasi topshirildi",
+  "eventHomeworkApproved": "Uy vazifasi qabul qilindi",
+  "eventHomeworkRejected": "Uy vazifasi qaytarildi",
+  "eventLessonCompleted": "Dars yakunlandi",
+  "eventPoints": "{points} ball",
+  "@eventPoints": {
+    "placeholders": {
+      "points": {
+        "type": "String"
+      }
+    }
+  },
+  "eventPaymentPaid": "To‘lov qabul qilindi",
+  "whenToday": "Bugun, {time}",
+  "@whenToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "whenYesterday": "Kecha, {time}",
+  "@whenYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "noChildrenTitle": "Farzand bog‘lanmagan",
+  "noChildrenBody": "Hisobingizga hali farzand bog‘lanmagan. O‘qituvchi yoki administratorga murojaat qiling."
 }

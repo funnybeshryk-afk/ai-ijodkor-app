@@ -1063,6 +1063,222 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Saytda ochish'**
   String get openPlatformButton;
+
+  /// No description provided for @parentTitleOne.
+  ///
+  /// In uz, this message translates to:
+  /// **'Farzandim'**
+  String get parentTitleOne;
+
+  /// No description provided for @childLessonsOpened.
+  ///
+  /// In uz, this message translates to:
+  /// **'{count} ta dars ochilgan'**
+  String childLessonsOpened(int count);
+
+  /// No description provided for @parentProgressTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kurs bo‘yicha o‘zlashtirish'**
+  String get parentProgressTitle;
+
+  /// No description provided for @parentProgressCaption.
+  ///
+  /// In uz, this message translates to:
+  /// **'{done} ta dars o‘tildi · {total} tadan'**
+  String parentProgressCaption(int done, int total);
+
+  /// No description provided for @percentValue.
+  ///
+  /// In uz, this message translates to:
+  /// **'{value}%'**
+  String percentValue(int value);
+
+  /// No description provided for @tileApproved.
+  ///
+  /// In uz, this message translates to:
+  /// **'qabul qilindi'**
+  String get tileApproved;
+
+  /// No description provided for @tilePending.
+  ///
+  /// In uz, this message translates to:
+  /// **'tekshiruvda'**
+  String get tilePending;
+
+  /// No description provided for @tilePoints.
+  ///
+  /// In uz, this message translates to:
+  /// **'ball'**
+  String get tilePoints;
+
+  /// No description provided for @paymentTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'To‘lov'**
+  String get paymentTitle;
+
+  /// No description provided for @paymentPaid.
+  ///
+  /// In uz, this message translates to:
+  /// **'To‘langan'**
+  String get paymentPaid;
+
+  /// No description provided for @paymentUnpaid.
+  ///
+  /// In uz, this message translates to:
+  /// **'To‘lanmagan'**
+  String get paymentUnpaid;
+
+  /// No description provided for @payClick.
+  ///
+  /// In uz, this message translates to:
+  /// **'Click orqali'**
+  String get payClick;
+
+  /// No description provided for @payPayme.
+  ///
+  /// In uz, this message translates to:
+  /// **'Payme orqali'**
+  String get payPayme;
+
+  /// No description provided for @paymentContactHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Onlayn to‘lov tez orada. Hozircha to‘lov bo‘yicha biz bilan bog‘laning.'**
+  String get paymentContactHint;
+
+  /// No description provided for @contactButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bog‘lanish'**
+  String get contactButton;
+
+  /// No description provided for @contactTelegram.
+  ///
+  /// In uz, this message translates to:
+  /// **'Telegram orqali yozish'**
+  String get contactTelegram;
+
+  /// No description provided for @contactCall.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qo‘ng‘iroq qilish'**
+  String get contactCall;
+
+  /// No description provided for @paymentAllPaid.
+  ///
+  /// In uz, this message translates to:
+  /// **'Barcha to‘lovlar amalga oshirilgan'**
+  String get paymentAllPaid;
+
+  /// No description provided for @paymentNone.
+  ///
+  /// In uz, this message translates to:
+  /// **'To‘lov ma’lumotlari hali kiritilmagan'**
+  String get paymentNone;
+
+  /// No description provided for @paymentRowPaid.
+  ///
+  /// In uz, this message translates to:
+  /// **'{month} — to‘langan'**
+  String paymentRowPaid(String month);
+
+  /// No description provided for @paymentRowUnpaid.
+  ///
+  /// In uz, this message translates to:
+  /// **'{month} — to‘lanmagan'**
+  String paymentRowUnpaid(String month);
+
+  /// No description provided for @moneySum.
+  ///
+  /// In uz, this message translates to:
+  /// **'{amount} so‘m'**
+  String moneySum(String amount);
+
+  /// No description provided for @monthName.
+  ///
+  /// In uz, this message translates to:
+  /// **'{month, select, m1{Yanvar} m2{Fevral} m3{Mart} m4{Aprel} m5{May} m6{Iyun} m7{Iyul} m8{Avgust} m9{Sentabr} m10{Oktabr} m11{Noyabr} m12{Dekabr} other{?}}'**
+  String monthName(String month);
+
+  /// No description provided for @monthYear.
+  ///
+  /// In uz, this message translates to:
+  /// **'{month} {year}'**
+  String monthYear(String month, int year);
+
+  /// No description provided for @eventsTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'So‘nggi yangiliklar'**
+  String get eventsTitle;
+
+  /// No description provided for @eventsEmpty.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hali yangiliklar yo‘q'**
+  String get eventsEmpty;
+
+  /// No description provided for @eventHomeworkSubmitted.
+  ///
+  /// In uz, this message translates to:
+  /// **'Uy vazifasi topshirildi'**
+  String get eventHomeworkSubmitted;
+
+  /// No description provided for @eventHomeworkApproved.
+  ///
+  /// In uz, this message translates to:
+  /// **'Uy vazifasi qabul qilindi'**
+  String get eventHomeworkApproved;
+
+  /// No description provided for @eventHomeworkRejected.
+  ///
+  /// In uz, this message translates to:
+  /// **'Uy vazifasi qaytarildi'**
+  String get eventHomeworkRejected;
+
+  /// No description provided for @eventLessonCompleted.
+  ///
+  /// In uz, this message translates to:
+  /// **'Dars yakunlandi'**
+  String get eventLessonCompleted;
+
+  /// No description provided for @eventPoints.
+  ///
+  /// In uz, this message translates to:
+  /// **'{points} ball'**
+  String eventPoints(String points);
+
+  /// No description provided for @eventPaymentPaid.
+  ///
+  /// In uz, this message translates to:
+  /// **'To‘lov qabul qilindi'**
+  String get eventPaymentPaid;
+
+  /// No description provided for @whenToday.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun, {time}'**
+  String whenToday(String time);
+
+  /// No description provided for @whenYesterday.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kecha, {time}'**
+  String whenYesterday(String time);
+
+  /// No description provided for @noChildrenTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Farzand bog‘lanmagan'**
+  String get noChildrenTitle;
+
+  /// No description provided for @noChildrenBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisobingizga hali farzand bog‘lanmagan. O‘qituvchi yoki administratorga murojaat qiling.'**
+  String get noChildrenBody;
 }
 
 class _AppLocalizationsDelegate

@@ -539,4 +539,151 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get openPlatformButton => 'Открыть сайт';
+
+  @override
+  String get parentTitleOne => 'Мой ребёнок';
+
+  @override
+  String childLessonsOpened(int count) {
+    return 'Открыто уроков: $count';
+  }
+
+  @override
+  String get parentProgressTitle => 'Освоение курса';
+
+  @override
+  String parentProgressCaption(int done, int total) {
+    return 'Пройдено уроков: $done из $total';
+  }
+
+  @override
+  String percentValue(int value) {
+    return '$value%';
+  }
+
+  @override
+  String get tileApproved => 'принято';
+
+  @override
+  String get tilePending => 'на проверке';
+
+  @override
+  String get tilePoints => 'баллов';
+
+  @override
+  String get paymentTitle => 'Оплата';
+
+  @override
+  String get paymentPaid => 'Оплачено';
+
+  @override
+  String get paymentUnpaid => 'Не оплачено';
+
+  @override
+  String get payClick => 'Через Click';
+
+  @override
+  String get payPayme => 'Через Payme';
+
+  @override
+  String get paymentContactHint =>
+      'Онлайн-оплата скоро появится. Пока по оплате свяжитесь с нами.';
+
+  @override
+  String get contactButton => 'Связаться';
+
+  @override
+  String get contactTelegram => 'Написать в Telegram';
+
+  @override
+  String get contactCall => 'Позвонить';
+
+  @override
+  String get paymentAllPaid => 'Все платежи внесены';
+
+  @override
+  String get paymentNone => 'Данных об оплате пока нет';
+
+  @override
+  String paymentRowPaid(String month) {
+    return '$month — оплачено';
+  }
+
+  @override
+  String paymentRowUnpaid(String month) {
+    return '$month — не оплачено';
+  }
+
+  @override
+  String moneySum(String amount) {
+    return '$amount сум';
+  }
+
+  @override
+  String monthName(String month) {
+    String _temp0 = intl.Intl.selectLogic(month, {
+      'm1': 'Январь',
+      'm2': 'Февраль',
+      'm3': 'Март',
+      'm4': 'Апрель',
+      'm5': 'Май',
+      'm6': 'Июнь',
+      'm7': 'Июль',
+      'm8': 'Август',
+      'm9': 'Сентябрь',
+      'm10': 'Октябрь',
+      'm11': 'Ноябрь',
+      'm12': 'Декабрь',
+      'other': '?',
+    });
+    return '$_temp0';
+  }
+
+  @override
+  String monthYear(String month, int year) {
+    return '$month $year';
+  }
+
+  @override
+  String get eventsTitle => 'Последние события';
+
+  @override
+  String get eventsEmpty => 'Событий пока нет';
+
+  @override
+  String get eventHomeworkSubmitted => 'Домашнее задание сдано';
+
+  @override
+  String get eventHomeworkApproved => 'Домашнее задание принято';
+
+  @override
+  String get eventHomeworkRejected => 'Домашнее задание возвращено';
+
+  @override
+  String get eventLessonCompleted => 'Урок пройден';
+
+  @override
+  String eventPoints(String points) {
+    return '$points баллов';
+  }
+
+  @override
+  String get eventPaymentPaid => 'Оплата получена';
+
+  @override
+  String whenToday(String time) {
+    return 'Сегодня, $time';
+  }
+
+  @override
+  String whenYesterday(String time) {
+    return 'Вчера, $time';
+  }
+
+  @override
+  String get noChildrenTitle => 'Ребёнок не привязан';
+
+  @override
+  String get noChildrenBody =>
+      'К вашему аккаунту пока не привязан ребёнок. Обратитесь к учителю или администратору.';
 }

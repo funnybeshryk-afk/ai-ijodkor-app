@@ -297,10 +297,16 @@ class StatusChip extends StatelessWidget {
 
 /// Thin progress bar on a muted track (radius-pill).
 class ProgressBar extends StatelessWidget {
-  const ProgressBar({super.key, required this.value, required this.color});
+  const ProgressBar({
+    super.key,
+    required this.value,
+    required this.color,
+    this.height = AppSize.progressBar,
+  });
 
   final double value;
   final Color color;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -308,7 +314,7 @@ class ProgressBar extends StatelessWidget {
       borderRadius: BorderRadius.circular(AppRadius.pill),
       child: LinearProgressIndicator(
         value: value.clamp(0, 1),
-        minHeight: AppSize.progressBar,
+        minHeight: height,
         color: color,
         backgroundColor: context.colors.surfaceMuted,
       ),

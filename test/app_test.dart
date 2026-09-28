@@ -76,9 +76,15 @@ void main() {
   });
 
   testWidgets('parent is redirected to parent home', (tester) async {
-    await pumpApp(tester, auth: auth, profiles: profiles);
+    await pumpApp(
+      tester,
+      auth: auth,
+      profiles: profiles,
+      parent: FakeParentRepository(),
+    );
     await signIn(tester, 'mom@test.uz');
-    expect(find.text('Farzandlarim'), findsWidgets);
+    expect(find.text('Farzandim'), findsOneWidget);
+    expect(find.text('Farzand bog‘lanmagan'), findsOneWidget);
   });
 
   testWidgets('admin uses teacher screens', (tester) async {

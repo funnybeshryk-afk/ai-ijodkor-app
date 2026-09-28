@@ -6,12 +6,15 @@ import 'package:ai_ijodkor/data/models/profile.dart';
 import 'package:ai_ijodkor/data/providers.dart';
 import 'package:ai_ijodkor/data/repositories/auth_repository.dart';
 import 'package:ai_ijodkor/data/repositories/profile_repository.dart';
+import 'package:ai_ijodkor/data/repositories/parent_repository.dart';
 import 'package:ai_ijodkor/data/repositories/student_repository.dart';
+import 'package:ai_ijodkor/features/parent/parent_providers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+export 'fake_parent_repository.dart';
 export 'fake_student_repository.dart';
 
 class FakeAuthRepository implements AuthRepository {
@@ -79,6 +82,8 @@ Future<void> pumpApp(
   AuthRepository? auth,
   ProfileRepository? profiles,
   StudentRepository? student,
+  ParentRepository? parent,
+  PaymentLinks? paymentLinks,
   Map<String, Object> prefs = const {},
 }) async {
   // A tall phone-like surface so whole lesson pages fit without scrolling.
@@ -95,6 +100,9 @@ Future<void> pumpApp(
         authRepositoryProvider.overrideWithValue(auth),
         profileRepositoryProvider.overrideWithValue(profiles),
         studentRepositoryProvider.overrideWithValue(student),
+        parentRepositoryProvider.overrideWithValue(parent),
+        if (paymentLinks != null)
+          paymentLinksProvider.overrideWithValue(paymentLinks),
       ],
       child: const AiIjodkorApp(),
     ),

@@ -7,6 +7,20 @@ class Env {
   static const supabaseAnonKey = String.fromEnvironment('SUPABASE_ANON_KEY');
   static const platformUrl = String.fromEnvironment('PLATFORM_URL');
 
+  /// Online payment page for parents (Click / Payme). The platform has none
+  /// yet; while empty the app shows the amount and a contact button.
+  static const paymentUrl = String.fromEnvironment('PAYMENT_URL');
+
+  /// Public contacts of the program (same as on the landing site).
+  static const contactTelegramUrl = String.fromEnvironment(
+    'CONTACT_TELEGRAM_URL',
+    defaultValue: 'https://t.me/AI_IjodkorBot',
+  );
+  static const contactPhone = String.fromEnvironment(
+    'CONTACT_PHONE',
+    defaultValue: '+998500114125',
+  );
+
   static bool get isSupabaseConfigured =>
       supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty;
 }
