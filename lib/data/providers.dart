@@ -4,6 +4,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'models/profile.dart';
 import 'repositories/auth_repository.dart';
 import 'repositories/profile_repository.dart';
+import 'repositories/student_repository.dart';
 
 /// `null` when the app was built without Supabase keys.
 /// Overridden in `main()` after `Supabase.initialize`.
@@ -30,4 +31,9 @@ final currentProfileProvider = FutureProvider<Profile?>((ref) async {
   final repo = ref.watch(profileRepositoryProvider);
   if (userId == null || repo == null) return null;
   return repo.fetchProfile(userId);
+});
+
+final studentRepositoryProvider = Provider<StudentRepository?>((ref) {
+  final client = ref.watch(supabaseClientProvider);
+  return client == null ? null : SupabaseStudentRepository(client);
 });

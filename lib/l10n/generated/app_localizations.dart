@@ -295,6 +295,522 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Profilni yuklab bo‘lmadi. Internetni tekshirib, qayta urinib ko‘ring.'**
   String get profileLoadError;
+
+  /// No description provided for @archivedTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hisob arxivlangan'**
+  String get archivedTitle;
+
+  /// No description provided for @archivedBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'Siz o‘quv dasturidan chiqarilgansiz. Savollar bo‘lsa, o‘qituvchingizga murojaat qiling.'**
+  String get archivedBody;
+
+  /// No description provided for @navHome.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bosh sahifa'**
+  String get navHome;
+
+  /// No description provided for @navLessons.
+  ///
+  /// In uz, this message translates to:
+  /// **'Darslar'**
+  String get navLessons;
+
+  /// No description provided for @navHomework.
+  ///
+  /// In uz, this message translates to:
+  /// **'Vazifalar'**
+  String get navHomework;
+
+  /// No description provided for @navPractice.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mashqlar'**
+  String get navPractice;
+
+  /// No description provided for @navRating.
+  ///
+  /// In uz, this message translates to:
+  /// **'Reyting'**
+  String get navRating;
+
+  /// No description provided for @greeting.
+  ///
+  /// In uz, this message translates to:
+  /// **'Salom, {name}!'**
+  String greeting(String name);
+
+  /// No description provided for @homeSubtitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugungi darslaringiz va vazifalaringiz shu yerda.'**
+  String get homeSubtitle;
+
+  /// No description provided for @statPoints.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ballaringiz'**
+  String get statPoints;
+
+  /// No description provided for @statCompleted.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yakunlangan darslar'**
+  String get statCompleted;
+
+  /// No description provided for @statPendingHomework.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tekshirilmoqda'**
+  String get statPendingHomework;
+
+  /// No description provided for @nextLessonTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Keyingi dars'**
+  String get nextLessonTitle;
+
+  /// No description provided for @allLessonsDone.
+  ///
+  /// In uz, this message translates to:
+  /// **'Barcha ochiq darslar yakunlandi! Yangi darslar tez orada ochiladi.'**
+  String get allLessonsDone;
+
+  /// No description provided for @continueButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Davom etish'**
+  String get continueButton;
+
+  /// No description provided for @certificatesTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sertifikatlarim'**
+  String get certificatesTitle;
+
+  /// No description provided for @noLessons.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sizga hali dars ochilmagan. O‘qituvchingiz tez orada ochib beradi.'**
+  String get noLessons;
+
+  /// No description provided for @statusNotStarted.
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshlanmagan'**
+  String get statusNotStarted;
+
+  /// No description provided for @statusViewed.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ko‘rilgan'**
+  String get statusViewed;
+
+  /// No description provided for @statusInProgress.
+  ///
+  /// In uz, this message translates to:
+  /// **'Jarayonda'**
+  String get statusInProgress;
+
+  /// No description provided for @statusCompleted.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yakunlangan'**
+  String get statusCompleted;
+
+  /// No description provided for @lessonMaterialTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Dars materiali'**
+  String get lessonMaterialTitle;
+
+  /// No description provided for @openMaterialButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Materialni ochish'**
+  String get openMaterialButton;
+
+  /// No description provided for @noMaterial.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu dars uchun material biriktirilmagan.'**
+  String get noMaterial;
+
+  /// No description provided for @openInBrowser.
+  ///
+  /// In uz, this message translates to:
+  /// **'Brauzerda ochish'**
+  String get openInBrowser;
+
+  /// No description provided for @markCompletedButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Darsni yakunladim'**
+  String get markCompletedButton;
+
+  /// No description provided for @lessonNotFound.
+  ///
+  /// In uz, this message translates to:
+  /// **'Dars topilmadi yoki sizga hali ochilmagan.'**
+  String get lessonNotFound;
+
+  /// No description provided for @quizTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Test'**
+  String get quizTitle;
+
+  /// No description provided for @quizHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Savollarga yetarli darajada to‘g‘ri javob bersangiz, dars yakunlanadi va keyingi dars ochiladi.'**
+  String get quizHint;
+
+  /// No description provided for @quizAnswerHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Javobingiz'**
+  String get quizAnswerHint;
+
+  /// No description provided for @quizSubmitButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tekshirish'**
+  String get quizSubmitButton;
+
+  /// No description provided for @quizAnswerAll.
+  ///
+  /// In uz, this message translates to:
+  /// **'Barcha savollarga javob bering.'**
+  String get quizAnswerAll;
+
+  /// No description provided for @quizScore.
+  ///
+  /// In uz, this message translates to:
+  /// **'{correct} / {total} to‘g‘ri'**
+  String quizScore(int correct, int total);
+
+  /// No description provided for @quizPassed.
+  ///
+  /// In uz, this message translates to:
+  /// **'Barakalla! Dars yakunlandi.'**
+  String get quizPassed;
+
+  /// No description provided for @quizNextUnlocked.
+  ///
+  /// In uz, this message translates to:
+  /// **'Keyingi dars ochildi!'**
+  String get quizNextUnlocked;
+
+  /// No description provided for @quizFailed.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘tish uchun kamida {required} ta to‘g‘ri javob kerak. Yana urinib ko‘ring!'**
+  String quizFailed(int required);
+
+  /// No description provided for @quizRetryButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qaytadan urinish'**
+  String get quizRetryButton;
+
+  /// No description provided for @quizAlreadyCompleted.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu dars allaqachon yakunlangan. Xohlasangiz testni qayta ishlashingiz mumkin.'**
+  String get quizAlreadyCompleted;
+
+  /// No description provided for @quizQuestionNumber.
+  ///
+  /// In uz, this message translates to:
+  /// **'{number}-savol'**
+  String quizQuestionNumber(int number);
+
+  /// No description provided for @homeworkTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Uy vazifalari'**
+  String get homeworkTitle;
+
+  /// No description provided for @homeworkForLessonTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Shu dars bo‘yicha vazifalar'**
+  String get homeworkForLessonTitle;
+
+  /// No description provided for @submitHomeworkButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Vazifa topshirish'**
+  String get submitHomeworkButton;
+
+  /// No description provided for @homeworkLessonLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Dars'**
+  String get homeworkLessonLabel;
+
+  /// No description provided for @homeworkTextLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Javob yoki havola'**
+  String get homeworkTextLabel;
+
+  /// No description provided for @homeworkTextHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Javobingizni yozing yoki loyiha havolasini qo‘ying'**
+  String get homeworkTextHint;
+
+  /// No description provided for @homeworkTextRequired.
+  ///
+  /// In uz, this message translates to:
+  /// **'Javobingizni kiriting'**
+  String get homeworkTextRequired;
+
+  /// No description provided for @homeworkSent.
+  ///
+  /// In uz, this message translates to:
+  /// **'Vazifa yuborildi!'**
+  String get homeworkSent;
+
+  /// No description provided for @sendButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yuborish'**
+  String get sendButton;
+
+  /// No description provided for @noHomework.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hali vazifa topshirmagansiz.'**
+  String get noHomework;
+
+  /// No description provided for @homeworkPending.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tekshirilmoqda'**
+  String get homeworkPending;
+
+  /// No description provided for @homeworkApproved.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qabul qilindi'**
+  String get homeworkApproved;
+
+  /// No description provided for @homeworkRejected.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qaytarildi'**
+  String get homeworkRejected;
+
+  /// No description provided for @teacherNote.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘qituvchi izohi: {note}'**
+  String teacherNote(String note);
+
+  /// No description provided for @practiceTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mashqlar'**
+  String get practiceTitle;
+
+  /// No description provided for @practiceSubtitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mashqlar — dars emas, progressga ta’sir qilmaydi. O‘ynang va o‘rganing!'**
+  String get practiceSubtitle;
+
+  /// No description provided for @platformNotConfigured.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mashqlar uchun PLATFORM_URL sozlanmagan.'**
+  String get platformNotConfigured;
+
+  /// No description provided for @trackBasics.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kompyuter va boshlang‘ich ko‘nikmalar'**
+  String get trackBasics;
+
+  /// No description provided for @trackPython.
+  ///
+  /// In uz, this message translates to:
+  /// **'Python'**
+  String get trackPython;
+
+  /// No description provided for @trackLogic.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mantiq va tanqidiy fikrlash'**
+  String get trackLogic;
+
+  /// No description provided for @trackAi.
+  ///
+  /// In uz, this message translates to:
+  /// **'AI va promptlash'**
+  String get trackAi;
+
+  /// No description provided for @trainerTyping.
+  ///
+  /// In uz, this message translates to:
+  /// **'Klaviatura trenajori'**
+  String get trainerTyping;
+
+  /// No description provided for @trainerMouse.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sichqoncha trenajori'**
+  String get trainerMouse;
+
+  /// No description provided for @trainerShortcuts.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tezkor tugmalar'**
+  String get trainerShortcuts;
+
+  /// No description provided for @trainerFilesFolders.
+  ///
+  /// In uz, this message translates to:
+  /// **'Fayllar va papkalar'**
+  String get trainerFilesFolders;
+
+  /// No description provided for @trainerInternetSafety.
+  ///
+  /// In uz, this message translates to:
+  /// **'Internetda xavfsizlik'**
+  String get trainerInternetSafety;
+
+  /// No description provided for @trainerGodot.
+  ///
+  /// In uz, this message translates to:
+  /// **'Godot tushunchalari'**
+  String get trainerGodot;
+
+  /// No description provided for @trainerPython.
+  ///
+  /// In uz, this message translates to:
+  /// **'Python trenajori'**
+  String get trainerPython;
+
+  /// No description provided for @trainerCodeOutput.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kod natijasi'**
+  String get trainerCodeOutput;
+
+  /// No description provided for @trainerDebug.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xatoni toping'**
+  String get trainerDebug;
+
+  /// No description provided for @trainerPythonBrain.
+  ///
+  /// In uz, this message translates to:
+  /// **'Python miyasini sinash'**
+  String get trainerPythonBrain;
+
+  /// No description provided for @trainerLogic.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mantiq trenajori'**
+  String get trainerLogic;
+
+  /// No description provided for @trainerCriticalThinking.
+  ///
+  /// In uz, this message translates to:
+  /// **'Fakt yoki fikr?'**
+  String get trainerCriticalThinking;
+
+  /// No description provided for @trainerPrompting.
+  ///
+  /// In uz, this message translates to:
+  /// **'Promptlash trenajori'**
+  String get trainerPrompting;
+
+  /// No description provided for @trainerPromptChecklist.
+  ///
+  /// In uz, this message translates to:
+  /// **'Prompt tekshiruvchisi'**
+  String get trainerPromptChecklist;
+
+  /// No description provided for @trainerExperimentLab.
+  ///
+  /// In uz, this message translates to:
+  /// **'Promptni solishtirish'**
+  String get trainerExperimentLab;
+
+  /// No description provided for @trainerTeacherSimulator.
+  ///
+  /// In uz, this message translates to:
+  /// **'AI-shogirdga tushuntirish'**
+  String get trainerTeacherSimulator;
+
+  /// No description provided for @ratingTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sinfdagi reyting'**
+  String get ratingTitle;
+
+  /// No description provided for @ratingSubtitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Shu haftadagi mashqlar ballari. Har dushanba yangilanadi.'**
+  String get ratingSubtitle;
+
+  /// No description provided for @ratingEmpty.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu hafta hali hech kim mashq qilmadi. Birinchi bo‘ling!'**
+  String get ratingEmpty;
+
+  /// No description provided for @ratingYou.
+  ///
+  /// In uz, this message translates to:
+  /// **'Siz'**
+  String get ratingYou;
+
+  /// No description provided for @ratingScore.
+  ///
+  /// In uz, this message translates to:
+  /// **'{score} ball'**
+  String ratingScore(int score);
+
+  /// No description provided for @noCertificates.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hali sertifikatingiz yo‘q. Kursni tugatsangiz, shu yerda paydo bo‘ladi.'**
+  String get noCertificates;
+
+  /// No description provided for @certificateNumber.
+  ///
+  /// In uz, this message translates to:
+  /// **'Raqami: {id}'**
+  String certificateNumber(String id);
+
+  /// No description provided for @certificateIssued.
+  ///
+  /// In uz, this message translates to:
+  /// **'Berilgan sana: {date}'**
+  String certificateIssued(String date);
+
+  /// No description provided for @certificateTeacher.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘qituvchi: {name}'**
+  String certificateTeacher(String name);
+
+  /// No description provided for @certificateVerifyButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sertifikatni ko‘rish'**
+  String get certificateVerifyButton;
 }
 
 class _AppLocalizationsDelegate

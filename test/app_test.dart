@@ -58,9 +58,15 @@ void main() {
   });
 
   testWidgets('student is redirected to student home', (tester) async {
-    await pumpApp(tester, auth: auth, profiles: profiles);
+    await pumpApp(
+      tester,
+      auth: auth,
+      profiles: profiles,
+      student: FakeStudentRepository(),
+    );
     await signIn(tester, 'kid@test.uz');
-    expect(find.text('Mening darslarim'), findsWidgets);
+    expect(find.text('Bosh sahifa'), findsWidgets);
+    expect(find.text('Keyingi dars'), findsOneWidget);
   });
 
   testWidgets('parent is redirected to parent home', (tester) async {
@@ -75,6 +81,14 @@ void main() {
     expect(find.text('O‘quvchilarim'), findsWidgets);
   });
 
+  testWidgets('archived student is not let in', (tester) async {
+    profiles.archived.add('u-student');
+    await pumpApp(tester, auth: auth, profiles: profiles);
+    await signIn(tester, 'kid@test.uz');
+    expect(find.text('Hisob arxivlangan'), findsOneWidget);
+    expect(find.text('Bosh sahifa'), findsNothing);
+  });
+
   testWidgets('user without role sees no-access screen', (tester) async {
     await pumpApp(tester, auth: auth, profiles: profiles);
     await signIn(tester, 'nobody@test.uz');
@@ -84,7 +98,12 @@ void main() {
   testWidgets('language switch in profile persists and sign out works', (
     tester,
   ) async {
-    await pumpApp(tester, auth: auth, profiles: profiles);
+    await pumpApp(
+      tester,
+      auth: auth,
+      profiles: profiles,
+      student: FakeStudentRepository(),
+    );
     await signIn(tester, 'kid@test.uz');
 
     await tester.tap(find.byIcon(Icons.account_circle));

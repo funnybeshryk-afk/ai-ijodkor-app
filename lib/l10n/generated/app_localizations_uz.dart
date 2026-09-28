@@ -111,4 +111,292 @@ class AppLocalizationsUz extends AppLocalizations {
   @override
   String get profileLoadError =>
       'Profilni yuklab bo‘lmadi. Internetni tekshirib, qayta urinib ko‘ring.';
+
+  @override
+  String get archivedTitle => 'Hisob arxivlangan';
+
+  @override
+  String get archivedBody =>
+      'Siz o‘quv dasturidan chiqarilgansiz. Savollar bo‘lsa, o‘qituvchingizga murojaat qiling.';
+
+  @override
+  String get navHome => 'Bosh sahifa';
+
+  @override
+  String get navLessons => 'Darslar';
+
+  @override
+  String get navHomework => 'Vazifalar';
+
+  @override
+  String get navPractice => 'Mashqlar';
+
+  @override
+  String get navRating => 'Reyting';
+
+  @override
+  String greeting(String name) {
+    return 'Salom, $name!';
+  }
+
+  @override
+  String get homeSubtitle =>
+      'Bugungi darslaringiz va vazifalaringiz shu yerda.';
+
+  @override
+  String get statPoints => 'Ballaringiz';
+
+  @override
+  String get statCompleted => 'Yakunlangan darslar';
+
+  @override
+  String get statPendingHomework => 'Tekshirilmoqda';
+
+  @override
+  String get nextLessonTitle => 'Keyingi dars';
+
+  @override
+  String get allLessonsDone =>
+      'Barcha ochiq darslar yakunlandi! Yangi darslar tez orada ochiladi.';
+
+  @override
+  String get continueButton => 'Davom etish';
+
+  @override
+  String get certificatesTitle => 'Sertifikatlarim';
+
+  @override
+  String get noLessons =>
+      'Sizga hali dars ochilmagan. O‘qituvchingiz tez orada ochib beradi.';
+
+  @override
+  String get statusNotStarted => 'Boshlanmagan';
+
+  @override
+  String get statusViewed => 'Ko‘rilgan';
+
+  @override
+  String get statusInProgress => 'Jarayonda';
+
+  @override
+  String get statusCompleted => 'Yakunlangan';
+
+  @override
+  String get lessonMaterialTitle => 'Dars materiali';
+
+  @override
+  String get openMaterialButton => 'Materialni ochish';
+
+  @override
+  String get noMaterial => 'Bu dars uchun material biriktirilmagan.';
+
+  @override
+  String get openInBrowser => 'Brauzerda ochish';
+
+  @override
+  String get markCompletedButton => 'Darsni yakunladim';
+
+  @override
+  String get lessonNotFound => 'Dars topilmadi yoki sizga hali ochilmagan.';
+
+  @override
+  String get quizTitle => 'Test';
+
+  @override
+  String get quizHint =>
+      'Savollarga yetarli darajada to‘g‘ri javob bersangiz, dars yakunlanadi va keyingi dars ochiladi.';
+
+  @override
+  String get quizAnswerHint => 'Javobingiz';
+
+  @override
+  String get quizSubmitButton => 'Tekshirish';
+
+  @override
+  String get quizAnswerAll => 'Barcha savollarga javob bering.';
+
+  @override
+  String quizScore(int correct, int total) {
+    return '$correct / $total to‘g‘ri';
+  }
+
+  @override
+  String get quizPassed => 'Barakalla! Dars yakunlandi.';
+
+  @override
+  String get quizNextUnlocked => 'Keyingi dars ochildi!';
+
+  @override
+  String quizFailed(int required) {
+    return 'O‘tish uchun kamida $required ta to‘g‘ri javob kerak. Yana urinib ko‘ring!';
+  }
+
+  @override
+  String get quizRetryButton => 'Qaytadan urinish';
+
+  @override
+  String get quizAlreadyCompleted =>
+      'Bu dars allaqachon yakunlangan. Xohlasangiz testni qayta ishlashingiz mumkin.';
+
+  @override
+  String quizQuestionNumber(int number) {
+    return '$number-savol';
+  }
+
+  @override
+  String get homeworkTitle => 'Uy vazifalari';
+
+  @override
+  String get homeworkForLessonTitle => 'Shu dars bo‘yicha vazifalar';
+
+  @override
+  String get submitHomeworkButton => 'Vazifa topshirish';
+
+  @override
+  String get homeworkLessonLabel => 'Dars';
+
+  @override
+  String get homeworkTextLabel => 'Javob yoki havola';
+
+  @override
+  String get homeworkTextHint =>
+      'Javobingizni yozing yoki loyiha havolasini qo‘ying';
+
+  @override
+  String get homeworkTextRequired => 'Javobingizni kiriting';
+
+  @override
+  String get homeworkSent => 'Vazifa yuborildi!';
+
+  @override
+  String get sendButton => 'Yuborish';
+
+  @override
+  String get noHomework => 'Hali vazifa topshirmagansiz.';
+
+  @override
+  String get homeworkPending => 'Tekshirilmoqda';
+
+  @override
+  String get homeworkApproved => 'Qabul qilindi';
+
+  @override
+  String get homeworkRejected => 'Qaytarildi';
+
+  @override
+  String teacherNote(String note) {
+    return 'O‘qituvchi izohi: $note';
+  }
+
+  @override
+  String get practiceTitle => 'Mashqlar';
+
+  @override
+  String get practiceSubtitle =>
+      'Mashqlar — dars emas, progressga ta’sir qilmaydi. O‘ynang va o‘rganing!';
+
+  @override
+  String get platformNotConfigured =>
+      'Mashqlar uchun PLATFORM_URL sozlanmagan.';
+
+  @override
+  String get trackBasics => 'Kompyuter va boshlang‘ich ko‘nikmalar';
+
+  @override
+  String get trackPython => 'Python';
+
+  @override
+  String get trackLogic => 'Mantiq va tanqidiy fikrlash';
+
+  @override
+  String get trackAi => 'AI va promptlash';
+
+  @override
+  String get trainerTyping => 'Klaviatura trenajori';
+
+  @override
+  String get trainerMouse => 'Sichqoncha trenajori';
+
+  @override
+  String get trainerShortcuts => 'Tezkor tugmalar';
+
+  @override
+  String get trainerFilesFolders => 'Fayllar va papkalar';
+
+  @override
+  String get trainerInternetSafety => 'Internetda xavfsizlik';
+
+  @override
+  String get trainerGodot => 'Godot tushunchalari';
+
+  @override
+  String get trainerPython => 'Python trenajori';
+
+  @override
+  String get trainerCodeOutput => 'Kod natijasi';
+
+  @override
+  String get trainerDebug => 'Xatoni toping';
+
+  @override
+  String get trainerPythonBrain => 'Python miyasini sinash';
+
+  @override
+  String get trainerLogic => 'Mantiq trenajori';
+
+  @override
+  String get trainerCriticalThinking => 'Fakt yoki fikr?';
+
+  @override
+  String get trainerPrompting => 'Promptlash trenajori';
+
+  @override
+  String get trainerPromptChecklist => 'Prompt tekshiruvchisi';
+
+  @override
+  String get trainerExperimentLab => 'Promptni solishtirish';
+
+  @override
+  String get trainerTeacherSimulator => 'AI-shogirdga tushuntirish';
+
+  @override
+  String get ratingTitle => 'Sinfdagi reyting';
+
+  @override
+  String get ratingSubtitle =>
+      'Shu haftadagi mashqlar ballari. Har dushanba yangilanadi.';
+
+  @override
+  String get ratingEmpty =>
+      'Bu hafta hali hech kim mashq qilmadi. Birinchi bo‘ling!';
+
+  @override
+  String get ratingYou => 'Siz';
+
+  @override
+  String ratingScore(int score) {
+    return '$score ball';
+  }
+
+  @override
+  String get noCertificates =>
+      'Hali sertifikatingiz yo‘q. Kursni tugatsangiz, shu yerda paydo bo‘ladi.';
+
+  @override
+  String certificateNumber(String id) {
+    return 'Raqami: $id';
+  }
+
+  @override
+  String certificateIssued(String date) {
+    return 'Berilgan sana: $date';
+  }
+
+  @override
+  String certificateTeacher(String name) {
+    return 'O‘qituvchi: $name';
+  }
+
+  @override
+  String get certificateVerifyButton => 'Sertifikatni ko‘rish';
 }

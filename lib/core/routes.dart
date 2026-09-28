@@ -14,6 +14,15 @@ class Routes {
   static const parent = '/parent';
   static const teacher = '/teacher';
 
+  static const studentLessons = '/student/lessons';
+  static String studentLesson(String id) => '/student/lessons/$id';
+  static String lessonMaterial(String id) => '/student/lessons/$id/material';
+  static const studentHomework = '/student/homework';
+  static const studentPractice = '/student/practice';
+  static String trainer(String key) => '/student/practice/$key';
+  static const studentRating = '/student/rating';
+  static const studentCertificates = '/student/certificates';
+
   static const _public = {login, forgotPassword};
 
   /// Home area for a role. Admins use the teacher screens.
@@ -35,6 +44,7 @@ class Routes {
       case GateStatus.signedOut:
         return _public.contains(location) ? null : login;
       case GateStatus.noRole:
+      case GateStatus.archived:
       case GateStatus.error:
         return only(accessProblem);
       case GateStatus.signedIn:

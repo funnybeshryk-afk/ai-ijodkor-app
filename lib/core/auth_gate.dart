@@ -3,7 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/models/profile.dart';
 import '../data/providers.dart';
 
-enum GateStatus { unconfigured, loading, signedOut, signedIn, noRole, error }
+enum GateStatus {
+  unconfigured,
+  loading,
+  signedOut,
+  signedIn,
+  noRole,
+  archived,
+  error,
+}
 
 /// Everything the router needs to decide where the user belongs.
 class AuthGate {
@@ -33,5 +41,9 @@ final authGateProvider = Provider<AuthGate>((ref) {
   if (profile.hasError) return const AuthGate(GateStatus.error);
   final role = profile.value?.role;
   if (role == null) return const AuthGate(GateStatus.noRole);
+  // A student who left the program (profiles.archived_at) is not let in.
+  if (role == UserRole.student && profile.value!.isArchived) {
+    return const AuthGate(GateStatus.archived);
+  }
   return AuthGate(GateStatus.signedIn, role);
 });

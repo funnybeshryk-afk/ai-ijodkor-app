@@ -49,5 +49,27 @@ flutter build apk --debug
 - Редирект по роли (`profiles.role`): student → `/student`, parent → `/parent`,
   teacher и admin → `/teacher`. Логика — `lib/core/routes.dart`.
 
+## Зависимость от платформы
+
+Тест к уроку работает через RPC `get_lesson_quiz` и `submit_lesson_quiz`
+(миграция `0019_lesson_quiz_rpc.sql` в `ai-ijodkor-platform`). Пока миграция не
+применена к базе, экран урока показывает ошибку загрузки теста.
+Правильные ответы в приложение не попадают никогда.
+
+Тренажёры открываются в WebView на `PLATFORM_URL/student/practice/<key>`;
+сессия передаётся cookie в формате `@supabase/ssr`, повторный вход не нужен.
+
+## Иконка и splash
+
+Исходники — `assets/branding/` (из `intelliqos-site/public/assets/logo-icon.png`).
+После замены картинок:
+
+```bash
+dart run flutter_launcher_icons
+dart run flutter_native_splash:create
+```
+
 CI (GitHub Actions) на каждый PR: формат, `flutter analyze`, `flutter test`,
-сборка debug APK (артефакт `app-debug-apk`).
+сборка debug APK (артефакт `app-debug-apk`). Если в репозитории заданы секреты
+`SUPABASE_URL` и `SUPABASE_ANON_KEY` (и опционально `PLATFORM_URL`), APK
+собирается с ними; иначе — без ключей.

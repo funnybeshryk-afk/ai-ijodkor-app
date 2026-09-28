@@ -48,10 +48,18 @@ void main() {
       expect(Routes.redirect(student, Routes.teacher), Routes.student);
       expect(Routes.redirect(student, Routes.parent), Routes.student);
       expect(Routes.redirect(student, '/studentx'), Routes.student);
+      expect(Routes.redirect(student, Routes.studentLesson('l1')), isNull);
+      expect(Routes.redirect(student, Routes.trainer('typing')), isNull);
+      const teacher = AuthGate(GateStatus.signedIn, UserRole.teacher);
+      expect(Routes.redirect(teacher, Routes.studentLessons), Routes.teacher);
     });
 
     test('missing role or profile error goes to access problem', () {
-      for (final status in [GateStatus.noRole, GateStatus.error]) {
+      for (final status in [
+        GateStatus.noRole,
+        GateStatus.archived,
+        GateStatus.error,
+      ]) {
         final gate = AuthGate(status);
         expect(Routes.redirect(gate, Routes.student), Routes.accessProblem);
         expect(Routes.redirect(gate, Routes.accessProblem), isNull);
