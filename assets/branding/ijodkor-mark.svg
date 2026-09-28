@@ -1,0 +1,7 @@
+<svg width="200" height="200" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI Ijodkor mark">
+  <path d="M20 5 34 12.5 20 20 6 12.5Z" fill="#F2A93B"></path>
+  <path d="M11.5 16v7c0 2.8 4 5 8.5 5s8.5-2.2 8.5-5v-7" stroke="#F2A93B" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>
+  <path d="M34 12.5v7.5" stroke="#F2A93B" stroke-width="2.1" stroke-linecap="round"></path>
+  <circle cx="34" cy="22" r="1.7" fill="#F2A93B"></circle>
+  <path d="M28 26.5l1 2.3 2.3 1-2.3 1-1 2.3-1-2.3-2.3-1 2.3-1Z" fill="#F2A93B"></path>
+</svg>

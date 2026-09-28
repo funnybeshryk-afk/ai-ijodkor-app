@@ -1,0 +1,291 @@
+{
+  "@@locale": "uz",
+  "appTitle": "AI IJODKOR",
+  "loading": "Yuklanmoqda...",
+  "loginTitle": "Xush kelibsiz!",
+  "loginSubtitle": "Hisobingizga kiring",
+  "emailLabel": "Elektron pochta",
+  "passwordLabel": "Parol",
+  "signInButton": "Kirish",
+  "forgotPasswordLink": "Parolni unutdingizmi?",
+  "resetPasswordTitle": "Parolni tiklash",
+  "resetPasswordHint": "Elektron pochtangizni kiriting — parolni tiklash uchun havola yuboramiz.",
+  "sendResetLinkButton": "Havolani yuborish",
+  "resetLinkSent": "Havola yuborildi. Pochtangizni tekshiring.",
+  "backToLoginButton": "Kirish sahifasiga qaytish",
+  "errorEmailRequired": "Elektron pochtani kiriting",
+  "errorEmailInvalid": "Elektron pochta noto‘g‘ri",
+  "errorPasswordRequired": "Parolni kiriting",
+  "errorInvalidCredentials": "Pochta yoki parol noto‘g‘ri",
+  "errorGeneric": "Xatolik yuz berdi. Qaytadan urinib ko‘ring.",
+  "retryButton": "Qayta urinish",
+  "signOutButton": "Chiqish",
+  "profileTitle": "Profil",
+  "languageLabel": "Til",
+  "languageUzbek": "O‘zbekcha",
+  "languageRussian": "Русский",
+  "studentHomeTitle": "Mening darslarim",
+  "parentHomeTitle": "Farzandlarim",
+  "teacherHomeTitle": "O‘quvchilarim",
+  "configMissingTitle": "Ilova sozlanmagan",
+  "configMissingBody": "SUPABASE_URL va SUPABASE_ANON_KEY --dart-define orqali berilmagan.",
+  "noAccessTitle": "Kirish imkoni yo‘q",
+  "noAccessBody": "Hisobingizga rol biriktirilmagan. O‘qituvchingiz yoki administratorga murojaat qiling.",
+  "profileLoadError": "Profilni yuklab bo‘lmadi. Internetni tekshirib, qayta urinib ko‘ring.",
+  "archivedTitle": "Hisob arxivlangan",
+  "archivedBody": "Siz o‘quv dasturidan chiqarilgansiz. Savollar bo‘lsa, o‘qituvchingizga murojaat qiling.",
+  "navHome": "Bosh sahifa",
+  "navLessons": "Darslar",
+  "navHomework": "Vazifalar",
+  "navPractice": "Mashqlar",
+  "navRating": "Reyting",
+  "greeting": "Salom, {name}!",
+  "@greeting": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "homeSubtitle": "Bugungi darslaringiz va vazifalaringiz shu yerda.",
+  "statPoints": "Ballaringiz",
+  "statCompleted": "Yakunlangan darslar",
+  "statPendingHomework": "Tekshirilmoqda",
+  "nextLessonTitle": "Keyingi dars",
+  "allLessonsDone": "Barcha ochiq darslar yakunlandi! Yangi darslar tez orada ochiladi.",
+  "continueButton": "Davom etish",
+  "certificatesTitle": "Sertifikatlarim",
+  "noLessons": "Sizga hali dars ochilmagan. O‘qituvchingiz tez orada ochib beradi.",
+  "statusNotStarted": "Boshlanmagan",
+  "statusViewed": "Ko‘rilgan",
+  "statusInProgress": "Jarayonda",
+  "statusCompleted": "Yakunlangan",
+  "lessonMaterialTitle": "Dars materiali",
+  "openMaterialButton": "Materialni ochish",
+  "noMaterial": "Bu dars uchun material biriktirilmagan.",
+  "openInBrowser": "Brauzerda ochish",
+  "markCompletedButton": "Darsni yakunladim",
+  "lessonNotFound": "Dars topilmadi yoki sizga hali ochilmagan.",
+  "quizTitle": "Test",
+  "quizHint": "Savollarga yetarli darajada to‘g‘ri javob bersangiz, dars yakunlanadi va keyingi dars ochiladi.",
+  "quizAnswerHint": "Javobingiz",
+  "quizSubmitButton": "Tekshirish",
+  "quizAnswerAll": "Barcha savollarga javob bering.",
+  "quizScore": "{correct} / {total} to‘g‘ri",
+  "@quizScore": {
+    "placeholders": {
+      "correct": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "quizPassed": "Barakalla! Dars yakunlandi.",
+  "quizNextUnlocked": "Keyingi dars ochildi!",
+  "quizFailed": "O‘tish uchun kamida {required} ta to‘g‘ri javob kerak. Yana urinib ko‘ring!",
+  "@quizFailed": {
+    "placeholders": {
+      "required": {
+        "type": "int"
+      }
+    }
+  },
+  "quizRetryButton": "Qaytadan urinish",
+  "quizAlreadyCompleted": "Bu dars allaqachon yakunlangan. Xohlasangiz testni qayta ishlashingiz mumkin.",
+  "quizQuestionNumber": "{number}-savol",
+  "@quizQuestionNumber": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "homeworkTitle": "Uy vazifalari",
+  "homeworkForLessonTitle": "Shu dars bo‘yicha vazifalar",
+  "submitHomeworkButton": "Vazifa topshirish",
+  "homeworkLessonLabel": "Dars",
+  "homeworkTextLabel": "Javob yoki havola",
+  "homeworkTextHint": "Javobingizni yozing yoki loyiha havolasini qo‘ying",
+  "homeworkTextRequired": "Javobingizni kiriting",
+  "homeworkSent": "Vazifa yuborildi!",
+  "sendButton": "Yuborish",
+  "noHomework": "Hali vazifa topshirmagansiz.",
+  "homeworkPending": "Tekshirilmoqda",
+  "homeworkApproved": "Qabul qilindi",
+  "homeworkRejected": "Qaytarildi",
+  "teacherNote": "O‘qituvchi izohi: {note}",
+  "@teacherNote": {
+    "placeholders": {
+      "note": {
+        "type": "String"
+      }
+    }
+  },
+  "practiceTitle": "Mashqlar",
+  "practiceSubtitle": "Mashqlar — dars emas, progressga ta’sir qilmaydi. O‘ynang va o‘rganing!",
+  "platformNotConfigured": "Mashqlar uchun PLATFORM_URL sozlanmagan.",
+  "trackBasics": "Kompyuter va boshlang‘ich ko‘nikmalar",
+  "trackPython": "Python",
+  "trackLogic": "Mantiq va tanqidiy fikrlash",
+  "trackAi": "AI va promptlash",
+  "trainerTyping": "Klaviatura trenajori",
+  "trainerMouse": "Sichqoncha trenajori",
+  "trainerShortcuts": "Tezkor tugmalar",
+  "trainerFilesFolders": "Fayllar va papkalar",
+  "trainerInternetSafety": "Internetda xavfsizlik",
+  "trainerGodot": "Godot tushunchalari",
+  "trainerPython": "Python trenajori",
+  "trainerCodeOutput": "Kod natijasi",
+  "trainerDebug": "Xatoni toping",
+  "trainerPythonBrain": "Python miyasini sinash",
+  "trainerLogic": "Mantiq trenajori",
+  "trainerCriticalThinking": "Fakt yoki fikr?",
+  "trainerPrompting": "Promptlash trenajori",
+  "trainerPromptChecklist": "Prompt tekshiruvchisi",
+  "trainerExperimentLab": "Promptni solishtirish",
+  "trainerTeacherSimulator": "AI-shogirdga tushuntirish",
+  "ratingTitle": "Sinfdagi reyting",
+  "ratingSubtitle": "Shu haftadagi mashqlar ballari. Har dushanba yangilanadi.",
+  "ratingEmpty": "Bu hafta hali hech kim mashq qilmadi. Birinchi bo‘ling!",
+  "ratingYou": "Siz",
+  "ratingScore": "{score} ball",
+  "@ratingScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "noCertificates": "Hali sertifikatingiz yo‘q. Kursni tugatsangiz, shu yerda paydo bo‘ladi.",
+  "certificateNumber": "Raqami: {id}",
+  "@certificateNumber": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "certificateIssued": "Berilgan sana: {date}",
+  "@certificateIssued": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "certificateTeacher": "O‘qituvchi: {name}",
+  "@certificateTeacher": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "certificateVerifyButton": "Sertifikatni ko‘rish",
+  "logoLabel": "AI Ijodkor belgisi",
+  "loginTagline": "Sun’iy intellekt va dasturlash — o‘quvchilar, ota-onalar va o‘qituvchilar uchun",
+  "loginNote": "Login va parolni o‘qituvchingiz beradi. Ota-onalar ham shu yerdan kiradi.",
+  "emailHint": "ism@misol.uz",
+  "showPassword": "Parolni ko‘rsatish",
+  "hidePassword": "Parolni yashirish",
+  "backLabel": "Orqaga",
+  "navProfile": "Profil",
+  "greetingPrefix": "Xayrli kun,",
+  "pointsLabel": "{points} ball",
+  "@pointsLabel": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
+  "nextLessonBadge": "{module} · {number}-dars",
+  "@nextLessonBadge": {
+    "placeholders": {
+      "module": {
+        "type": "String"
+      },
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "metaMaterial": "Video + matn",
+  "metaQuiz": "{count} savolli test",
+  "@metaQuiz": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statLessonsDone": "darslar yakunlandi",
+  "statRank": "guruh reytingida",
+  "statNotRanked": "bu hafta reytingda yo‘q",
+  "tracksTitle": "Yo‘nalishlar",
+  "allLessonsLink": "Barcha darslar",
+  "trackLocked": "yopiq",
+  "trackDigitalStart": "Digital Start",
+  "trackAiCreative": "AI & Creative",
+  "trackCodeTech": "Code & Technology",
+  "trackOther": "Boshqa",
+  "homeworkInReviewTitle": "Uy vazifasi tekshiruvda",
+  "homeworkInReviewBody": "«{lesson}» — o‘qituvchi ko‘rib chiqmoqda",
+  "@homeworkInReviewBody": {
+    "placeholders": {
+      "lesson": {
+        "type": "String"
+      }
+    }
+  },
+  "homeworkInReviewMany": "{count} ta vazifa — o‘qituvchi ko‘rib chiqmoqda",
+  "@homeworkInReviewMany": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "practiceAllLink": "Hammasi",
+  "lessonPosition": "{module} · {index} / {total}",
+  "@lessonPosition": {
+    "placeholders": {
+      "module": {
+        "type": "String"
+      },
+      "index": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonGoalsTitle": "Bugun nimani o‘rganamiz",
+  "materialCaption": "Dars materiali",
+  "playMaterial": "Materialni ochish",
+  "quizCardTitle": "Dars testi",
+  "quizCardBody": "{count} savol · {required} tasiga to‘g‘ri javob — keyingi dars ochiladi",
+  "@quizCardBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "required": {
+        "type": "int"
+      }
+    }
+  },
+  "quizStartButton": "Testni boshlash",
+  "quizRetakeButton": "Testni qayta ishlash",
+  "homeworkCardTitle": "Uy vazifasi",
+  "homeworkCardBody": "Matn yoki havola yuboring",
+  "homeworkSubmitShort": "Topshirish",
+  "lessonViewedButton": "Darsni ko‘rdim",
+  "myHomeworkLink": "Uy vazifalarim",
+  "parentSectionBody": "Ota-onalar bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha farzandingiz natijalarini saytda ko‘ring.",
+  "teacherSectionBody": "O‘qituvchi bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha o‘quvchilar va vazifalarni saytda boshqaring.",
+  "openPlatformButton": "Saytda ochish"
+}

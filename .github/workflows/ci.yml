@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Manual build of an installable APK against a given project. Only the
+  # public anon/publishable key belongs here — never service_role.
+  workflow_dispatch:
+    inputs:
+      supabase_url:
+        description: SUPABASE_URL
+        required: false
+      supabase_anon_key:
+        description: SUPABASE_ANON_KEY (anon / publishable key)
+        required: false
+      platform_url:
+        description: PLATFORM_URL
+        required: false
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate localizations
+        run: flutter gen-l10n
+
+      - name: Check formatting
+        run: dart format --output=none --set-exit-if-changed lib test
+
+      - name: Analyze
+        run: flutter analyze
+
+      - name: Test
+        run: flutter test
+
+      # With workflow_dispatch inputs or repository secrets SUPABASE_URL +
+      # SUPABASE_ANON_KEY (and optionally PLATFORM_URL) the APK is built
+      # against the real project.
+      # Without them (e.g. PRs from forks) the APK still builds and shows
+      # the "not configured" screen. Only the public anon key belongs here.
+      - name: Build debug APK
+        env:
+          SUPABASE_URL: ${{ inputs.supabase_url || secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ inputs.supabase_anon_key || secrets.SUPABASE_ANON_KEY }}
+          PLATFORM_URL: ${{ inputs.platform_url || secrets.PLATFORM_URL }}
+        run: |
+          defines=()
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
+            echo "Building with Supabase keys from repository secrets"
+            defines+=(--dart-define=SUPABASE_URL="$SUPABASE_URL")
+            defines+=(--dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY")
+            if [ -n "$PLATFORM_URL" ]; then
+              defines+=(--dart-define=PLATFORM_URL="$PLATFORM_URL")
+            fi
+          else
+            echo "::notice::SUPABASE_URL/SUPABASE_ANON_KEY secrets not set — building unconfigured APK"
+          fi
+          flutter build apk --debug "${defines[@]}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-apk
+          path: build/app/outputs/flutter-apk/app-debug.apk
+          retention-days: 14
