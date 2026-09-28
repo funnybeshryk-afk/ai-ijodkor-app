@@ -1,13 +1,38 @@
 import 'package:flutter/widgets.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/l10n.dart';
+import '../../core/theme.dart';
+
+/// Trainer groups of the platform's /student/practice hub, each tied to the
+/// learning direction it belongs to (for its track color).
+enum PracticeGroup {
+  basics,
+  python,
+  logic,
+  ai;
+
+  String title(AppLocalizations l10n) => switch (this) {
+    PracticeGroup.basics => l10n.trackBasics,
+    PracticeGroup.python => l10n.trackPython,
+    PracticeGroup.logic => l10n.trackLogic,
+    PracticeGroup.ai => l10n.trackAi,
+  };
+
+  Color color(AppColors colors) => switch (this) {
+    PracticeGroup.basics || PracticeGroup.logic => colors.trackMoss,
+    PracticeGroup.python => colors.trackGrape,
+    PracticeGroup.ai => colors.trackSky,
+  };
+}
 
 /// A practice trainer page on the platform: `/student/practice/<key>`.
 class Trainer {
-  const Trainer(this.key, this.emoji);
+  const Trainer(this.key, this.icon, this.group);
 
   final String key;
-  final String emoji;
+  final IconData icon;
+  final PracticeGroup group;
 
   String title(AppLocalizations l10n) => switch (key) {
     'typing' => l10n.trainerTyping,
@@ -30,46 +55,29 @@ class Trainer {
   };
 }
 
-class TrainerTrack {
-  const TrainerTrack(this.title, this.trainers);
-
-  final String Function(AppLocalizations) title;
-  final List<Trainer> trainers;
-}
-
-/// Same tracks and order as the platform's /student/practice hub.
-final trainerTracks = <TrainerTrack>[
-  TrainerTrack((l) => l.trackBasics, const [
-    Trainer('typing', '⌨️'),
-    Trainer('mouse', '🖱️'),
-    Trainer('shortcuts', '⚡'),
-    Trainer('files-folders', '🗂️'),
-    Trainer('internet-safety', '🛡️'),
-    Trainer('godot', '🎮'),
-  ]),
-  TrainerTrack((l) => l.trackPython, const [
-    Trainer('python', '🐍'),
-    Trainer('code-output', '🖥️'),
-    Trainer('debug', '🐛'),
-    Trainer('python-brain', '🧠'),
-  ]),
-  TrainerTrack((l) => l.trackLogic, const [
-    Trainer('logic', '🧩'),
-    Trainer('critical-thinking', '🧠'),
-  ]),
-  TrainerTrack((l) => l.trackAi, const [
-    Trainer('prompting', '💬'),
-    Trainer('prompt-checklist', '🔍'),
-    Trainer('experiment-lab', '🧪'),
-    Trainer('teacher-simulator', '🧒'),
-  ]),
+/// Same trainers and order as the platform's hub.
+const trainers = <Trainer>[
+  Trainer('typing', LucideIcons.keyboard, PracticeGroup.basics),
+  Trainer('mouse', LucideIcons.mousePointer, PracticeGroup.basics),
+  Trainer('shortcuts', LucideIcons.zap, PracticeGroup.basics),
+  Trainer('files-folders', LucideIcons.folder, PracticeGroup.basics),
+  Trainer('internet-safety', LucideIcons.shield, PracticeGroup.basics),
+  Trainer('godot', LucideIcons.gamepad2, PracticeGroup.basics),
+  Trainer('python', LucideIcons.terminal, PracticeGroup.python),
+  Trainer('code-output', LucideIcons.monitor, PracticeGroup.python),
+  Trainer('debug', LucideIcons.bug, PracticeGroup.python),
+  Trainer('python-brain', LucideIcons.code, PracticeGroup.python),
+  Trainer('logic', LucideIcons.puzzle, PracticeGroup.logic),
+  Trainer('critical-thinking', LucideIcons.brain, PracticeGroup.logic),
+  Trainer('prompting', LucideIcons.messageSquare, PracticeGroup.ai),
+  Trainer('prompt-checklist', LucideIcons.listChecks, PracticeGroup.ai),
+  Trainer('experiment-lab', LucideIcons.flaskConical, PracticeGroup.ai),
+  Trainer('teacher-simulator', LucideIcons.graduationCap, PracticeGroup.ai),
 ];
 
 Trainer? trainerByKey(String key) {
-  for (final track in trainerTracks) {
-    for (final trainer in track.trainers) {
-      if (trainer.key == key) return trainer;
-    }
+  for (final trainer in trainers) {
+    if (trainer.key == key) return trainer;
   }
   return null;
 }

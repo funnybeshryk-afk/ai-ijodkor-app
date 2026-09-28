@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/l10n.dart';
 import '../../core/routes.dart';
+import '../../core/theme.dart';
 import '../../data/providers.dart';
 import '../../data/repositories/auth_repository.dart';
 import '../../widgets/app_logo.dart';
+import '../../widgets/app_text_field.dart';
 import '../../widgets/language_switcher.dart';
+import '../../widgets/ui.dart';
 import 'validators.dart';
 
+/// Mockup «1 · Kirish».
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
@@ -56,105 +61,122 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final theme = Theme.of(context);
+    final colors = context.colors;
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 480),
-              child: Form(
-                key: _formKey,
-                child: AutofillGroup(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const Align(child: LanguageSwitcher()),
-                      const SizedBox(height: 32),
-                      const AppLogo(),
-                      const SizedBox(height: 24),
-                      Text(
-                        l10n.loginTitle,
-                        style: theme.textTheme.headlineSmall,
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        l10n.loginSubtitle,
-                        style: theme.textTheme.bodyLarge,
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 32),
-                      TextFormField(
-                        key: const Key('login_email'),
-                        controller: _email,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        autofillHints: const [AutofillHints.email],
-                        decoration: InputDecoration(
-                          labelText: l10n.emailLabel,
-                          prefixIcon: const Icon(Icons.email_outlined),
-                        ),
-                        validator: (v) => validateEmail(v, l10n),
-                      ),
-                      const SizedBox(height: 16),
-                      TextFormField(
-                        key: const Key('login_password'),
-                        controller: _password,
-                        obscureText: _obscure,
-                        textInputAction: TextInputAction.done,
-                        autofillHints: const [AutofillHints.password],
-                        onFieldSubmitted: (_) => _busy ? null : _submit(),
-                        decoration: InputDecoration(
-                          labelText: l10n.passwordLabel,
-                          prefixIcon: const Icon(Icons.lock_outline),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _obscure
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
+        child: CustomScrollView(
+          slivers: [
+            SliverPadding(
+              padding: const EdgeInsets.fromLTRB(
+                AppSpace.s6,
+                AppSpace.s6,
+                AppSpace.s6,
+                AppSpace.s8,
+              ),
+              sliver: SliverFillRemaining(
+                hasScrollBody: false,
+                child: Center(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(
+                      maxWidth: AppSize.formMaxWidth,
+                    ),
+                    child: Form(
+                      key: _formKey,
+                      child: AutofillGroup(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            const Align(
+                              alignment: Alignment.centerRight,
+                              child: LanguageSwitcher(),
                             ),
-                            onPressed: () =>
-                                setState(() => _obscure = !_obscure),
-                          ),
-                        ),
-                        validator: (v) => (v == null || v.isEmpty)
-                            ? l10n.errorPasswordRequired
-                            : null,
-                      ),
-                      if (_error != null) ...[
-                        const SizedBox(height: 16),
-                        Text(
-                          _error!,
-                          style: TextStyle(color: theme.colorScheme.error),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
-                      const SizedBox(height: 24),
-                      FilledButton(
-                        key: const Key('login_submit'),
-                        onPressed: _busy ? null : _submit,
-                        child: _busy
-                            ? const SizedBox.square(
-                                dimension: 24,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 3,
+                            const SizedBox(height: AppSpace.s14),
+                            const AppLogo(),
+                            const SizedBox(height: AppSpace.labelGap),
+                            Text(
+                              l10n.loginTagline,
+                              textAlign: TextAlign.center,
+                              style: AppText.body.copyWith(
+                                color: colors.inkMuted,
+                              ),
+                            ),
+                            const SizedBox(height: AppSpace.s11),
+                            AppTextField(
+                              fieldKey: const Key('login_email'),
+                              label: l10n.emailLabel,
+                              hint: l10n.emailHint,
+                              controller: _email,
+                              keyboardType: TextInputType.emailAddress,
+                              textInputAction: TextInputAction.next,
+                              autofillHints: const [AutofillHints.email],
+                              validator: (v) => validateEmail(v, l10n),
+                            ),
+                            const SizedBox(height: AppSpace.s4),
+                            AppTextField(
+                              fieldKey: const Key('login_password'),
+                              label: l10n.passwordLabel,
+                              controller: _password,
+                              obscureText: _obscure,
+                              textInputAction: TextInputAction.done,
+                              autofillHints: const [AutofillHints.password],
+                              onSubmitted: (_) => _busy ? null : _submit(),
+                              validator: (v) => (v == null || v.isEmpty)
+                                  ? l10n.errorPasswordRequired
+                                  : null,
+                              suffix: IconButton(
+                                tooltip: _obscure
+                                    ? l10n.showPassword
+                                    : l10n.hidePassword,
+                                color: colors.inkMuted,
+                                icon: Icon(
+                                  _obscure
+                                      ? LucideIcons.eye
+                                      : LucideIcons.eyeOff,
                                 ),
-                              )
-                            : Text(l10n.signInButton),
+                                onPressed: () =>
+                                    setState(() => _obscure = !_obscure),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: TextButton(
+                                onPressed: () =>
+                                    context.push(Routes.forgotPassword),
+                                child: Text(l10n.forgotPasswordLink),
+                              ),
+                            ),
+                            if (_error != null) ...[
+                              Text(
+                                _error!,
+                                style: AppText.label.copyWith(
+                                  color: colors.danger,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: AppSpace.s3),
+                            ],
+                            PrimaryButton(
+                              key: const Key('login_submit'),
+                              label: l10n.signInButton,
+                              trailingIcon: LucideIcons.arrowRight,
+                              busy: _busy,
+                              onPressed: _submit,
+                            ),
+                            const Spacer(),
+                            const SizedBox(height: AppSpace.s8),
+                            NotePanel(
+                              icon: LucideIcons.info,
+                              text: l10n.loginNote,
+                            ),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 8),
-                      TextButton(
-                        onPressed: () => context.push(Routes.forgotPassword),
-                        child: Text(l10n.forgotPasswordLink),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

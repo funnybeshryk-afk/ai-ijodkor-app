@@ -21,6 +21,7 @@ class Routes {
   static const studentPractice = '/student/practice';
   static String trainer(String key) => '/student/practice/$key';
   static const studentRating = '/student/rating';
+  static const studentProfile = '/student/profile';
   static const studentCertificates = '/student/certificates';
 
   static const _public = {login, forgotPassword};

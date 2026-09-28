@@ -68,8 +68,9 @@ final routerProvider = Provider<GoRouter>((ref) {
   return router;
 });
 
-/// Student area: five tabs, each with its own navigation stack. Full-screen
-/// pages (certificates, lesson material, trainers) use the root navigator.
+/// Student area (mockup «2 · O'quvchi»): five tabs, each with its own
+/// navigation stack. Full-screen pages (a lesson and its material,
+/// homework, certificates, trainers) use the root navigator.
 StatefulShellRoute _studentShell(
   GlobalKey<NavigatorState> rootKey,
 ) => StatefulShellRoute.indexedStack(
@@ -86,6 +87,11 @@ StatefulShellRoute _studentShell(
               parentNavigatorKey: rootKey,
               builder: (_, _) => const CertificatesScreen(),
             ),
+            GoRoute(
+              path: 'homework',
+              parentNavigatorKey: rootKey,
+              builder: (_, _) => const HomeworkScreen(),
+            ),
           ],
         ),
       ],
@@ -98,6 +104,7 @@ StatefulShellRoute _studentShell(
           routes: [
             GoRoute(
               path: ':id',
+              parentNavigatorKey: rootKey,
               builder: (_, state) =>
                   LessonScreen(lessonId: state.pathParameters['id']!),
               routes: [
@@ -110,14 +117,6 @@ StatefulShellRoute _studentShell(
               ],
             ),
           ],
-        ),
-      ],
-    ),
-    StatefulShellBranch(
-      routes: [
-        GoRoute(
-          path: Routes.studentHomework,
-          builder: (_, _) => const HomeworkScreen(),
         ),
       ],
     ),
@@ -149,6 +148,14 @@ StatefulShellRoute _studentShell(
         GoRoute(
           path: Routes.studentRating,
           builder: (_, _) => const RatingScreen(),
+        ),
+      ],
+    ),
+    StatefulShellBranch(
+      routes: [
+        GoRoute(
+          path: Routes.studentProfile,
+          builder: (_, _) => const ProfileScreen(asTab: true),
         ),
       ],
     ),

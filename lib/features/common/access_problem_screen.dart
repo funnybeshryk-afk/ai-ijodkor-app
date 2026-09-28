@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/auth_gate.dart';
 import '../../core/l10n.dart';
 import '../../data/providers.dart';
 import '../../widgets/message_view.dart';
 import '../../widgets/sign_out_button.dart';
+import '../../widgets/ui.dart';
 
 /// Signed in, but the profile could not be loaded, has no known role, or
 /// belongs to an archived student.
@@ -21,7 +23,7 @@ class AccessProblemScreen extends ConsumerWidget {
     return Scaffold(
       body: SafeArea(
         child: MessageView(
-          icon: isError ? Icons.cloud_off_outlined : Icons.lock_outline,
+          icon: isError ? LucideIcons.wifiOff : LucideIcons.lock,
           title: isError
               ? l10n.errorGeneric
               : isArchived
@@ -34,9 +36,10 @@ class AccessProblemScreen extends ConsumerWidget {
               : l10n.noAccessBody,
           actions: [
             if (isError)
-              FilledButton(
+              PrimaryButton(
+                label: l10n.retryButton,
+                icon: LucideIcons.refreshCw,
                 onPressed: () => ref.invalidate(currentProfileProvider),
-                child: Text(l10n.retryButton),
               ),
             const SignOutButton(),
           ],

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/l10n.dart';
+import '../../core/theme.dart';
 import '../../data/models/lesson.dart';
+import '../../widgets/app_text_field.dart';
+import '../../widgets/ui.dart';
 import 'student_providers.dart';
 
 /// Bottom sheet to submit homework (text or a link) for one of [lessons].
@@ -69,13 +73,13 @@ class _HomeworkSheetState extends ConsumerState<_HomeworkSheet> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final theme = Theme.of(context);
+    final colors = context.colors;
     return Padding(
       padding: EdgeInsets.fromLTRB(
-        20,
+        AppSpace.s5,
         0,
-        20,
-        20 + MediaQuery.viewInsetsOf(context).bottom,
+        AppSpace.s5,
+        AppSpace.s5 + MediaQuery.viewInsetsOf(context).bottom,
       ),
       child: Form(
         key: _formKey,
@@ -83,47 +87,63 @@ class _HomeworkSheetState extends ConsumerState<_HomeworkSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(l10n.submitHomeworkButton, style: theme.textTheme.titleLarge),
-            const SizedBox(height: 16),
-            DropdownButtonFormField<String>(
-              initialValue: _lessonId,
-              isExpanded: true,
-              decoration: InputDecoration(labelText: l10n.homeworkLessonLabel),
-              items: [
-                for (final lesson in widget.lessons)
-                  DropdownMenuItem(
-                    value: lesson.id,
-                    child: Text(lesson.title, overflow: TextOverflow.ellipsis),
-                  ),
-              ],
-              onChanged: (id) => setState(() => _lessonId = id),
+            Text(
+              l10n.submitHomeworkButton,
+              style: AppText.displaySm.copyWith(color: colors.ink),
             ),
-            const SizedBox(height: 16),
-            TextFormField(
-              key: const Key('homework_text'),
+            const SizedBox(height: AppSpace.s4),
+            if (widget.lessons.length > 1) ...[
+              Text(
+                l10n.homeworkLessonLabel,
+                style: AppText.label.copyWith(color: colors.ink),
+              ),
+              const SizedBox(height: AppSpace.labelGap),
+              DropdownButtonFormField<String>(
+                initialValue: _lessonId,
+                isExpanded: true,
+                icon: const Icon(LucideIcons.chevronDown),
+                style: AppText.input.copyWith(color: colors.ink),
+                borderRadius: BorderRadius.circular(AppRadius.md),
+                items: [
+                  for (final lesson in widget.lessons)
+                    DropdownMenuItem(
+                      value: lesson.id,
+                      child: Text(
+                        lesson.title,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                ],
+                onChanged: (id) => setState(() => _lessonId = id),
+              ),
+              const SizedBox(height: AppSpace.s4),
+            ],
+            AppTextField(
+              fieldKey: const Key('homework_text'),
+              label: l10n.homeworkTextLabel,
+              hint: l10n.homeworkTextHint,
               controller: _text,
               minLines: 3,
               maxLines: 6,
               maxLength: 2000,
-              decoration: InputDecoration(
-                labelText: l10n.homeworkTextLabel,
-                hintText: l10n.homeworkTextHint,
-                alignLabelWithHint: true,
-              ),
               validator: (v) => (v == null || v.trim().isEmpty)
                   ? l10n.homeworkTextRequired
                   : null,
             ),
             if (_error != null) ...[
-              Text(_error!, style: TextStyle(color: theme.colorScheme.error)),
-              const SizedBox(height: 8),
+              Text(
+                _error!,
+                style: AppText.label.copyWith(color: colors.danger),
+              ),
+              const SizedBox(height: AppSpace.s2),
             ],
-            const SizedBox(height: 8),
-            FilledButton.icon(
+            const SizedBox(height: AppSpace.s2),
+            PrimaryButton(
               key: const Key('homework_send'),
-              icon: const Icon(Icons.send_rounded),
-              label: Text(l10n.sendButton),
-              onPressed: _busy ? null : _submit,
+              label: l10n.sendButton,
+              icon: LucideIcons.send,
+              busy: _busy,
+              onPressed: _submit,
             ),
           ],
         ),

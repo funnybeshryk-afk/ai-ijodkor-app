@@ -27,7 +27,6 @@
   "studentHomeTitle": "Mening darslarim",
   "parentHomeTitle": "Farzandlarim",
   "teacherHomeTitle": "O‘quvchilarim",
-  "comingSoon": "Tez orada shu yerda paydo bo‘ladi!",
   "configMissingTitle": "Ilova sozlanmagan",
   "configMissingBody": "SUPABASE_URL va SUPABASE_ANON_KEY --dart-define orqali berilmagan.",
   "noAccessTitle": "Kirish imkoni yo‘q",
@@ -184,5 +183,109 @@
       }
     }
   },
-  "certificateVerifyButton": "Sertifikatni ko‘rish"
+  "certificateVerifyButton": "Sertifikatni ko‘rish",
+  "logoLabel": "AI Ijodkor belgisi",
+  "loginTagline": "Sun’iy intellekt va dasturlash — o‘quvchilar, ota-onalar va o‘qituvchilar uchun",
+  "loginNote": "Login va parolni o‘qituvchingiz beradi. Ota-onalar ham shu yerdan kiradi.",
+  "emailHint": "ism@misol.uz",
+  "showPassword": "Parolni ko‘rsatish",
+  "hidePassword": "Parolni yashirish",
+  "backLabel": "Orqaga",
+  "navProfile": "Profil",
+  "greetingPrefix": "Xayrli kun,",
+  "pointsLabel": "{points} ball",
+  "@pointsLabel": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
+  "nextLessonBadge": "{module} · {number}-dars",
+  "@nextLessonBadge": {
+    "placeholders": {
+      "module": {
+        "type": "String"
+      },
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "metaMaterial": "Video + matn",
+  "metaQuiz": "{count} savolli test",
+  "@metaQuiz": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statLessonsDone": "darslar yakunlandi",
+  "statRank": "guruh reytingida",
+  "statNotRanked": "bu hafta reytingda yo‘q",
+  "tracksTitle": "Yo‘nalishlar",
+  "allLessonsLink": "Barcha darslar",
+  "trackLocked": "yopiq",
+  "trackDigitalStart": "Digital Start",
+  "trackAiCreative": "AI & Creative",
+  "trackCodeTech": "Code & Technology",
+  "trackOther": "Boshqa",
+  "homeworkInReviewTitle": "Uy vazifasi tekshiruvda",
+  "homeworkInReviewBody": "«{lesson}» — o‘qituvchi ko‘rib chiqmoqda",
+  "@homeworkInReviewBody": {
+    "placeholders": {
+      "lesson": {
+        "type": "String"
+      }
+    }
+  },
+  "homeworkInReviewMany": "{count} ta vazifa — o‘qituvchi ko‘rib chiqmoqda",
+  "@homeworkInReviewMany": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "practiceAllLink": "Hammasi",
+  "lessonPosition": "{module} · {index} / {total}",
+  "@lessonPosition": {
+    "placeholders": {
+      "module": {
+        "type": "String"
+      },
+      "index": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "lessonGoalsTitle": "Bugun nimani o‘rganamiz",
+  "materialCaption": "Dars materiali",
+  "playMaterial": "Materialni ochish",
+  "quizCardTitle": "Dars testi",
+  "quizCardBody": "{count} savol · {required} tasiga to‘g‘ri javob — keyingi dars ochiladi",
+  "@quizCardBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "required": {
+        "type": "int"
+      }
+    }
+  },
+  "quizStartButton": "Testni boshlash",
+  "quizRetakeButton": "Testni qayta ishlash",
+  "homeworkCardTitle": "Uy vazifasi",
+  "homeworkCardBody": "Matn yoki havola yuboring",
+  "homeworkSubmitShort": "Topshirish",
+  "lessonViewedButton": "Darsni ko‘rdim",
+  "myHomeworkLink": "Uy vazifalarim",
+  "parentSectionBody": "Ota-onalar bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha farzandingiz natijalarini saytda ko‘ring.",
+  "teacherSectionBody": "O‘qituvchi bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha o‘quvchilar va vazifalarni saytda boshqaring.",
+  "openPlatformButton": "Saytda ochish"
 }

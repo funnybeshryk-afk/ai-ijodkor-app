@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/l10n.dart';
 import '../../core/routes.dart';
+import '../../core/theme.dart';
 import '../../data/models/lesson.dart';
 import '../../data/models/student_records.dart';
 import '../../data/providers.dart';
 import '../../widgets/async_value_view.dart';
+import '../../widgets/ui.dart';
 import 'student_providers.dart';
-import 'student_shell.dart';
+import 'trainers.dart';
+import 'tracks.dart';
 
-/// Overview: points, progress, homework on review, next lesson.
+/// Mockup «2 · O'quvchi — bosh sahifa».
 class StudentHomeScreen extends ConsumerWidget {
   const StudentHomeScreen({super.key});
 
@@ -20,111 +24,193 @@ class StudentHomeScreen extends ConsumerWidget {
       ..invalidate(lessonsProvider)
       ..invalidate(progressProvider)
       ..invalidate(pointsProvider)
-      ..invalidate(homeworkProvider);
+      ..invalidate(homeworkProvider)
+      ..invalidate(leaderboardProvider);
     await ref.read(lessonsProvider.future);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = context.l10n;
-    final theme = Theme.of(context);
-    final name = ref.watch(currentProfileProvider).value?.givenName ?? '';
     final lessons = ref.watch(lessonsProvider);
     final progress = ref.watch(progressProvider);
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.navHome),
-        actions: const [ProfileAction()],
-      ),
-      body: RefreshIndicator(
-        onRefresh: () => _refresh(ref),
-        child: ListView(
-          padding: const EdgeInsets.all(16),
-          children: [
-            Text(
-              l10n.greeting(name),
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(l10n.homeSubtitle, style: theme.textTheme.bodyLarge),
-            const SizedBox(height: 16),
-            _StatsRow(),
-            const SizedBox(height: 16),
-            AsyncValueView(
-              value: lessons,
-              onRetry: () => _refresh(ref),
-              builder: (list) => _NextLessonCard(
-                next: nextLessonToStudy(list, progress.value ?? const {}),
-                hasLessons: list.isNotEmpty,
-              ),
-            ),
-            const SizedBox(height: 12),
-            Card(
-              child: ListTile(
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 8,
-                ),
-                leading: const Icon(Icons.workspace_premium, size: 36),
-                title: Text(l10n.certificatesTitle),
-                trailing: const Icon(Icons.chevron_right),
-                onTap: () => context.push(Routes.studentCertificates),
-              ),
-            ),
-          ],
+      body: SafeArea(
+        child: AsyncValueView(
+          value: lessons.hasValue && progress.hasValue
+              ? AsyncValue.data((lessons.value!, progress.value!))
+              : lessons.hasError || progress.hasError
+              ? AsyncValue<(List<Lesson>, Map<String, ProgressStatus>)>.error(
+                  lessons.error ?? progress.error!,
+                  StackTrace.empty,
+                )
+              : const AsyncValue.loading(),
+          onRetry: () => _refresh(ref),
+          loading: const _HomeSkeleton(),
+          builder: (data) => RefreshIndicator(
+            onRefresh: () => _refresh(ref),
+            child: _HomeBody(lessons: data.$1, progress: data.$2),
+          ),
         ),
       ),
     );
   }
 }
 
-class _StatsRow extends ConsumerWidget {
+class _HomeBody extends ConsumerWidget {
+  const _HomeBody({required this.lessons, required this.progress});
+
+  final List<Lesson> lessons;
+  final Map<String, ProgressStatus> progress;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    final points = ref.watch(pointsProvider).value;
-    final lessons = ref.watch(lessonsProvider).value;
-    final progress = ref.watch(progressProvider).value;
-    final homework = ref.watch(homeworkProvider).value;
-
-    final completed = lessons == null || progress == null
-        ? null
-        : lessons
-              .where((l) => progress[l.id] == ProgressStatus.completed)
-              .length;
-    final pending = homework
-        ?.where((h) => h.status == HomeworkStatus.pending)
+    final next = nextLessonToStudy(lessons, progress);
+    final done = lessons
+        .where((l) => progress[l.id] == ProgressStatus.completed)
         .length;
+    final pending = (ref.watch(homeworkProvider).value ?? const [])
+        .where((h) => h.status == HomeworkStatus.pending)
+        .toList();
 
+    return ListView(
+      padding: const EdgeInsets.fromLTRB(
+        AppSpace.s5,
+        AppSpace.s5,
+        AppSpace.s5,
+        AppSpace.s6,
+      ),
+      children: [
+        const _Header(),
+        const SizedBox(height: AppSpace.section),
+        _NextLessonPanel(
+          lessons: lessons,
+          next: next,
+          hasLessons: lessons.isNotEmpty,
+        ),
+        const SizedBox(height: AppSpace.section),
+        Row(
+          children: [
+            Expanded(
+              child: _StatTile(
+                value: '$done/${lessons.length}',
+                label: l10n.statLessonsDone,
+              ),
+            ),
+            const SizedBox(width: AppSpace.s3),
+            const Expanded(child: _RankTile()),
+          ],
+        ),
+        const SizedBox(height: AppSpace.section),
+        SectionHeader(
+          title: l10n.tracksTitle,
+          action: l10n.allLessonsLink,
+          onAction: () => context.go(Routes.studentLessons),
+        ),
+        const SizedBox(height: AppSpace.s2),
+        _TracksPanel(progress: trackProgress(lessons, progress)),
+        if (pending.isNotEmpty) ...[
+          const SizedBox(height: AppSpace.section),
+          NotePanel(
+            key: const Key('homework_in_review'),
+            tile: true,
+            icon: LucideIcons.fileText,
+            title: l10n.homeworkInReviewTitle,
+            text: pending.length == 1
+                ? l10n.homeworkInReviewBody(
+                    lessons
+                            .where((l) => l.id == pending.first.lessonId)
+                            .firstOrNull
+                            ?.title ??
+                        '',
+                  )
+                : l10n.homeworkInReviewMany(pending.length),
+            onTap: () => context.push(Routes.studentHomework),
+          ),
+        ],
+        const SizedBox(height: AppSpace.section),
+        SectionHeader(
+          title: l10n.practiceTitle,
+          action: l10n.practiceAllLink,
+          onAction: () => context.go(Routes.studentPractice),
+        ),
+        const SizedBox(height: AppSpace.s2),
+        const _PracticeRow(),
+      ],
+    );
+  }
+}
+
+class _Header extends ConsumerWidget {
+  const _Header();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final colors = context.colors;
+    final name = ref.watch(currentProfileProvider).value?.givenName ?? '';
+    final points = ref.watch(pointsProvider).value;
     return Row(
       children: [
-        Expanded(
-          child: _StatCard(
-            icon: Icons.star_rounded,
-            color: Colors.amber.shade700,
-            label: l10n.statPoints,
-            value: points?.toString(),
+        Container(
+          width: AppSize.avatar,
+          height: AppSize.avatar,
+          decoration: BoxDecoration(
+            color: colors.brandTint,
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: colors.brand,
+              width: AppSize.avatarBorder,
+            ),
+          ),
+          alignment: Alignment.center,
+          child: Text(
+            name.isEmpty ? '' : name.characters.first.toUpperCase(),
+            style: AppText.heading.copyWith(color: colors.brandDeep),
           ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: AppSpace.s3),
         Expanded(
-          child: _StatCard(
-            icon: Icons.check_circle,
-            color: Colors.green.shade600,
-            label: l10n.statCompleted,
-            value: completed == null ? null : '$completed/${lessons!.length}',
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.greetingPrefix,
+                style: AppText.caption.copyWith(color: colors.inkMuted),
+              ),
+              Text(
+                name,
+                style: AppText.displaySm.copyWith(color: colors.ink),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
         ),
-        const SizedBox(width: 8),
-        Expanded(
-          child: _StatCard(
-            icon: Icons.hourglass_top_rounded,
-            color: Colors.orange.shade700,
-            label: l10n.statPendingHomework,
-            value: pending?.toString(),
+        Semantics(
+          label: points == null ? null : l10n.pointsLabel(points),
+          excludeSemantics: true,
+          child: Container(
+            height: AppSize.pillHeight,
+            padding: const EdgeInsets.symmetric(horizontal: AppSpace.card),
+            decoration: BoxDecoration(
+              color: colors.inverse,
+              borderRadius: BorderRadius.circular(AppRadius.pill),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  LucideIcons.star,
+                  size: AppSize.iconMd,
+                  color: colors.brand,
+                ),
+                const SizedBox(width: AppSpace.labelGap),
+                Text(
+                  points?.toString() ?? '…',
+                  style: AppText.bodyStrong.copyWith(color: colors.onInverse),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -132,87 +218,332 @@ class _StatsRow extends ConsumerWidget {
   }
 }
 
-class _StatCard extends StatelessWidget {
-  const _StatCard({
-    required this.icon,
-    required this.color,
-    required this.label,
-    required this.value,
+class _NextLessonPanel extends ConsumerWidget {
+  const _NextLessonPanel({
+    required this.lessons,
+    required this.next,
+    required this.hasLessons,
   });
 
-  final IconData icon;
-  final Color color;
-  final String label;
-  final String? value;
+  final List<Lesson> lessons;
+  final Lesson? next;
+  final bool hasLessons;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final colors = context.colors;
+    final lesson = next;
+    if (lesson == null) {
+      return Panel(
+        radius: AppRadius.lg,
+        color: colors.surfaceMuted,
+        bordered: false,
+        padding: const EdgeInsets.all(AppSpace.s5),
+        child: Row(
           children: [
-            Icon(icon, color: color, size: 32),
-            const SizedBox(height: 6),
-            Text(
-              value ?? '…',
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
+            IconTile(
+              icon: hasLessons ? LucideIcons.partyPopper : LucideIcons.lock,
+              onCard: true,
             ),
-            const SizedBox(height: 2),
-            Text(
-              label,
-              textAlign: TextAlign.center,
-              style: theme.textTheme.bodySmall,
-              maxLines: 2,
+            const SizedBox(width: AppSpace.s3),
+            Expanded(
+              child: Text(
+                hasLessons ? l10n.allLessonsDone : l10n.noLessons,
+                style: AppText.body.copyWith(color: colors.inkSoft),
+              ),
             ),
           ],
         ),
+      );
+    }
+
+    final moduleLessons = groupLessonsByModule(lessons)
+        .firstWhere((m) => m.name == lesson.module)
+        .lessons;
+    final number = moduleLessons.indexOf(lesson) + 1;
+    final quizCount = ref.watch(quizProvider(lesson.id)).value?.length ?? 0;
+    final onBrand = colors.onBrand;
+    final meta = AppText.labelLg.copyWith(color: onBrand);
+
+    return Container(
+      padding: const EdgeInsets.all(AppSpace.s5),
+      decoration: BoxDecoration(
+        color: colors.brand,
+        borderRadius: BorderRadius.circular(AppRadius.lg),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  l10n.nextLessonTitle.toUpperCase(),
+                  style: AppText.overline.copyWith(color: onBrand),
+                ),
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpace.tileGap,
+                  vertical: AppSpace.s1,
+                ),
+                decoration: BoxDecoration(
+                  color: colors.surfacePage.withValues(alpha: 0.55),
+                  borderRadius: BorderRadius.circular(AppRadius.pill),
+                ),
+                child: Text(
+                  l10n.nextLessonBadge(lesson.module, number),
+                  style: AppText.label.copyWith(color: onBrand),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpace.card),
+          Text(lesson.title, style: AppText.displayMd.copyWith(color: onBrand)),
+          if (lesson.contentUrl != null || quizCount > 0) ...[
+            const SizedBox(height: AppSpace.card),
+            Wrap(
+              spacing: AppSpace.s4,
+              runSpacing: AppSpace.s1,
+              children: [
+                if (lesson.contentUrl != null)
+                  _Meta(
+                    icon: LucideIcons.play,
+                    text: l10n.metaMaterial,
+                    style: meta,
+                  ),
+                if (quizCount > 0)
+                  _Meta(
+                    icon: LucideIcons.checkSquare,
+                    text: l10n.metaQuiz(quizCount),
+                    style: meta,
+                  ),
+              ],
+            ),
+          ],
+          const SizedBox(height: AppSpace.card),
+          InverseButton(
+            key: const Key('continue_lesson'),
+            label: l10n.continueButton,
+            trailingIcon: LucideIcons.arrowRight,
+            onPressed: () => context.go(Routes.studentLesson(lesson.id)),
+          ),
+        ],
       ),
     );
   }
 }
 
-class _NextLessonCard extends StatelessWidget {
-  const _NextLessonCard({required this.next, required this.hasLessons});
+class _Meta extends StatelessWidget {
+  const _Meta({required this.icon, required this.text, required this.style});
 
-  final Lesson? next;
-  final bool hasLessons;
+  final IconData icon;
+  final String text;
+  final TextStyle style;
+
+  @override
+  Widget build(BuildContext context) => Row(
+    mainAxisSize: MainAxisSize.min,
+    children: [
+      Icon(icon, size: AppSize.iconSm, color: style.color),
+      const SizedBox(width: AppSpace.labelGap),
+      Text(text, style: style),
+    ],
+  );
+}
+
+class _StatTile extends StatelessWidget {
+  const _StatTile({required this.value, required this.label});
+
+  final String value;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    return Panel(
+      padding: const EdgeInsets.all(AppSpace.card),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(value, style: AppText.statValue.copyWith(color: colors.ink)),
+          Text(label, style: AppText.caption.copyWith(color: colors.inkMuted)),
+        ],
+      ),
+    );
+  }
+}
+
+/// Place in this week's class leaderboard.
+class _RankTile extends ConsumerWidget {
+  const _RankTile();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final me = ref.watch(currentUserIdProvider).value;
+    final board = ref.watch(leaderboardProvider).value;
+    if (board == null) return const SkeletonBox(height: AppSize.statTile);
+    final index = board.indexWhere((e) => e.studentId == me);
+    return _StatTile(
+      value: index < 0 ? '—' : '#${index + 1}',
+      label: index < 0 ? l10n.statNotRanked : l10n.statRank,
+    );
+  }
+}
+
+class _TracksPanel extends StatelessWidget {
+  const _TracksPanel({required this.progress});
+
+  final List<TrackProgress> progress;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final theme = Theme.of(context);
-    final lesson = next;
-    return Card(
-      color: theme.colorScheme.primaryContainer,
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(l10n.nextLessonTitle, style: theme.textTheme.titleMedium),
-            const SizedBox(height: 8),
-            if (lesson == null)
-              Text(
-                hasLessons ? l10n.allLessonsDone : l10n.noLessons,
-                style: theme.textTheme.bodyLarge,
-              )
-            else ...[
-              Text(lesson.module, style: theme.textTheme.bodyMedium),
-              Text(lesson.title, style: theme.textTheme.titleLarge),
-              const SizedBox(height: 16),
-              FilledButton.icon(
-                icon: const Icon(Icons.play_arrow_rounded),
-                label: Text(l10n.continueButton),
-                onPressed: () => context.go(Routes.studentLesson(lesson.id)),
+    final colors = context.colors;
+    return Panel(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpace.s4,
+        vertical: AppSpace.s1,
+      ),
+      child: Column(
+        children: [
+          for (final (i, p) in progress.indexed) ...[
+            if (i > 0) const Divider(height: 1),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppSpace.card),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Container(
+                        width: AppSize.dot,
+                        height: AppSize.dot,
+                        decoration: BoxDecoration(
+                          color: p.track.color(colors),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                      const SizedBox(width: AppSpace.s2),
+                      Expanded(
+                        child: Text(
+                          p.track.label(l10n),
+                          style: AppText.bodyStrong.copyWith(
+                            color: colors.ink,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                      Text(
+                        p.granted == 0
+                            ? l10n.trackLocked
+                            : '${p.done} / ${p.granted}',
+                        style: AppText.metric.copyWith(color: colors.inkMuted),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: AppSpace.s2),
+                  ProgressBar(
+                    value: p.granted == 0 ? 0 : p.done / p.granted,
+                    color: p.track.color(colors),
+                  ),
+                ],
               ),
-            ],
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+/// First three trainers as shortcuts (mockup: «Mashqlar»).
+class _PracticeRow extends StatelessWidget {
+  const _PracticeRow();
+
+  static const _keys = ['typing', 'python-brain', 'logic'];
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = context.colors;
+    return Row(
+      children: [
+        for (final (i, key) in _keys.indexed) ...[
+          if (i > 0) const SizedBox(width: AppSpace.tileGap),
+          Expanded(
+            child: Builder(
+              builder: (context) {
+                final trainer = trainerByKey(key)!;
+                return Panel(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpace.s3,
+                    vertical: AppSpace.card,
+                  ),
+                  onTap: () => context.push(Routes.trainer(key)),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Icon(
+                        trainer.icon,
+                        size: AppSize.iconXl,
+                        color: trainer.group.color(colors),
+                      ),
+                      const SizedBox(height: AppSpace.tileGap),
+                      Text(
+                        trainer.title(context.l10n),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppText.labelLg.copyWith(
+                          color: colors.ink,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _HomeSkeleton extends StatelessWidget {
+  const _HomeSkeleton();
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.all(AppSpace.s5),
+      children: const [
+        Row(
+          children: [
+            SkeletonBox(
+              height: AppSize.avatar,
+              width: AppSize.avatar,
+              radius: AppRadius.pill,
+            ),
+            SizedBox(width: AppSpace.s3),
+            Expanded(child: SkeletonBox(height: AppSize.pillHeight)),
           ],
         ),
-      ),
+        SizedBox(height: AppSpace.section),
+        SkeletonBox(height: 220, radius: AppRadius.lg),
+        SizedBox(height: AppSpace.section),
+        Row(
+          children: [
+            Expanded(child: SkeletonBox(height: AppSize.statTile)),
+            SizedBox(width: AppSpace.s3),
+            Expanded(child: SkeletonBox(height: AppSize.statTile)),
+          ],
+        ),
+        SizedBox(height: AppSpace.section),
+        SkeletonBox(height: 180),
+      ],
     );
   }
 }

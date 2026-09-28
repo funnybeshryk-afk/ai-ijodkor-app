@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/env.dart';
 import '../../core/l10n.dart';
 import '../../core/routes.dart';
+import '../../core/theme.dart';
 import '../../widgets/message_view.dart';
+import '../../widgets/ui.dart';
 import 'student_shell.dart';
 import 'trainers.dart';
 
@@ -15,40 +18,45 @@ class PracticeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final theme = Theme.of(context);
+    final colors = context.colors;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.practiceTitle),
-        actions: const [ProfileAction()],
-      ),
-      body: Env.platformUrl.isEmpty
-          ? MessageView(
-              icon: Icons.settings_suggest_outlined,
-              title: l10n.platformNotConfigured,
-            )
-          : ListView(
-              padding: const EdgeInsets.all(16),
-              children: [
-                Text(l10n.practiceSubtitle, style: theme.textTheme.bodyLarge),
-                for (final track in trainerTracks) ...[
-                  const SizedBox(height: 20),
-                  Text(track.title(l10n), style: theme.textTheme.titleLarge),
-                  const SizedBox(height: 8),
-                  GridView.count(
-                    crossAxisCount: 2,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    mainAxisSpacing: 8,
-                    crossAxisSpacing: 8,
-                    childAspectRatio: 1.3,
-                    children: [
-                      for (final trainer in track.trainers)
-                        _TrainerCard(trainer: trainer),
-                    ],
+      body: SafeArea(
+        child: Env.platformUrl.isEmpty
+            ? MessageView(
+                icon: LucideIcons.settings,
+                title: l10n.platformNotConfigured,
+              )
+            : ListView(
+                padding: const EdgeInsets.all(AppSpace.s5),
+                children: [
+                  TabTitle(l10n.practiceTitle),
+                  const SizedBox(height: AppSpace.s1),
+                  Text(
+                    l10n.practiceSubtitle,
+                    style: AppText.body.copyWith(color: colors.inkMuted),
                   ),
+                  for (final group in PracticeGroup.values) ...[
+                    const SizedBox(height: AppSpace.s6),
+                    SectionHeader(title: group.title(l10n)),
+                    const SizedBox(height: AppSpace.s2),
+                    GridView.count(
+                      crossAxisCount: 2,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      mainAxisSpacing: AppSpace.tileGap,
+                      crossAxisSpacing: AppSpace.tileGap,
+                      childAspectRatio: 1.45,
+                      children: [
+                        for (final trainer in trainers.where(
+                          (t) => t.group == group,
+                        ))
+                          _TrainerCard(trainer: trainer),
+                      ],
+                    ),
+                  ],
                 ],
-              ],
-            ),
+              ),
+      ),
     );
   }
 }
@@ -60,30 +68,29 @@ class _TrainerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: () => context.push(Routes.trainer(trainer.key)),
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(trainer.emoji, style: const TextStyle(fontSize: 36)),
-              const SizedBox(height: 8),
-              Text(
-                trainer.title(context.l10n),
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
+    final colors = context.colors;
+    return Panel(
+      padding: const EdgeInsets.all(AppSpace.card),
+      onTap: () => context.push(Routes.trainer(trainer.key)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(
+            trainer.icon,
+            size: AppSize.iconXl,
+            color: trainer.group.color(colors),
           ),
-        ),
+          Text(
+            trainer.title(context.l10n),
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: AppText.labelLg.copyWith(
+              color: colors.ink,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+        ],
       ),
     );
   }

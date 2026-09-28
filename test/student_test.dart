@@ -77,18 +77,46 @@ void main() {
     await tester.pumpAndSettle();
   }
 
-  testWidgets('home shows greeting, stats and the next lesson', (tester) async {
+  testWidgets('home shows greeting, stats, tracks and the next lesson', (
+    tester,
+  ) async {
     repo.progress['p1'] = ProgressStatus.completed;
+    repo.homework.add(
+      HomeworkSubmission(
+        id: 'h1',
+        lessonId: 'p1',
+        status: HomeworkStatus.pending,
+        submittedAt: DateTime(2026, 9, 27),
+      ),
+    );
+    repo.leaderboard.add(
+      const LeaderboardEntry(
+        studentId: 'u1',
+        fullName: 'Karimov Ali',
+        totalScore: 40,
+      ),
+    );
     await start(tester);
 
-    expect(find.text('Salom, Ali!'), findsOneWidget);
+    expect(find.text('Xayrli kun,'), findsOneWidget);
+    expect(find.text('Ali'), findsOneWidget);
     expect(find.text('25'), findsOneWidget);
     expect(find.text('1/2'), findsOneWidget);
+    expect(find.text('#1'), findsOneWidget);
+    expect(find.text('KEYINGI DARS'), findsOneWidget);
+    expect(find.text('Kompyuter asoslari · 1-dars'), findsOneWidget);
     expect(find.text(_l1.title), findsOneWidget);
+    expect(find.text('2 savolli test'), findsOneWidget);
+    // Tracks: Digital Start 0/1, AI & Creative closed, Code & Tech 1/1.
+    expect(find.text('0 / 1'), findsOneWidget);
+    expect(find.text('yopiq'), findsOneWidget);
+    expect(find.text('1 / 1'), findsOneWidget);
+    expect(byKey('homework_in_review'), findsOneWidget);
 
-    await tester.tap(find.text('Davom etish'));
+    await tester.tap(byKey('continue_lesson'));
     await tester.pumpAndSettle();
-    expect(find.text('Test'), findsOneWidget);
+    expect(find.text('Dars testi'), findsOneWidget);
+    expect(find.text('Kompyuter asoslari · 1 / 1'), findsOneWidget);
   });
 
   testWidgets('lessons are grouped by module in curriculum order', (
@@ -110,6 +138,8 @@ void main() {
     await start(tester);
     await openTab(tester, 'Darslar');
     await tester.tap(find.text(_l1.title));
+    await tester.pumpAndSettle();
+    await tester.tap(byKey('quiz_start'));
     await tester.pumpAndSettle();
 
     // Submitting with an empty answer is caught before the server call.
@@ -136,7 +166,7 @@ void main() {
 
     await tester.tap(find.text('Keyingi dars ochildi!'));
     await tester.pumpAndSettle();
-    expect(find.text('Materialni ochish'), findsOneWidget);
+    expect(find.text('Dars materiali'), findsOneWidget);
     // l2 has no quiz, so it can be completed by hand.
     await tester.tap(byKey('mark_completed'));
     await tester.pumpAndSettle();
@@ -146,7 +176,9 @@ void main() {
 
   testWidgets('homework can be submitted and shows as pending', (tester) async {
     await start(tester);
-    await openTab(tester, 'Vazifalar');
+    await openTab(tester, 'Profil');
+    await tester.tap(find.text('Uy vazifalarim'));
+    await tester.pumpAndSettle();
     expect(find.text('Hali vazifa topshirmagansiz.'), findsOneWidget);
 
     await tester.tap(byKey('homework_fab'));
@@ -195,6 +227,7 @@ void main() {
       ),
     );
     await start(tester);
+    await openTab(tester, 'Profil');
     await tester.tap(find.text('Sertifikatlarim'));
     await tester.pumpAndSettle();
 

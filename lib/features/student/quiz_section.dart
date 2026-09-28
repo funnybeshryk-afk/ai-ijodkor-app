@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/l10n.dart';
 import '../../core/routes.dart';
+import '../../core/theme.dart';
 import '../../data/models/quiz.dart';
+import '../../widgets/ui.dart';
 import 'student_providers.dart';
 
 /// The lesson's auto-graded quiz. Answers are checked on the server by the
@@ -14,12 +17,10 @@ class QuizSection extends ConsumerStatefulWidget {
     super.key,
     required this.lessonId,
     required this.questions,
-    required this.alreadyCompleted,
   });
 
   final String lessonId;
   final List<QuizQuestion> questions;
-  final bool alreadyCompleted;
 
   @override
   ConsumerState<QuizSection> createState() => _QuizSectionState();
@@ -83,18 +84,13 @@ class _QuizSectionState extends ConsumerState<QuizSection> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final theme = Theme.of(context);
+    final colors = context.colors;
     final result = _result;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(
-          widget.alreadyCompleted ? l10n.quizAlreadyCompleted : l10n.quizHint,
-          style: theme.textTheme.bodyMedium,
-        ),
-        const SizedBox(height: 12),
         for (final (i, q) in widget.questions.indexed) ...[
-          _QuestionCard(
+          _Question(
             number: i + 1,
             question: q,
             answer: _answers[q.id],
@@ -106,26 +102,23 @@ class _QuizSectionState extends ConsumerState<QuizSection> {
               _error = null;
             }),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpace.s5),
         ],
         if (_error != null) ...[
           Text(
             _error!,
-            style: TextStyle(color: theme.colorScheme.error),
+            style: AppText.label.copyWith(color: colors.danger),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: AppSpace.s3),
         ],
         if (result == null)
-          FilledButton(
+          PrimaryButton(
             key: const Key('quiz_submit'),
-            onPressed: _busy ? null : _submit,
-            child: _busy
-                ? const SizedBox.square(
-                    dimension: 24,
-                    child: CircularProgressIndicator(strokeWidth: 3),
-                  )
-                : Text(l10n.quizSubmitButton),
+            label: l10n.quizSubmitButton,
+            height: AppSize.button,
+            busy: _busy,
+            onPressed: _submit,
           )
         else
           _ResultBanner(
@@ -137,8 +130,8 @@ class _QuizSectionState extends ConsumerState<QuizSection> {
   }
 }
 
-class _QuestionCard extends StatelessWidget {
-  const _QuestionCard({
+class _Question extends StatelessWidget {
+  const _Question({
     required this.number,
     required this.question,
     required this.answer,
@@ -159,52 +152,53 @@ class _QuestionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final theme = Theme.of(context);
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+    final colors = context.colors;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    l10n.quizQuestionNumber(number),
-                    style: theme.textTheme.labelLarge,
-                  ),
-                ),
-                if (correct != null)
-                  Icon(
-                    correct! ? Icons.check_circle : Icons.cancel,
-                    color: correct!
-                        ? Colors.green.shade600
-                        : theme.colorScheme.error,
-                    size: 28,
-                  ),
-              ],
+            Expanded(
+              child: Text(
+                l10n.quizQuestionNumber(number).toUpperCase(),
+                style: AppText.overline.copyWith(color: colors.inkMuted),
+              ),
             ),
-            const SizedBox(height: 4),
-            Text(question.question, style: theme.textTheme.titleMedium),
-            const SizedBox(height: 12),
-            if (question.isMultipleChoice)
-              for (final option in question.options)
-                _OptionTile(
-                  label: option,
-                  selected: answer == option,
-                  onTap: enabled ? () => onChanged(option) : null,
-                )
-            else
-              TextField(
-                controller: controller,
-                enabled: enabled,
-                maxLength: 500,
-                decoration: InputDecoration(hintText: l10n.quizAnswerHint),
-                onChanged: onChanged,
+            if (correct != null)
+              Icon(
+                correct! ? LucideIcons.checkCircle : LucideIcons.xCircle,
+                color: correct! ? colors.success : colors.danger,
+                size: AppSize.iconLg,
               ),
           ],
         ),
-      ),
+        const SizedBox(height: AppSpace.s1),
+        Text(
+          question.question,
+          style: AppText.titleSm.copyWith(color: colors.ink),
+        ),
+        const SizedBox(height: AppSpace.s3),
+        if (question.isMultipleChoice)
+          for (final option in question.options)
+            _OptionTile(
+              label: option,
+              selected: answer == option,
+              onTap: enabled ? () => onChanged(option) : null,
+            )
+        else
+          TextField(
+            controller: controller,
+            enabled: enabled,
+            maxLength: 500,
+            style: AppText.input.copyWith(color: colors.ink),
+            decoration: InputDecoration(
+              hintText: l10n.quizAnswerHint,
+              counterText: '',
+              constraints: const BoxConstraints(minHeight: AppSize.input),
+            ),
+            onChanged: onChanged,
+          ),
+      ],
     );
   }
 }
@@ -218,31 +212,32 @@ class _OptionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final colors = context.colors;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Material(
-        color: selected ? colors.primaryContainer : colors.surfaceContainer,
-        borderRadius: BorderRadius.circular(14),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(14),
+      padding: const EdgeInsets.only(bottom: AppSpace.s2),
+      child: Semantics(
+        selected: selected,
+        inMutuallyExclusiveGroup: true,
+        child: Panel(
+          color: selected ? colors.brandTint : colors.surfaceCard,
+          borderColor: selected ? colors.brand : colors.border,
+          borderWidth: AppSize.borderInput,
+          padding: const EdgeInsets.all(AppSpace.card),
           onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
-            child: Row(
-              children: [
-                Icon(
-                  selected
-                      ? Icons.radio_button_checked
-                      : Icons.radio_button_unchecked,
-                  color: selected ? colors.primary : colors.outline,
+          child: Row(
+            children: [
+              Icon(
+                selected ? LucideIcons.circleDot : LucideIcons.circle,
+                color: selected ? colors.brandStrong : colors.inkMuted,
+              ),
+              const SizedBox(width: AppSpace.s3),
+              Expanded(
+                child: Text(
+                  label,
+                  style: AppText.bodyLg.copyWith(color: colors.ink),
                 ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Text(label, style: const TextStyle(fontSize: 17)),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -259,52 +254,59 @@ class _ResultBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final theme = Theme.of(context);
-    final color = result.passed
-        ? Colors.green.shade600
-        : Colors.orange.shade800;
+    final colors = context.colors;
     final next = result.nextLessonId;
-    return Card(
-      color: color.withValues(alpha: 0.12),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Icon(
-              result.passed ? Icons.celebration : Icons.refresh_rounded,
-              color: color,
-              size: 48,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              l10n.quizScore(result.correctCount, result.total),
-              style: theme.textTheme.titleLarge,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              result.passed
-                  ? l10n.quizPassed
-                  : l10n.quizFailed(result.required),
-              style: theme.textTheme.bodyLarge,
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 12),
-            if (result.passed && next != null)
-              FilledButton.icon(
-                icon: const Icon(Icons.arrow_forward_rounded),
-                label: Text(l10n.quizNextUnlocked),
-                onPressed: () => context.go(Routes.studentLesson(next)),
-              )
-            else if (!result.passed)
-              FilledButton(
-                key: const Key('quiz_retry'),
-                onPressed: onRetry,
-                child: Text(l10n.quizRetryButton),
+    return Panel(
+      color: result.passed ? colors.brandTint : colors.surfaceMuted,
+      bordered: false,
+      padding: const EdgeInsets.all(AppSpace.s4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              IconTile(
+                icon: result.passed
+                    ? LucideIcons.partyPopper
+                    : LucideIcons.rotateCcw,
+                onCard: true,
               ),
-          ],
-        ),
+              const SizedBox(width: AppSpace.s3),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.quizScore(result.correctCount, result.total),
+                      style: AppText.heading.copyWith(color: colors.ink),
+                    ),
+                    Text(
+                      result.passed
+                          ? l10n.quizPassed
+                          : l10n.quizFailed(result.required),
+                      style: AppText.caption.copyWith(color: colors.inkSoft),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpace.s3),
+          if (result.passed && next != null)
+            PrimaryButton(
+              label: l10n.quizNextUnlocked,
+              trailingIcon: LucideIcons.arrowRight,
+              height: AppSize.button,
+              onPressed: () => context.go(Routes.studentLesson(next)),
+            )
+          else if (!result.passed)
+            InverseButton(
+              key: const Key('quiz_retry'),
+              label: l10n.quizRetryButton,
+              icon: LucideIcons.rotateCcw,
+              onPressed: onRetry,
+            ),
+        ],
       ),
     );
   }

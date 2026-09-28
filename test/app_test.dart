@@ -1,6 +1,5 @@
 import 'package:ai_ijodkor/core/locale_controller.dart';
 import 'package:ai_ijodkor/data/models/profile.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -39,8 +38,15 @@ void main() {
 
   testWidgets('signed out user sees login in Uzbek by default', (tester) async {
     await pumpApp(tester, auth: auth, profiles: profiles);
-    expect(find.text('Xush kelibsiz!'), findsOneWidget);
+    expect(find.text('AI IJODKOR'), findsOneWidget);
     expect(find.text('Kirish'), findsOneWidget);
+    expect(
+      find.text(
+        'Login va parolni o‘qituvchingiz beradi. '
+        'Ota-onalar ham shu yerdan kiradi.',
+      ),
+      findsOneWidget,
+    );
   });
 
   testWidgets('validates empty form', (tester) async {
@@ -66,7 +72,7 @@ void main() {
     );
     await signIn(tester, 'kid@test.uz');
     expect(find.text('Bosh sahifa'), findsWidgets);
-    expect(find.text('Keyingi dars'), findsOneWidget);
+    expect(find.text('Xayrli kun,'), findsOneWidget);
   });
 
   testWidgets('parent is redirected to parent home', (tester) async {
@@ -106,18 +112,18 @@ void main() {
     );
     await signIn(tester, 'kid@test.uz');
 
-    await tester.tap(find.byIcon(Icons.account_circle));
+    await tester.tap(find.text('Profil'));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Русский'));
     await tester.pumpAndSettle();
-    expect(find.text('Профиль'), findsOneWidget);
+    expect(find.text('Профиль'), findsWidgets);
 
     final prefs = await SharedPreferences.getInstance();
     expect(prefs.getString(LocaleController.storageKey), 'ru');
 
     await tester.tap(find.text('Выйти'));
     await tester.pumpAndSettle();
-    expect(find.text('Добро пожаловать!'), findsOneWidget);
+    expect(find.text('Войти'), findsOneWidget);
   });
 
   testWidgets('saved language is restored on start', (tester) async {
@@ -127,6 +133,6 @@ void main() {
       profiles: profiles,
       prefs: {LocaleController.storageKey: 'ru'},
     );
-    expect(find.text('Добро пожаловать!'), findsOneWidget);
+    expect(find.text('Войти'), findsOneWidget);
   });
 }

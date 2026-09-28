@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/l10n.dart';
 import '../../widgets/message_view.dart';
@@ -12,7 +13,7 @@ class ConfigMissingScreen extends StatelessWidget {
     final l10n = context.l10n;
     return Scaffold(
       body: MessageView(
-        icon: Icons.settings_suggest_outlined,
+        icon: LucideIcons.settings,
         title: l10n.configMissingTitle,
         message: l10n.configMissingBody,
       ),

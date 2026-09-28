@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -7,7 +8,9 @@ import '../../core/env.dart';
 import '../../core/l10n.dart';
 import '../../core/platform_session.dart';
 import '../../data/providers.dart';
+import '../../core/theme.dart';
 import '../../widgets/message_view.dart';
+import '../../widgets/ui.dart';
 
 /// Returns the platform auth cookies for the current session, refreshing
 /// the session first when it is about to expire — so the web page does not
@@ -126,28 +129,33 @@ class _WebPageScreenState extends ConsumerState<WebPageScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          leading: IconButton(
+            tooltip: l10n.backLabel,
+            icon: const Icon(LucideIcons.x),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+          title: Text(widget.title, style: AppText.bodyStrong),
           actions: [
             IconButton(
               tooltip: l10n.openInBrowser,
-              icon: const Icon(Icons.open_in_new),
+              icon: const Icon(LucideIcons.externalLink),
               onPressed: () =>
                   launchUrl(widget.url, mode: LaunchMode.externalApplication),
             ),
           ],
           bottom: _progress < 100
               ? PreferredSize(
-                  preferredSize: const Size.fromHeight(3),
+                  preferredSize: const Size.fromHeight(AppSize.progressThin),
                   child: LinearProgressIndicator(value: _progress / 100),
                 )
               : null,
         ),
         body: _failed
             ? MessageView(
-                icon: Icons.cloud_off_outlined,
+                icon: LucideIcons.wifiOff,
                 title: l10n.errorGeneric,
                 actions: [
-                  FilledButton(onPressed: _load, child: Text(l10n.retryButton)),
+                  PrimaryButton(label: l10n.retryButton, onPressed: _load),
                 ],
               )
             : WebViewWidget(controller: _controller),

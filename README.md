@@ -59,6 +59,16 @@ flutter build apk --debug
 Тренажёры открываются в WebView на `PLATFORM_URL/student/practice/<key>`;
 сессия передаётся cookie в формате `@supabase/ssr`, повторный вход не нужен.
 
+## Дизайн
+
+Источник правды — брендбук и макеты (ссылки в CLAUDE.md, раздел «Дизайн»).
+Все цвета, размеры, радиусы и стили текста — токены в `lib/core/theme.dart`
+(`context.colors`, `AppSpace`, `AppRadius`, `AppText`); в виджетах их не
+переопределяем. Шрифты лежат в `assets/fonts/` (SIL OFL), иконки —
+`lucide_icons_flutter` (пакет `lucide_icons` не собирается на текущем Flutter).
+Знак AI Ijodkor рисуется `BrandMark` (`lib/widgets/brand_mark.dart`) по SVG из
+брендбука.
+
 ## Иконка и splash
 
 Исходники — `assets/branding/` (из `intelliqos-site/public/assets/logo-icon.png`).

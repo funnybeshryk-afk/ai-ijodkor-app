@@ -43,7 +43,7 @@ dependencies:
   intl: ^0.20.3
   webview_flutter: ^4.14.1
   url_launcher: ^6.3.2
-
+  lucide_icons_flutter: ^3.1.20
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -68,8 +68,31 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   generate: true
-  assets:
-    - assets/branding/logo.png
+  # Brand fonts (SIL OFL, licenses in assets/fonts/): Baloo 2 for headings,
+  # Manrope for text and UI, JetBrains Mono for code.
+  fonts:
+    - family: Baloo 2
+      fonts:
+        - asset: assets/fonts/Baloo2-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Baloo2-Bold.ttf
+          weight: 700
+    - family: Manrope
+      fonts:
+        - asset: assets/fonts/Manrope-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Manrope-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Manrope-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Manrope-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Manrope-ExtraBold.ttf
+          weight: 800
+    - family: JetBrains Mono
+      fonts:
+        - asset: assets/fonts/JetBrainsMono-Regular.ttf
+          weight: 400
 
   # To add assets to your application, add an assets section, like this:
   # assets:

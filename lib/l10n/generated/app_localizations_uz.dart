@@ -92,9 +92,6 @@ class AppLocalizationsUz extends AppLocalizations {
   String get teacherHomeTitle => 'O‘quvchilarim';
 
   @override
-  String get comingSoon => 'Tez orada shu yerda paydo bo‘ladi!';
-
-  @override
   String get configMissingTitle => 'Ilova sozlanmagan';
 
   @override
@@ -399,4 +396,151 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get certificateVerifyButton => 'Sertifikatni ko‘rish';
+
+  @override
+  String get logoLabel => 'AI Ijodkor belgisi';
+
+  @override
+  String get loginTagline =>
+      'Sun’iy intellekt va dasturlash — o‘quvchilar, ota-onalar va o‘qituvchilar uchun';
+
+  @override
+  String get loginNote =>
+      'Login va parolni o‘qituvchingiz beradi. Ota-onalar ham shu yerdan kiradi.';
+
+  @override
+  String get emailHint => 'ism@misol.uz';
+
+  @override
+  String get showPassword => 'Parolni ko‘rsatish';
+
+  @override
+  String get hidePassword => 'Parolni yashirish';
+
+  @override
+  String get backLabel => 'Orqaga';
+
+  @override
+  String get navProfile => 'Profil';
+
+  @override
+  String get greetingPrefix => 'Xayrli kun,';
+
+  @override
+  String pointsLabel(int points) {
+    return '$points ball';
+  }
+
+  @override
+  String nextLessonBadge(String module, int number) {
+    return '$module · $number-dars';
+  }
+
+  @override
+  String get metaMaterial => 'Video + matn';
+
+  @override
+  String metaQuiz(int count) {
+    return '$count savolli test';
+  }
+
+  @override
+  String get statLessonsDone => 'darslar yakunlandi';
+
+  @override
+  String get statRank => 'guruh reytingida';
+
+  @override
+  String get statNotRanked => 'bu hafta reytingda yo‘q';
+
+  @override
+  String get tracksTitle => 'Yo‘nalishlar';
+
+  @override
+  String get allLessonsLink => 'Barcha darslar';
+
+  @override
+  String get trackLocked => 'yopiq';
+
+  @override
+  String get trackDigitalStart => 'Digital Start';
+
+  @override
+  String get trackAiCreative => 'AI & Creative';
+
+  @override
+  String get trackCodeTech => 'Code & Technology';
+
+  @override
+  String get trackOther => 'Boshqa';
+
+  @override
+  String get homeworkInReviewTitle => 'Uy vazifasi tekshiruvda';
+
+  @override
+  String homeworkInReviewBody(String lesson) {
+    return '«$lesson» — o‘qituvchi ko‘rib chiqmoqda';
+  }
+
+  @override
+  String homeworkInReviewMany(int count) {
+    return '$count ta vazifa — o‘qituvchi ko‘rib chiqmoqda';
+  }
+
+  @override
+  String get practiceAllLink => 'Hammasi';
+
+  @override
+  String lessonPosition(String module, int index, int total) {
+    return '$module · $index / $total';
+  }
+
+  @override
+  String get lessonGoalsTitle => 'Bugun nimani o‘rganamiz';
+
+  @override
+  String get materialCaption => 'Dars materiali';
+
+  @override
+  String get playMaterial => 'Materialni ochish';
+
+  @override
+  String get quizCardTitle => 'Dars testi';
+
+  @override
+  String quizCardBody(int count, int required) {
+    return '$count savol · $required tasiga to‘g‘ri javob — keyingi dars ochiladi';
+  }
+
+  @override
+  String get quizStartButton => 'Testni boshlash';
+
+  @override
+  String get quizRetakeButton => 'Testni qayta ishlash';
+
+  @override
+  String get homeworkCardTitle => 'Uy vazifasi';
+
+  @override
+  String get homeworkCardBody => 'Matn yoki havola yuboring';
+
+  @override
+  String get homeworkSubmitShort => 'Topshirish';
+
+  @override
+  String get lessonViewedButton => 'Darsni ko‘rdim';
+
+  @override
+  String get myHomeworkLink => 'Uy vazifalarim';
+
+  @override
+  String get parentSectionBody =>
+      'Ota-onalar bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha farzandingiz natijalarini saytda ko‘ring.';
+
+  @override
+  String get teacherSectionBody =>
+      'O‘qituvchi bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha o‘quvchilar va vazifalarni saytda boshqaring.';
+
+  @override
+  String get openPlatformButton => 'Saytda ochish';
 }

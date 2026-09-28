@@ -92,9 +92,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get teacherHomeTitle => 'Мои ученики';
 
   @override
-  String get comingSoon => 'Скоро здесь появится!';
-
-  @override
   String get configMissingTitle => 'Приложение не настроено';
 
   @override
@@ -395,4 +392,151 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get certificateVerifyButton => 'Посмотреть сертификат';
+
+  @override
+  String get logoLabel => 'Знак AI Ijodkor';
+
+  @override
+  String get loginTagline =>
+      'Искусственный интеллект и программирование — для учеников, родителей и учителей';
+
+  @override
+  String get loginNote =>
+      'Логин и пароль выдаёт учитель. Родители входят здесь же.';
+
+  @override
+  String get emailHint => 'imya@primer.uz';
+
+  @override
+  String get showPassword => 'Показать пароль';
+
+  @override
+  String get hidePassword => 'Скрыть пароль';
+
+  @override
+  String get backLabel => 'Назад';
+
+  @override
+  String get navProfile => 'Профиль';
+
+  @override
+  String get greetingPrefix => 'Добрый день,';
+
+  @override
+  String pointsLabel(int points) {
+    return '$points баллов';
+  }
+
+  @override
+  String nextLessonBadge(String module, int number) {
+    return '$module · урок $number';
+  }
+
+  @override
+  String get metaMaterial => 'Видео + текст';
+
+  @override
+  String metaQuiz(int count) {
+    return 'Тест: $count вопр.';
+  }
+
+  @override
+  String get statLessonsDone => 'уроков пройдено';
+
+  @override
+  String get statRank => 'в рейтинге группы';
+
+  @override
+  String get statNotRanked => 'на этой неделе нет в рейтинге';
+
+  @override
+  String get tracksTitle => 'Направления';
+
+  @override
+  String get allLessonsLink => 'Все уроки';
+
+  @override
+  String get trackLocked => 'закрыто';
+
+  @override
+  String get trackDigitalStart => 'Digital Start';
+
+  @override
+  String get trackAiCreative => 'AI & Creative';
+
+  @override
+  String get trackCodeTech => 'Code & Technology';
+
+  @override
+  String get trackOther => 'Другое';
+
+  @override
+  String get homeworkInReviewTitle => 'Домашка на проверке';
+
+  @override
+  String homeworkInReviewBody(String lesson) {
+    return '«$lesson» — учитель проверяет';
+  }
+
+  @override
+  String homeworkInReviewMany(int count) {
+    return '$count заданий — учитель проверяет';
+  }
+
+  @override
+  String get practiceAllLink => 'Все';
+
+  @override
+  String lessonPosition(String module, int index, int total) {
+    return '$module · $index / $total';
+  }
+
+  @override
+  String get lessonGoalsTitle => 'Что изучаем сегодня';
+
+  @override
+  String get materialCaption => 'Материал урока';
+
+  @override
+  String get playMaterial => 'Открыть материал';
+
+  @override
+  String get quizCardTitle => 'Тест по уроку';
+
+  @override
+  String quizCardBody(int count, int required) {
+    return '$count вопр. · $required верных — откроется следующий урок';
+  }
+
+  @override
+  String get quizStartButton => 'Начать тест';
+
+  @override
+  String get quizRetakeButton => 'Пройти тест снова';
+
+  @override
+  String get homeworkCardTitle => 'Домашнее задание';
+
+  @override
+  String get homeworkCardBody => 'Отправь текст или ссылку';
+
+  @override
+  String get homeworkSubmitShort => 'Сдать';
+
+  @override
+  String get lessonViewedButton => 'Я посмотрел урок';
+
+  @override
+  String get myHomeworkLink => 'Мои задания';
+
+  @override
+  String get parentSectionBody =>
+      'Раздел для родителей появится в следующей версии приложения. Пока смотрите результаты ребёнка на сайте.';
+
+  @override
+  String get teacherSectionBody =>
+      'Раздел учителя появится в следующей версии приложения. Пока управляйте учениками и заданиями на сайте.';
+
+  @override
+  String get openPlatformButton => 'Открыть сайт';
 }

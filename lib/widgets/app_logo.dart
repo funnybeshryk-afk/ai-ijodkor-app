@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../core/l10n.dart';
+import '../core/theme.dart';
+import 'brand_mark.dart';
 
-/// Brand logo (assets/branding/logo.png) with the app name under it.
+/// Logo badge with the program name under it (login, splash).
 class AppLogo extends StatelessWidget {
-  const AppLogo({super.key, this.size = 96});
+  const AppLogo({super.key, this.size = 88});
 
   final double size;
 
@@ -13,15 +15,14 @@ class AppLogo extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset(
-          'assets/branding/logo.png',
-          height: size,
-          semanticLabel: context.l10n.appTitle,
-        ),
-        const SizedBox(height: 12),
+        LogoBadge(size: size, semanticLabel: context.l10n.logoLabel),
+        const SizedBox(height: AppSpace.s3),
         Text(
           context.l10n.appTitle,
-          style: Theme.of(context).textTheme.headlineMedium,
+          style: AppText.displayLg.copyWith(
+            color: context.colors.ink,
+            letterSpacing: 0.5,
+          ),
         ),
       ],
     );

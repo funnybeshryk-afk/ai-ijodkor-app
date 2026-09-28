@@ -16,6 +16,7 @@ class AiIjodkorApp extends ConsumerWidget {
       onGenerateTitle: (context) => context.l10n.appTitle,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
+      darkTheme: AppTheme.dark(),
       locale: ref.watch(localeControllerProvider),
       supportedLocales: supportedAppLocales,
       localizationsDelegates: const [

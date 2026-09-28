@@ -260,12 +260,6 @@ abstract class AppLocalizations {
   /// **'O‘quvchilarim'**
   String get teacherHomeTitle;
 
-  /// No description provided for @comingSoon.
-  ///
-  /// In uz, this message translates to:
-  /// **'Tez orada shu yerda paydo bo‘ladi!'**
-  String get comingSoon;
-
   /// No description provided for @configMissingTitle.
   ///
   /// In uz, this message translates to:
@@ -811,6 +805,264 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Sertifikatni ko‘rish'**
   String get certificateVerifyButton;
+
+  /// No description provided for @logoLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'AI Ijodkor belgisi'**
+  String get logoLabel;
+
+  /// No description provided for @loginTagline.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sun’iy intellekt va dasturlash — o‘quvchilar, ota-onalar va o‘qituvchilar uchun'**
+  String get loginTagline;
+
+  /// No description provided for @loginNote.
+  ///
+  /// In uz, this message translates to:
+  /// **'Login va parolni o‘qituvchingiz beradi. Ota-onalar ham shu yerdan kiradi.'**
+  String get loginNote;
+
+  /// No description provided for @emailHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'ism@misol.uz'**
+  String get emailHint;
+
+  /// No description provided for @showPassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parolni ko‘rsatish'**
+  String get showPassword;
+
+  /// No description provided for @hidePassword.
+  ///
+  /// In uz, this message translates to:
+  /// **'Parolni yashirish'**
+  String get hidePassword;
+
+  /// No description provided for @backLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Orqaga'**
+  String get backLabel;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In uz, this message translates to:
+  /// **'Profil'**
+  String get navProfile;
+
+  /// No description provided for @greetingPrefix.
+  ///
+  /// In uz, this message translates to:
+  /// **'Xayrli kun,'**
+  String get greetingPrefix;
+
+  /// No description provided for @pointsLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'{points} ball'**
+  String pointsLabel(int points);
+
+  /// No description provided for @nextLessonBadge.
+  ///
+  /// In uz, this message translates to:
+  /// **'{module} · {number}-dars'**
+  String nextLessonBadge(String module, int number);
+
+  /// No description provided for @metaMaterial.
+  ///
+  /// In uz, this message translates to:
+  /// **'Video + matn'**
+  String get metaMaterial;
+
+  /// No description provided for @metaQuiz.
+  ///
+  /// In uz, this message translates to:
+  /// **'{count} savolli test'**
+  String metaQuiz(int count);
+
+  /// No description provided for @statLessonsDone.
+  ///
+  /// In uz, this message translates to:
+  /// **'darslar yakunlandi'**
+  String get statLessonsDone;
+
+  /// No description provided for @statRank.
+  ///
+  /// In uz, this message translates to:
+  /// **'guruh reytingida'**
+  String get statRank;
+
+  /// No description provided for @statNotRanked.
+  ///
+  /// In uz, this message translates to:
+  /// **'bu hafta reytingda yo‘q'**
+  String get statNotRanked;
+
+  /// No description provided for @tracksTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yo‘nalishlar'**
+  String get tracksTitle;
+
+  /// No description provided for @allLessonsLink.
+  ///
+  /// In uz, this message translates to:
+  /// **'Barcha darslar'**
+  String get allLessonsLink;
+
+  /// No description provided for @trackLocked.
+  ///
+  /// In uz, this message translates to:
+  /// **'yopiq'**
+  String get trackLocked;
+
+  /// No description provided for @trackDigitalStart.
+  ///
+  /// In uz, this message translates to:
+  /// **'Digital Start'**
+  String get trackDigitalStart;
+
+  /// No description provided for @trackAiCreative.
+  ///
+  /// In uz, this message translates to:
+  /// **'AI & Creative'**
+  String get trackAiCreative;
+
+  /// No description provided for @trackCodeTech.
+  ///
+  /// In uz, this message translates to:
+  /// **'Code & Technology'**
+  String get trackCodeTech;
+
+  /// No description provided for @trackOther.
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshqa'**
+  String get trackOther;
+
+  /// No description provided for @homeworkInReviewTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Uy vazifasi tekshiruvda'**
+  String get homeworkInReviewTitle;
+
+  /// No description provided for @homeworkInReviewBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'«{lesson}» — o‘qituvchi ko‘rib chiqmoqda'**
+  String homeworkInReviewBody(String lesson);
+
+  /// No description provided for @homeworkInReviewMany.
+  ///
+  /// In uz, this message translates to:
+  /// **'{count} ta vazifa — o‘qituvchi ko‘rib chiqmoqda'**
+  String homeworkInReviewMany(int count);
+
+  /// No description provided for @practiceAllLink.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hammasi'**
+  String get practiceAllLink;
+
+  /// No description provided for @lessonPosition.
+  ///
+  /// In uz, this message translates to:
+  /// **'{module} · {index} / {total}'**
+  String lessonPosition(String module, int index, int total);
+
+  /// No description provided for @lessonGoalsTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun nimani o‘rganamiz'**
+  String get lessonGoalsTitle;
+
+  /// No description provided for @materialCaption.
+  ///
+  /// In uz, this message translates to:
+  /// **'Dars materiali'**
+  String get materialCaption;
+
+  /// No description provided for @playMaterial.
+  ///
+  /// In uz, this message translates to:
+  /// **'Materialni ochish'**
+  String get playMaterial;
+
+  /// No description provided for @quizCardTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Dars testi'**
+  String get quizCardTitle;
+
+  /// No description provided for @quizCardBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'{count} savol · {required} tasiga to‘g‘ri javob — keyingi dars ochiladi'**
+  String quizCardBody(int count, int required);
+
+  /// No description provided for @quizStartButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Testni boshlash'**
+  String get quizStartButton;
+
+  /// No description provided for @quizRetakeButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Testni qayta ishlash'**
+  String get quizRetakeButton;
+
+  /// No description provided for @homeworkCardTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Uy vazifasi'**
+  String get homeworkCardTitle;
+
+  /// No description provided for @homeworkCardBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'Matn yoki havola yuboring'**
+  String get homeworkCardBody;
+
+  /// No description provided for @homeworkSubmitShort.
+  ///
+  /// In uz, this message translates to:
+  /// **'Topshirish'**
+  String get homeworkSubmitShort;
+
+  /// No description provided for @lessonViewedButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Darsni ko‘rdim'**
+  String get lessonViewedButton;
+
+  /// No description provided for @myHomeworkLink.
+  ///
+  /// In uz, this message translates to:
+  /// **'Uy vazifalarim'**
+  String get myHomeworkLink;
+
+  /// No description provided for @parentSectionBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ota-onalar bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha farzandingiz natijalarini saytda ko‘ring.'**
+  String get parentSectionBody;
+
+  /// No description provided for @teacherSectionBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘qituvchi bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha o‘quvchilar va vazifalarni saytda boshqaring.'**
+  String get teacherSectionBody;
+
+  /// No description provided for @openPlatformButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Saytda ochish'**
+  String get openPlatformButton;
 }
 
 class _AppLocalizationsDelegate

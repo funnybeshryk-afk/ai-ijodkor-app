@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/l10n.dart';
 import '../../core/routes.dart';
 import '../../data/providers.dart';
+import '../../core/theme.dart';
+import '../../widgets/app_text_field.dart';
 import '../../widgets/message_view.dart';
+import '../../widgets/ui.dart';
 import 'validators.dart';
 
 class ForgotPasswordScreen extends ConsumerStatefulWidget {
@@ -54,26 +58,35 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final theme = Theme.of(context);
+    final colors = context.colors;
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.resetPasswordTitle)),
+      appBar: AppBar(
+        leading: IconButton(
+          tooltip: l10n.backLabel,
+          icon: const Icon(LucideIcons.chevronLeft),
+          onPressed: _backToLogin,
+        ),
+        title: Text(l10n.resetPasswordTitle),
+      ),
       body: SafeArea(
         child: _sent
             ? MessageView(
-                icon: Icons.mark_email_read_outlined,
+                icon: LucideIcons.mail,
                 title: l10n.resetLinkSent,
                 actions: [
-                  FilledButton(
+                  PrimaryButton(
+                    label: l10n.backToLoginButton,
                     onPressed: _backToLogin,
-                    child: Text(l10n.backToLoginButton),
                   ),
                 ],
               )
-            : Center(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(24),
+            : SingleChildScrollView(
+                padding: const EdgeInsets.all(AppSpace.s6),
+                child: Center(
                   child: ConstrainedBox(
-                    constraints: const BoxConstraints(maxWidth: 480),
+                    constraints: const BoxConstraints(
+                      maxWidth: AppSize.formMaxWidth,
+                    ),
                     child: Form(
                       key: _formKey,
                       child: Column(
@@ -81,38 +94,35 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                         children: [
                           Text(
                             l10n.resetPasswordHint,
-                            style: theme.textTheme.bodyLarge,
+                            style: AppText.bodyLg.copyWith(
+                              color: colors.inkSoft,
+                            ),
                           ),
-                          const SizedBox(height: 24),
-                          TextFormField(
+                          const SizedBox(height: AppSpace.s6),
+                          AppTextField(
+                            label: l10n.emailLabel,
+                            hint: l10n.emailHint,
                             controller: _email,
                             keyboardType: TextInputType.emailAddress,
                             autofillHints: const [AutofillHints.email],
-                            decoration: InputDecoration(
-                              labelText: l10n.emailLabel,
-                              prefixIcon: const Icon(Icons.email_outlined),
-                            ),
                             validator: (v) => validateEmail(v, l10n),
                           ),
                           if (_error != null) ...[
-                            const SizedBox(height: 16),
+                            const SizedBox(height: AppSpace.s4),
                             Text(
                               _error!,
-                              style: TextStyle(color: theme.colorScheme.error),
+                              style: AppText.label.copyWith(
+                                color: colors.danger,
+                              ),
                               textAlign: TextAlign.center,
                             ),
                           ],
-                          const SizedBox(height: 24),
-                          FilledButton(
-                            onPressed: _busy ? null : _submit,
-                            child: _busy
-                                ? const SizedBox.square(
-                                    dimension: 24,
-                                    child: CircularProgressIndicator(
-                                      strokeWidth: 3,
-                                    ),
-                                  )
-                                : Text(l10n.sendResetLinkButton),
+                          const SizedBox(height: AppSpace.s6),
+                          PrimaryButton(
+                            label: l10n.sendResetLinkButton,
+                            icon: LucideIcons.send,
+                            busy: _busy,
+                            onPressed: _submit,
                           ),
                         ],
                       ),
