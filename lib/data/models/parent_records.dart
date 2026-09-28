@@ -137,8 +137,8 @@ class ChildOverview {
       .where((p) => p.status == PaymentStatus.unpaid)
       .firstOrNull;
 
-  String lessonTitle(String id) =>
-      lessons.where((l) => l.id == id).firstOrNull?.title ?? '';
+  String lessonTitle(String id, {bool ru = false}) =>
+      lessons.where((l) => l.id == id).firstOrNull?.titleIn(ru: ru) ?? '';
 }
 
 enum ChildEventKind {
@@ -170,13 +170,17 @@ class ChildEvent {
 }
 
 /// Builds the newest-first events feed from the child's records.
-List<ChildEvent> buildChildEvents(ChildOverview o, {int limit = 8}) {
+List<ChildEvent> buildChildEvents(
+  ChildOverview o, {
+  int limit = 8,
+  bool ru = false,
+}) {
   final events = <ChildEvent>[
     for (final h in o.homework) ...[
       ChildEvent(
         kind: ChildEventKind.homeworkSubmitted,
         at: h.submittedAt,
-        subject: o.lessonTitle(h.lessonId),
+        subject: o.lessonTitle(h.lessonId, ru: ru),
       ),
       if (h.reviewedAt != null && h.status != HomeworkStatus.pending)
         ChildEvent(
@@ -184,7 +188,7 @@ List<ChildEvent> buildChildEvents(ChildOverview o, {int limit = 8}) {
               ? ChildEventKind.homeworkApproved
               : ChildEventKind.homeworkRejected,
           at: h.reviewedAt!,
-          subject: o.lessonTitle(h.lessonId),
+          subject: o.lessonTitle(h.lessonId, ru: ru),
         ),
     ],
     for (final p in o.progress)
@@ -192,7 +196,7 @@ List<ChildEvent> buildChildEvents(ChildOverview o, {int limit = 8}) {
         ChildEvent(
           kind: ChildEventKind.lessonCompleted,
           at: p.updatedAt,
-          subject: o.lessonTitle(p.lessonId),
+          subject: o.lessonTitle(p.lessonId, ru: ru),
         ),
     for (final e in o.points)
       ChildEvent(

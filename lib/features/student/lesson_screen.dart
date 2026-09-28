@@ -85,6 +85,8 @@ class _LessonPageState extends ConsumerState<_LessonPage> {
     final module = groupLessonsByModule(widget.all)
         .firstWhere((m) => m.name == lesson.module);
     final track = Track.ofModule(lesson.module);
+    final ru = context.contentRu;
+    final description = lesson.descriptionIn(ru: ru);
 
     return Scaffold(
       body: SafeArea(
@@ -114,7 +116,7 @@ class _LessonPageState extends ConsumerState<_LessonPage> {
                   Expanded(
                     child: Text(
                       l10n.lessonPosition(
-                        lesson.module,
+                        module.label(ru: ru),
                         module.lessons.indexOf(lesson) + 1,
                         module.lessons.length,
                       ),
@@ -154,7 +156,7 @@ class _LessonPageState extends ConsumerState<_LessonPage> {
                     ),
                     const SizedBox(height: AppSpace.tileGap),
                     Text(
-                      lesson.title,
+                      lesson.titleIn(ru: ru),
                       style: AppText.displayLg.copyWith(color: colors.ink),
                     ),
                     const SizedBox(height: AppSpace.s5),
@@ -162,9 +164,9 @@ class _LessonPageState extends ConsumerState<_LessonPage> {
                       hasMaterial: (lesson.contentUrl ?? '').isNotEmpty,
                       onOpen: _openMaterial,
                     ),
-                    if ((lesson.description ?? '').trim().isNotEmpty) ...[
+                    if ((description ?? '').trim().isNotEmpty) ...[
                       const SizedBox(height: AppSpace.s5),
-                      _Goals(description: lesson.description!),
+                      _Goals(description: description!),
                     ],
                     const SizedBox(height: AppSpace.s5),
                     quiz.when(

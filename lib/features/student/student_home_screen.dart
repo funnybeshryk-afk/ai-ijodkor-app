@@ -121,7 +121,7 @@ class _HomeBody extends ConsumerWidget {
                     lessons
                             .where((l) => l.id == pending.first.lessonId)
                             .firstOrNull
-                            ?.title ??
+                            ?.titleIn(ru: context.contentRu) ??
                         '',
                   )
                 : l10n.homeworkInReviewMany(pending.length),
@@ -258,9 +258,10 @@ class _NextLessonPanel extends ConsumerWidget {
       );
     }
 
-    final moduleLessons = groupLessonsByModule(lessons)
-        .firstWhere((m) => m.name == lesson.module)
-        .lessons;
+    final ru = context.contentRu;
+    final module = groupLessonsByModule(lessons)
+        .firstWhere((m) => m.name == lesson.module);
+    final moduleLessons = module.lessons;
     final number = moduleLessons.indexOf(lesson) + 1;
     final quizCount = ref.watch(quizProvider(lesson.id)).value?.length ?? 0;
     final onBrand = colors.onBrand;
@@ -293,14 +294,17 @@ class _NextLessonPanel extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(AppRadius.pill),
                 ),
                 child: Text(
-                  l10n.nextLessonBadge(lesson.module, number),
+                  l10n.nextLessonBadge(module.label(ru: ru), number),
                   style: AppText.label.copyWith(color: onBrand),
                 ),
               ),
             ],
           ),
           const SizedBox(height: AppSpace.card),
-          Text(lesson.title, style: AppText.displayMd.copyWith(color: onBrand)),
+          Text(
+            lesson.titleIn(ru: ru),
+            style: AppText.displayMd.copyWith(color: onBrand),
+          ),
           if (lesson.contentUrl != null || quizCount > 0) ...[
             const SizedBox(height: AppSpace.card),
             Wrap(

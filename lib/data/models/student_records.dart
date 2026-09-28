@@ -1,3 +1,5 @@
+import 'lesson.dart';
+
 /// `homework_submissions.status`
 enum HomeworkStatus {
   pending,
@@ -69,11 +71,15 @@ class Certificate {
     required this.courseName,
     required this.issuedAt,
     required this.teacherName,
+    this.courseNameRu,
   });
 
   /// The certificate number, e.g. "AIJ-2026-000123".
   final String id;
   final String courseName;
+
+  /// `courses.name_ru` (platform migration 0020), if translated.
+  final String? courseNameRu;
   final DateTime issuedAt;
   final String teacherName;
 
@@ -82,5 +88,9 @@ class Certificate {
     courseName: ((json['courses'] as Map?)?['name'] as String?) ?? '',
     issuedAt: DateTime.parse(json['issued_at'] as String),
     teacherName: (json['teacher_name_snapshot'] as String?) ?? '',
+    courseNameRu: (json['courses'] as Map?)?['name_ru'] as String?,
   );
+
+  String courseNameIn({required bool ru}) =>
+      pickContent(courseName, courseNameRu, ru: ru);
 }

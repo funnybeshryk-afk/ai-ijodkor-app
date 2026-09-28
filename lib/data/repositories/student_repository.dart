@@ -55,8 +55,9 @@ class SupabaseStudentRepository implements StudentRepository {
     final rows = await _client
         .from('lessons')
         .select(
-          'id, title, description, module, order_index, content_url, '
-          'lesson_access!inner(student_id)',
+          // `*` rather than a column list: picks up the *_ru translations
+          // (migration 0020) once applied without failing before that.
+          '*, lesson_access!inner(student_id)',
         )
         .eq('lesson_access.student_id', studentId)
         .order('order_index');
@@ -203,7 +204,7 @@ class SupabaseStudentRepository implements StudentRepository {
   Future<List<Certificate>> fetchCertificates(String studentId) async {
     final rows = await _client
         .from('certificates')
-        .select('id, issued_at, teacher_name_snapshot, courses(name)')
+        .select('id, issued_at, teacher_name_snapshot, courses(*)')
         .eq('student_id', studentId)
         .order('issued_at', ascending: false);
     return [for (final row in rows) Certificate.fromJson(row)];

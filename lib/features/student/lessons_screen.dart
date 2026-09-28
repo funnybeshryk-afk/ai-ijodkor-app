@@ -105,7 +105,7 @@ class _ModuleHeader extends StatelessWidget {
         ],
         Expanded(
           child: Text(
-            module.name,
+            module.label(ru: context.contentRu),
             style: AppText.heading.copyWith(color: colors.ink),
           ),
         ),
@@ -145,7 +145,7 @@ class _LessonRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      lesson.title,
+                      lesson.titleIn(ru: context.contentRu),
                       style: AppText.titleSm.copyWith(
                         color: colors.ink,
                         fontWeight: FontWeight.w700,
