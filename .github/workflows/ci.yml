@@ -4,6 +4,19 @@ on:
   push:
     branches: [main]
   pull_request:
+  # Manual build of an installable APK against a given project. Only the
+  # public anon/publishable key belongs here — never service_role.
+  workflow_dispatch:
+    inputs:
+      supabase_url:
+        description: SUPABASE_URL
+        required: false
+      supabase_anon_key:
+        description: SUPABASE_ANON_KEY (anon / publishable key)
+        required: false
+      platform_url:
+        description: PLATFORM_URL
+        required: false
 
 concurrency:
   group: ci-${{ github.ref }}
@@ -41,15 +54,16 @@ jobs:
       - name: Test
         run: flutter test
 
-      # With repository secrets SUPABASE_URL + SUPABASE_ANON_KEY (and
-      # optionally PLATFORM_URL) the APK is built against the real project.
+      # With workflow_dispatch inputs or repository secrets SUPABASE_URL +
+      # SUPABASE_ANON_KEY (and optionally PLATFORM_URL) the APK is built
+      # against the real project.
       # Without them (e.g. PRs from forks) the APK still builds and shows
       # the "not configured" screen. Only the public anon key belongs here.
       - name: Build debug APK
         env:
-          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
-          PLATFORM_URL: ${{ secrets.PLATFORM_URL }}
+          SUPABASE_URL: ${{ inputs.supabase_url || secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ inputs.supabase_anon_key || secrets.SUPABASE_ANON_KEY }}
+          PLATFORM_URL: ${{ inputs.platform_url || secrets.PLATFORM_URL }}
         run: |
           defines=()
           if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
