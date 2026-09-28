@@ -30,6 +30,8 @@ lib/
 ```
 
 ## База данных (Supabase, источник правды — ai-ijodkor-platform/supabase/migrations)
+Рабочий проект: `ai-ijodkor-platform`, URL `https://coojogmncenhkrvytyzz.supabase.co`
+(не путать со старым проектом `ai-ijodkor` / jyivrotkqulvcdnwweed — он на паузе и не используется).
 Роли в `profiles.role`: `student | parent | teacher | admin` (admin использует экраны учителя).
 Таблицы: `profiles` (teacher_id, archived_at), `parent_child_links`, `lessons` (module, order_index,
 content_url), `lesson_access` (ученик видит урок только при наличии строки), `lesson_progress`
