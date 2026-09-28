@@ -32,9 +32,13 @@ class Payment {
     required this.amount,
     required this.status,
     this.markedAt,
+    this.studentId,
   });
 
   final String id;
+
+  /// Set when the row was selected with `student_id` (teacher screens).
+  final String? studentId;
 
   /// 'YYYY-MM'
   final String period;
@@ -53,6 +57,7 @@ class Payment {
     amount: (json['amount'] as num?) ?? 0,
     status: PaymentStatus.parse(json['status'] as String?),
     markedAt: DateTime.tryParse((json['marked_at'] as String?) ?? ''),
+    studentId: json['student_id'] as String?,
   );
 }
 

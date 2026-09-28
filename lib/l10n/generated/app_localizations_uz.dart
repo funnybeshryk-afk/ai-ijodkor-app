@@ -534,17 +534,6 @@ class AppLocalizationsUz extends AppLocalizations {
   String get myHomeworkLink => 'Uy vazifalarim';
 
   @override
-  String get parentSectionBody =>
-      'Ota-onalar bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha farzandingiz natijalarini saytda ko‘ring.';
-
-  @override
-  String get teacherSectionBody =>
-      'O‘qituvchi bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha o‘quvchilar va vazifalarni saytda boshqaring.';
-
-  @override
-  String get openPlatformButton => 'Saytda ochish';
-
-  @override
   String get parentTitleOne => 'Farzandim';
 
   @override
@@ -690,4 +679,271 @@ class AppLocalizationsUz extends AppLocalizations {
   @override
   String get noChildrenBody =>
       'Hisobingizga hali farzand bog‘lanmagan. O‘qituvchi yoki administratorga murojaat qiling.';
+
+  @override
+  String get navStudents => 'O‘quvchilar';
+
+  @override
+  String get navReview => 'Tekshirish';
+
+  @override
+  String get navPayments => 'To‘lovlar';
+
+  @override
+  String get searchStudentsHint => 'Ism bo‘yicha qidirish';
+
+  @override
+  String studentsCount(int count) {
+    return '$count ta o‘quvchi';
+  }
+
+  @override
+  String get noStudentsTitle => 'O‘quvchilar yo‘q';
+
+  @override
+  String get noStudentsBody =>
+      'Yangi o‘quvchilar saytdagi o‘qituvchi panelida qo‘shiladi.';
+
+  @override
+  String get noSearchResults => 'Hech kim topilmadi';
+
+  @override
+  String archivedToggle(int count) {
+    return 'Arxiv ($count)';
+  }
+
+  @override
+  String get archivedBadge => 'Arxivda';
+
+  @override
+  String get teachersButton => 'O‘qituvchilar';
+
+  @override
+  String get unassignedTeacher => 'O‘qituvchi biriktirilmagan';
+
+  @override
+  String get studentProgressTitle => 'O‘zlashtirish';
+
+  @override
+  String get lessonsAccessTitle => 'Darslarga kirish';
+
+  @override
+  String get lessonsAccessHint =>
+      'O‘quvchi faqat belgilangan darslarni ko‘radi.';
+
+  @override
+  String get noHomeworkStudent => 'Vazifa topshirilmagan';
+
+  @override
+  String get parentsTitle => 'Ota-onalar';
+
+  @override
+  String get noParents => 'Ota-ona biriktirilmagan';
+
+  @override
+  String parentLogin(String login) {
+    return 'Login: $login';
+  }
+
+  @override
+  String get certificatesSectionTitle => 'Sertifikatlar';
+
+  @override
+  String get noCertificatesStudent => 'Hali sertifikat berilmagan';
+
+  @override
+  String get issueCertificateButton => 'Sertifikat berish';
+
+  @override
+  String get courseLabel => 'Kurs';
+
+  @override
+  String get teacherNameLabel => 'O‘qituvchi F.I.Sh.';
+
+  @override
+  String get directorNameLabel => 'Direktor F.I.Sh.';
+
+  @override
+  String get fieldRequired => 'To‘ldiring';
+
+  @override
+  String get noCourses => 'Kurslar hali qo‘shilmagan';
+
+  @override
+  String certificateIssuedMsg(String id) {
+    return 'Sertifikat berildi: $id';
+  }
+
+  @override
+  String get archiveButton => 'Arxivga olish';
+
+  @override
+  String get archiveTitle => 'O‘quvchini arxivlash';
+
+  @override
+  String get archiveBody =>
+      'O‘quvchi ilovaga va saytga kira olmaydi, lekin barcha ma’lumotlari saqlanadi. Istalgan vaqtda qaytarish mumkin.';
+
+  @override
+  String get archiveReasonLabel => 'Sabab (ixtiyoriy)';
+
+  @override
+  String get unarchiveButton => 'Arxivdan qaytarish';
+
+  @override
+  String get archivedDone => 'O‘quvchi arxivga olindi';
+
+  @override
+  String get unarchivedDone => 'O‘quvchi qaytarildi';
+
+  @override
+  String get cancelButton => 'Bekor qilish';
+
+  @override
+  String get saveButton => 'Saqlash';
+
+  @override
+  String get savedMessage => 'Saqlandi';
+
+  @override
+  String get teacherLabel => 'O‘qituvchi';
+
+  @override
+  String get changeTeacherTitle => 'O‘qituvchini tanlang';
+
+  @override
+  String get noTeacherOption => 'Biriktirilmagan';
+
+  @override
+  String get teacherChanged => 'O‘qituvchi o‘zgartirildi';
+
+  @override
+  String get reviewTitle => 'Vazifalarni tekshirish';
+
+  @override
+  String reviewCount(int count) {
+    return '$count ta vazifa kutmoqda';
+  }
+
+  @override
+  String get reviewEmptyTitle => 'Hammasi tekshirildi';
+
+  @override
+  String get reviewEmptyBody =>
+      'Yangi uy vazifalari kelganda shu yerda paydo bo‘ladi.';
+
+  @override
+  String get approveButton => 'Qabul qilish';
+
+  @override
+  String get returnButton => 'Qaytarish';
+
+  @override
+  String approveHint(int points) {
+    return '+$points ball, dars yakunlangan deb belgilanadi';
+  }
+
+  @override
+  String get commentLabel => 'Izoh';
+
+  @override
+  String get commentOptionalHint => 'Ixtiyoriy — o‘quvchi ko‘radi';
+
+  @override
+  String get returnCommentHint => 'Nimani tuzatish kerakligini yozing';
+
+  @override
+  String get returnCommentRequired => 'Qaytarish uchun izoh yozing';
+
+  @override
+  String get openLinkButton => 'Havolani ochish';
+
+  @override
+  String get unknownStudent => 'Noma’lum o‘quvchi';
+
+  @override
+  String get unknownLesson => 'Noma’lum dars';
+
+  @override
+  String get groupAccessTitle => 'Darslarni ochish';
+
+  @override
+  String get groupAccessHint =>
+      'Darsni barcha o‘quvchilaringizga birdaniga oching yoki yoping. Bitta o‘quvchi uchun — uning kartasida.';
+
+  @override
+  String openCount(int open, int total) {
+    return '$open / $total ochiq';
+  }
+
+  @override
+  String get openAllButton => 'Hammaga ochish';
+
+  @override
+  String get closeAllButton => 'Hammadan yopish';
+
+  @override
+  String openAllConfirm(String lesson) {
+    return '«$lesson» darsini barcha o‘quvchilarga ochasizmi?';
+  }
+
+  @override
+  String closeAllConfirm(String lesson) {
+    return '«$lesson» darsini barcha o‘quvchilardan yopasizmi? Progress va vazifalar saqlanib qoladi.';
+  }
+
+  @override
+  String get noLessonsTeacher => 'Darslar hali qo‘shilmagan';
+
+  @override
+  String get prevMonth => 'Oldingi oy';
+
+  @override
+  String get nextMonth => 'Keyingi oy';
+
+  @override
+  String get statExpected => 'kutilmoqda';
+
+  @override
+  String get statCollected => 'yig‘ildi';
+
+  @override
+  String get statDebtors => 'qarzdor';
+
+  @override
+  String get debtorsOnly => 'Faqat qarzdorlar';
+
+  @override
+  String get noDebtors => 'Bu oyda qarzdorlar yo‘q';
+
+  @override
+  String get paymentNotMarked => 'belgilanmagan';
+
+  @override
+  String markPaymentTitle(String name, String month) {
+    return '$name · $month';
+  }
+
+  @override
+  String get amountLabel => 'Summa, so‘m';
+
+  @override
+  String get amountInvalid => 'Summani to‘g‘ri kiriting';
+
+  @override
+  String get teachersTitle => 'O‘qituvchilar';
+
+  @override
+  String teacherStudentsCount(int count) {
+    return '$count ta o‘quvchi';
+  }
+
+  @override
+  String get unassignedStudentsTitle => 'O‘qituvchisiz o‘quvchilar';
+
+  @override
+  String get noTeachers => 'O‘qituvchilar yo‘q';
+
+  @override
+  String get pointsTotalLabel => 'ball';
 }

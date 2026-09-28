@@ -20,7 +20,13 @@ import '../features/student/student_home_screen.dart';
 import '../features/student/student_providers.dart';
 import '../features/student/student_shell.dart';
 import '../features/student/trainers.dart';
-import '../features/teacher/teacher_home_screen.dart';
+import '../features/teacher/lessons_access_screen.dart';
+import '../features/teacher/payments_screen.dart';
+import '../features/teacher/review_screen.dart';
+import '../features/teacher/student_detail_screen.dart';
+import '../features/teacher/students_screen.dart';
+import '../features/teacher/teacher_shell.dart';
+import '../features/teacher/teachers_screen.dart';
 import 'auth_gate.dart';
 import 'env.dart';
 import 'l10n.dart';
@@ -55,10 +61,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(path: Routes.profile, builder: (_, _) => const ProfileScreen()),
       _studentShell(rootKey),
       GoRoute(path: Routes.parent, builder: (_, _) => const ParentHomeScreen()),
-      GoRoute(
-        path: Routes.teacher,
-        builder: (_, _) => const TeacherHomeScreen(),
-      ),
+      _teacherShell(rootKey),
     ],
   );
 
@@ -162,6 +165,69 @@ StatefulShellRoute _studentShell(
     ),
   ],
 );
+
+/// Teacher/admin area: students, review queue, lesson access, payments,
+/// profile. The student card and the admin teachers list open full-screen.
+StatefulShellRoute _teacherShell(GlobalKey<NavigatorState> rootKey) =>
+    StatefulShellRoute.indexedStack(
+      builder: (_, _, shell) => TeacherShell(shell: shell),
+      branches: [
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: Routes.teacher,
+              builder: (_, _) => const StudentsScreen(),
+              routes: [
+                GoRoute(
+                  path: 'students/:id',
+                  parentNavigatorKey: rootKey,
+                  builder: (_, state) => StudentDetailScreen(
+                    studentId: state.pathParameters['id']!,
+                  ),
+                ),
+                GoRoute(
+                  path: 'teachers',
+                  parentNavigatorKey: rootKey,
+                  builder: (_, _) => const TeachersScreen(),
+                ),
+              ],
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: Routes.teacherReview,
+              builder: (_, _) => const ReviewScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: Routes.teacherLessons,
+              builder: (_, _) => const LessonsAccessScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: Routes.teacherPayments,
+              builder: (_, _) => const PaymentsScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          routes: [
+            GoRoute(
+              path: Routes.teacherProfile,
+              builder: (_, _) => const ProfileScreen(asTab: true),
+            ),
+          ],
+        ),
+      ],
+    );
 
 /// Lesson material (content_url: video, slides, ...) in a WebView.
 class _LessonMaterial extends ConsumerWidget {

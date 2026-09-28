@@ -530,17 +530,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get myHomeworkLink => 'Мои задания';
 
   @override
-  String get parentSectionBody =>
-      'Раздел для родителей появится в следующей версии приложения. Пока смотрите результаты ребёнка на сайте.';
-
-  @override
-  String get teacherSectionBody =>
-      'Раздел учителя появится в следующей версии приложения. Пока управляйте учениками и заданиями на сайте.';
-
-  @override
-  String get openPlatformButton => 'Открыть сайт';
-
-  @override
   String get parentTitleOne => 'Мой ребёнок';
 
   @override
@@ -686,4 +675,269 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get noChildrenBody =>
       'К вашему аккаунту пока не привязан ребёнок. Обратитесь к учителю или администратору.';
+
+  @override
+  String get navStudents => 'Ученики';
+
+  @override
+  String get navReview => 'Проверка';
+
+  @override
+  String get navPayments => 'Оплаты';
+
+  @override
+  String get searchStudentsHint => 'Поиск по имени';
+
+  @override
+  String studentsCount(int count) {
+    return 'Учеников: $count';
+  }
+
+  @override
+  String get noStudentsTitle => 'Учеников пока нет';
+
+  @override
+  String get noStudentsBody =>
+      'Новых учеников добавляют в панели учителя на сайте.';
+
+  @override
+  String get noSearchResults => 'Никого не найдено';
+
+  @override
+  String archivedToggle(int count) {
+    return 'Архив ($count)';
+  }
+
+  @override
+  String get archivedBadge => 'В архиве';
+
+  @override
+  String get teachersButton => 'Учителя';
+
+  @override
+  String get unassignedTeacher => 'Учитель не назначен';
+
+  @override
+  String get studentProgressTitle => 'Успеваемость';
+
+  @override
+  String get lessonsAccessTitle => 'Доступ к урокам';
+
+  @override
+  String get lessonsAccessHint => 'Ученик видит только отмеченные уроки.';
+
+  @override
+  String get noHomeworkStudent => 'Заданий пока нет';
+
+  @override
+  String get parentsTitle => 'Родители';
+
+  @override
+  String get noParents => 'Родители не привязаны';
+
+  @override
+  String parentLogin(String login) {
+    return 'Логин: $login';
+  }
+
+  @override
+  String get certificatesSectionTitle => 'Сертификаты';
+
+  @override
+  String get noCertificatesStudent => 'Сертификатов ещё нет';
+
+  @override
+  String get issueCertificateButton => 'Выдать сертификат';
+
+  @override
+  String get courseLabel => 'Курс';
+
+  @override
+  String get teacherNameLabel => 'ФИО учителя';
+
+  @override
+  String get directorNameLabel => 'ФИО директора';
+
+  @override
+  String get fieldRequired => 'Заполните поле';
+
+  @override
+  String get noCourses => 'Курсов пока нет';
+
+  @override
+  String certificateIssuedMsg(String id) {
+    return 'Сертификат выдан: $id';
+  }
+
+  @override
+  String get archiveButton => 'В архив';
+
+  @override
+  String get archiveTitle => 'Архивировать ученика';
+
+  @override
+  String get archiveBody =>
+      'Ученик не сможет войти в приложение и на сайт, но все данные сохранятся. Вернуть можно в любой момент.';
+
+  @override
+  String get archiveReasonLabel => 'Причина (необязательно)';
+
+  @override
+  String get unarchiveButton => 'Вернуть из архива';
+
+  @override
+  String get archivedDone => 'Ученик в архиве';
+
+  @override
+  String get unarchivedDone => 'Ученик возвращён';
+
+  @override
+  String get cancelButton => 'Отмена';
+
+  @override
+  String get saveButton => 'Сохранить';
+
+  @override
+  String get savedMessage => 'Сохранено';
+
+  @override
+  String get teacherLabel => 'Учитель';
+
+  @override
+  String get changeTeacherTitle => 'Выберите учителя';
+
+  @override
+  String get noTeacherOption => 'Без учителя';
+
+  @override
+  String get teacherChanged => 'Учитель изменён';
+
+  @override
+  String get reviewTitle => 'Проверка заданий';
+
+  @override
+  String reviewCount(int count) {
+    return 'Ждут проверки: $count';
+  }
+
+  @override
+  String get reviewEmptyTitle => 'Всё проверено';
+
+  @override
+  String get reviewEmptyBody => 'Новые домашние задания появятся здесь.';
+
+  @override
+  String get approveButton => 'Принять';
+
+  @override
+  String get returnButton => 'Вернуть';
+
+  @override
+  String approveHint(int points) {
+    return '+$points баллов, урок будет отмечен как завершённый';
+  }
+
+  @override
+  String get commentLabel => 'Комментарий';
+
+  @override
+  String get commentOptionalHint => 'Необязательно — ученик увидит';
+
+  @override
+  String get returnCommentHint => 'Напишите, что нужно исправить';
+
+  @override
+  String get returnCommentRequired => 'Чтобы вернуть, напишите комментарий';
+
+  @override
+  String get openLinkButton => 'Открыть ссылку';
+
+  @override
+  String get unknownStudent => 'Неизвестный ученик';
+
+  @override
+  String get unknownLesson => 'Неизвестный урок';
+
+  @override
+  String get groupAccessTitle => 'Открытие уроков';
+
+  @override
+  String get groupAccessHint =>
+      'Откройте или закройте урок сразу всем вашим ученикам. Для одного ученика — в его карточке.';
+
+  @override
+  String openCount(int open, int total) {
+    return 'Открыт: $open из $total';
+  }
+
+  @override
+  String get openAllButton => 'Открыть всем';
+
+  @override
+  String get closeAllButton => 'Закрыть всем';
+
+  @override
+  String openAllConfirm(String lesson) {
+    return 'Открыть урок «$lesson» всем ученикам?';
+  }
+
+  @override
+  String closeAllConfirm(String lesson) {
+    return 'Закрыть урок «$lesson» для всех учеников? Прогресс и задания сохранятся.';
+  }
+
+  @override
+  String get noLessonsTeacher => 'Уроков пока нет';
+
+  @override
+  String get prevMonth => 'Предыдущий месяц';
+
+  @override
+  String get nextMonth => 'Следующий месяц';
+
+  @override
+  String get statExpected => 'ожидается';
+
+  @override
+  String get statCollected => 'собрано';
+
+  @override
+  String get statDebtors => 'должники';
+
+  @override
+  String get debtorsOnly => 'Только должники';
+
+  @override
+  String get noDebtors => 'В этом месяце должников нет';
+
+  @override
+  String get paymentNotMarked => 'не отмечено';
+
+  @override
+  String markPaymentTitle(String name, String month) {
+    return '$name · $month';
+  }
+
+  @override
+  String get amountLabel => 'Сумма, сум';
+
+  @override
+  String get amountInvalid => 'Введите корректную сумму';
+
+  @override
+  String get teachersTitle => 'Учителя';
+
+  @override
+  String teacherStudentsCount(int count) {
+    return 'Учеников: $count';
+  }
+
+  @override
+  String get unassignedStudentsTitle => 'Ученики без учителя';
+
+  @override
+  String get noTeachers => 'Учителей пока нет';
+
+  @override
+  String get pointsTotalLabel => 'баллов';
 }

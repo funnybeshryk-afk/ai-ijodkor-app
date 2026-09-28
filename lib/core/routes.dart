@@ -24,6 +24,13 @@ class Routes {
   static const studentProfile = '/student/profile';
   static const studentCertificates = '/student/certificates';
 
+  static String teacherStudent(String id) => '/teacher/students/$id';
+  static const teacherReview = '/teacher/review';
+  static const teacherLessons = '/teacher/lessons';
+  static const teacherPayments = '/teacher/payments';
+  static const teacherProfile = '/teacher/profile';
+  static const teacherTeachers = '/teacher/teachers';
+
   static const _public = {login, forgotPassword};
 
   /// Home area for a role. Admins use the teacher screens.

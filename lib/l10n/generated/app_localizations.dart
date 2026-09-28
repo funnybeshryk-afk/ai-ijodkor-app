@@ -1046,24 +1046,6 @@ abstract class AppLocalizations {
   /// **'Uy vazifalarim'**
   String get myHomeworkLink;
 
-  /// No description provided for @parentSectionBody.
-  ///
-  /// In uz, this message translates to:
-  /// **'Ota-onalar bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha farzandingiz natijalarini saytda ko‘ring.'**
-  String get parentSectionBody;
-
-  /// No description provided for @teacherSectionBody.
-  ///
-  /// In uz, this message translates to:
-  /// **'O‘qituvchi bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha o‘quvchilar va vazifalarni saytda boshqaring.'**
-  String get teacherSectionBody;
-
-  /// No description provided for @openPlatformButton.
-  ///
-  /// In uz, this message translates to:
-  /// **'Saytda ochish'**
-  String get openPlatformButton;
-
   /// No description provided for @parentTitleOne.
   ///
   /// In uz, this message translates to:
@@ -1279,6 +1261,486 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Hisobingizga hali farzand bog‘lanmagan. O‘qituvchi yoki administratorga murojaat qiling.'**
   String get noChildrenBody;
+
+  /// No description provided for @navStudents.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘quvchilar'**
+  String get navStudents;
+
+  /// No description provided for @navReview.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tekshirish'**
+  String get navReview;
+
+  /// No description provided for @navPayments.
+  ///
+  /// In uz, this message translates to:
+  /// **'To‘lovlar'**
+  String get navPayments;
+
+  /// No description provided for @searchStudentsHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ism bo‘yicha qidirish'**
+  String get searchStudentsHint;
+
+  /// No description provided for @studentsCount.
+  ///
+  /// In uz, this message translates to:
+  /// **'{count} ta o‘quvchi'**
+  String studentsCount(int count);
+
+  /// No description provided for @noStudentsTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘quvchilar yo‘q'**
+  String get noStudentsTitle;
+
+  /// No description provided for @noStudentsBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi o‘quvchilar saytdagi o‘qituvchi panelida qo‘shiladi.'**
+  String get noStudentsBody;
+
+  /// No description provided for @noSearchResults.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hech kim topilmadi'**
+  String get noSearchResults;
+
+  /// No description provided for @archivedToggle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Arxiv ({count})'**
+  String archivedToggle(int count);
+
+  /// No description provided for @archivedBadge.
+  ///
+  /// In uz, this message translates to:
+  /// **'Arxivda'**
+  String get archivedBadge;
+
+  /// No description provided for @teachersButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘qituvchilar'**
+  String get teachersButton;
+
+  /// No description provided for @unassignedTeacher.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘qituvchi biriktirilmagan'**
+  String get unassignedTeacher;
+
+  /// No description provided for @studentProgressTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘zlashtirish'**
+  String get studentProgressTitle;
+
+  /// No description provided for @lessonsAccessTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Darslarga kirish'**
+  String get lessonsAccessTitle;
+
+  /// No description provided for @lessonsAccessHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘quvchi faqat belgilangan darslarni ko‘radi.'**
+  String get lessonsAccessHint;
+
+  /// No description provided for @noHomeworkStudent.
+  ///
+  /// In uz, this message translates to:
+  /// **'Vazifa topshirilmagan'**
+  String get noHomeworkStudent;
+
+  /// No description provided for @parentsTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ota-onalar'**
+  String get parentsTitle;
+
+  /// No description provided for @noParents.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ota-ona biriktirilmagan'**
+  String get noParents;
+
+  /// No description provided for @parentLogin.
+  ///
+  /// In uz, this message translates to:
+  /// **'Login: {login}'**
+  String parentLogin(String login);
+
+  /// No description provided for @certificatesSectionTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sertifikatlar'**
+  String get certificatesSectionTitle;
+
+  /// No description provided for @noCertificatesStudent.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hali sertifikat berilmagan'**
+  String get noCertificatesStudent;
+
+  /// No description provided for @issueCertificateButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sertifikat berish'**
+  String get issueCertificateButton;
+
+  /// No description provided for @courseLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kurs'**
+  String get courseLabel;
+
+  /// No description provided for @teacherNameLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘qituvchi F.I.Sh.'**
+  String get teacherNameLabel;
+
+  /// No description provided for @directorNameLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Direktor F.I.Sh.'**
+  String get directorNameLabel;
+
+  /// No description provided for @fieldRequired.
+  ///
+  /// In uz, this message translates to:
+  /// **'To‘ldiring'**
+  String get fieldRequired;
+
+  /// No description provided for @noCourses.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kurslar hali qo‘shilmagan'**
+  String get noCourses;
+
+  /// No description provided for @certificateIssuedMsg.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sertifikat berildi: {id}'**
+  String certificateIssuedMsg(String id);
+
+  /// No description provided for @archiveButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Arxivga olish'**
+  String get archiveButton;
+
+  /// No description provided for @archiveTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘quvchini arxivlash'**
+  String get archiveTitle;
+
+  /// No description provided for @archiveBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘quvchi ilovaga va saytga kira olmaydi, lekin barcha ma’lumotlari saqlanadi. Istalgan vaqtda qaytarish mumkin.'**
+  String get archiveBody;
+
+  /// No description provided for @archiveReasonLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sabab (ixtiyoriy)'**
+  String get archiveReasonLabel;
+
+  /// No description provided for @unarchiveButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Arxivdan qaytarish'**
+  String get unarchiveButton;
+
+  /// No description provided for @archivedDone.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘quvchi arxivga olindi'**
+  String get archivedDone;
+
+  /// No description provided for @unarchivedDone.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘quvchi qaytarildi'**
+  String get unarchivedDone;
+
+  /// No description provided for @cancelButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bekor qilish'**
+  String get cancelButton;
+
+  /// No description provided for @saveButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Saqlash'**
+  String get saveButton;
+
+  /// No description provided for @savedMessage.
+  ///
+  /// In uz, this message translates to:
+  /// **'Saqlandi'**
+  String get savedMessage;
+
+  /// No description provided for @teacherLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘qituvchi'**
+  String get teacherLabel;
+
+  /// No description provided for @changeTeacherTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘qituvchini tanlang'**
+  String get changeTeacherTitle;
+
+  /// No description provided for @noTeacherOption.
+  ///
+  /// In uz, this message translates to:
+  /// **'Biriktirilmagan'**
+  String get noTeacherOption;
+
+  /// No description provided for @teacherChanged.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘qituvchi o‘zgartirildi'**
+  String get teacherChanged;
+
+  /// No description provided for @reviewTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Vazifalarni tekshirish'**
+  String get reviewTitle;
+
+  /// No description provided for @reviewCount.
+  ///
+  /// In uz, this message translates to:
+  /// **'{count} ta vazifa kutmoqda'**
+  String reviewCount(int count);
+
+  /// No description provided for @reviewEmptyTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hammasi tekshirildi'**
+  String get reviewEmptyTitle;
+
+  /// No description provided for @reviewEmptyBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi uy vazifalari kelganda shu yerda paydo bo‘ladi.'**
+  String get reviewEmptyBody;
+
+  /// No description provided for @approveButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qabul qilish'**
+  String get approveButton;
+
+  /// No description provided for @returnButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qaytarish'**
+  String get returnButton;
+
+  /// No description provided for @approveHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'+{points} ball, dars yakunlangan deb belgilanadi'**
+  String approveHint(int points);
+
+  /// No description provided for @commentLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Izoh'**
+  String get commentLabel;
+
+  /// No description provided for @commentOptionalHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ixtiyoriy — o‘quvchi ko‘radi'**
+  String get commentOptionalHint;
+
+  /// No description provided for @returnCommentHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Nimani tuzatish kerakligini yozing'**
+  String get returnCommentHint;
+
+  /// No description provided for @returnCommentRequired.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qaytarish uchun izoh yozing'**
+  String get returnCommentRequired;
+
+  /// No description provided for @openLinkButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Havolani ochish'**
+  String get openLinkButton;
+
+  /// No description provided for @unknownStudent.
+  ///
+  /// In uz, this message translates to:
+  /// **'Noma’lum o‘quvchi'**
+  String get unknownStudent;
+
+  /// No description provided for @unknownLesson.
+  ///
+  /// In uz, this message translates to:
+  /// **'Noma’lum dars'**
+  String get unknownLesson;
+
+  /// No description provided for @groupAccessTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Darslarni ochish'**
+  String get groupAccessTitle;
+
+  /// No description provided for @groupAccessHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Darsni barcha o‘quvchilaringizga birdaniga oching yoki yoping. Bitta o‘quvchi uchun — uning kartasida.'**
+  String get groupAccessHint;
+
+  /// No description provided for @openCount.
+  ///
+  /// In uz, this message translates to:
+  /// **'{open} / {total} ochiq'**
+  String openCount(int open, int total);
+
+  /// No description provided for @openAllButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hammaga ochish'**
+  String get openAllButton;
+
+  /// No description provided for @closeAllButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hammadan yopish'**
+  String get closeAllButton;
+
+  /// No description provided for @openAllConfirm.
+  ///
+  /// In uz, this message translates to:
+  /// **'«{lesson}» darsini barcha o‘quvchilarga ochasizmi?'**
+  String openAllConfirm(String lesson);
+
+  /// No description provided for @closeAllConfirm.
+  ///
+  /// In uz, this message translates to:
+  /// **'«{lesson}» darsini barcha o‘quvchilardan yopasizmi? Progress va vazifalar saqlanib qoladi.'**
+  String closeAllConfirm(String lesson);
+
+  /// No description provided for @noLessonsTeacher.
+  ///
+  /// In uz, this message translates to:
+  /// **'Darslar hali qo‘shilmagan'**
+  String get noLessonsTeacher;
+
+  /// No description provided for @prevMonth.
+  ///
+  /// In uz, this message translates to:
+  /// **'Oldingi oy'**
+  String get prevMonth;
+
+  /// No description provided for @nextMonth.
+  ///
+  /// In uz, this message translates to:
+  /// **'Keyingi oy'**
+  String get nextMonth;
+
+  /// No description provided for @statExpected.
+  ///
+  /// In uz, this message translates to:
+  /// **'kutilmoqda'**
+  String get statExpected;
+
+  /// No description provided for @statCollected.
+  ///
+  /// In uz, this message translates to:
+  /// **'yig‘ildi'**
+  String get statCollected;
+
+  /// No description provided for @statDebtors.
+  ///
+  /// In uz, this message translates to:
+  /// **'qarzdor'**
+  String get statDebtors;
+
+  /// No description provided for @debtorsOnly.
+  ///
+  /// In uz, this message translates to:
+  /// **'Faqat qarzdorlar'**
+  String get debtorsOnly;
+
+  /// No description provided for @noDebtors.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu oyda qarzdorlar yo‘q'**
+  String get noDebtors;
+
+  /// No description provided for @paymentNotMarked.
+  ///
+  /// In uz, this message translates to:
+  /// **'belgilanmagan'**
+  String get paymentNotMarked;
+
+  /// No description provided for @markPaymentTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'{name} · {month}'**
+  String markPaymentTitle(String name, String month);
+
+  /// No description provided for @amountLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'Summa, so‘m'**
+  String get amountLabel;
+
+  /// No description provided for @amountInvalid.
+  ///
+  /// In uz, this message translates to:
+  /// **'Summani to‘g‘ri kiriting'**
+  String get amountInvalid;
+
+  /// No description provided for @teachersTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘qituvchilar'**
+  String get teachersTitle;
+
+  /// No description provided for @teacherStudentsCount.
+  ///
+  /// In uz, this message translates to:
+  /// **'{count} ta o‘quvchi'**
+  String teacherStudentsCount(int count);
+
+  /// No description provided for @unassignedStudentsTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘qituvchisiz o‘quvchilar'**
+  String get unassignedStudentsTitle;
+
+  /// No description provided for @noTeachers.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘qituvchilar yo‘q'**
+  String get noTeachers;
+
+  /// No description provided for @pointsTotalLabel.
+  ///
+  /// In uz, this message translates to:
+  /// **'ball'**
+  String get pointsTotalLabel;
 }
 
 class _AppLocalizationsDelegate
