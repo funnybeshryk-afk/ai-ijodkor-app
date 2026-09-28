@@ -1,13 +1,14 @@
 # ROADMAP — AI IJODKOR app
 
 ## Этап 1 — Каркас и вход
-- [ ] Flutter-проект (Android + iOS), структура из CLAUDE.md, riverpod, go_router
-- [ ] Инициализация Supabase через --dart-define, `.env`-примеры в README
-- [ ] Локализация uz/ru + переключатель языка (сохраняется между запусками)
-- [ ] Экран входа (email + пароль), выход, восстановление пароля
-- [ ] Редирект по роли: student / parent / teacher+admin; заглушки главных экранов
-- [ ] Тема и базовые виджеты; иконка и splash с логотипом
-- [ ] GitHub Actions: flutter analyze + test + сборка debug APK
+- [x] Flutter-проект (Android + iOS), структура из CLAUDE.md, riverpod, go_router
+- [x] Инициализация Supabase через --dart-define, `.env`-примеры в README
+- [x] Локализация uz/ru + переключатель языка (сохраняется между запусками)
+- [x] Экран входа (email + пароль), выход, восстановление пароля
+- [x] Редирект по роли: student / parent / teacher+admin; заглушки главных экранов
+- [x] Тема и базовые виджеты
+- [ ] Иконка и splash с логотипом — ждём файлы логотипа (пока временный логотип-иконка)
+- [x] GitHub Actions: flutter analyze + test + сборка debug APK
 
 ## Этап 2 — Ученик
 - [ ] Главная: баллы, прогресс, следующий урок
