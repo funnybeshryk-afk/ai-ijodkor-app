@@ -23,6 +23,7 @@ import '../features/student/trainers.dart';
 import '../features/teacher/teacher_home_screen.dart';
 import 'auth_gate.dart';
 import 'env.dart';
+import 'l10n.dart';
 import 'routes.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -179,6 +180,9 @@ class _LessonMaterial extends ConsumerWidget {
     if (lesson == null || url == null || !url.hasScheme) {
       return Scaffold(appBar: AppBar(), body: const SizedBox.shrink());
     }
-    return WebPageScreen(url: url, title: lesson.title);
+    return WebPageScreen(
+      url: url,
+      title: lesson.titleIn(ru: context.contentRu),
+    );
   }
 }

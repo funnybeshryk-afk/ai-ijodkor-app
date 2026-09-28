@@ -64,6 +64,7 @@ flutter build apk --debug
 
 Тренажёры открываются в WebView на `PLATFORM_URL/student/practice/<key>`;
 сессия передаётся cookie в формате `@supabase/ssr`, повторный вход не нужен.
+Язык приложения передаётся туда же — `?lang=uz|ru` и cookie `aiij_lang`.
 
 ## Дизайн
 
