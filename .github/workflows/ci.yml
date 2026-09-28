@@ -41,10 +41,28 @@ jobs:
       - name: Test
         run: flutter test
 
-      # Keys are not needed for a CI build: the app shows a
-      # "not configured" screen when SUPABASE_* defines are absent.
+      # With repository secrets SUPABASE_URL + SUPABASE_ANON_KEY (and
+      # optionally PLATFORM_URL) the APK is built against the real project.
+      # Without them (e.g. PRs from forks) the APK still builds and shows
+      # the "not configured" screen. Only the public anon key belongs here.
       - name: Build debug APK
-        run: flutter build apk --debug
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          PLATFORM_URL: ${{ secrets.PLATFORM_URL }}
+        run: |
+          defines=()
+          if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
+            echo "Building with Supabase keys from repository secrets"
+            defines+=(--dart-define=SUPABASE_URL="$SUPABASE_URL")
+            defines+=(--dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY")
+            if [ -n "$PLATFORM_URL" ]; then
+              defines+=(--dart-define=PLATFORM_URL="$PLATFORM_URL")
+            fi
+          else
+            echo "::notice::SUPABASE_URL/SUPABASE_ANON_KEY secrets not set — building unconfigured APK"
+          fi
+          flutter build apk --debug "${defines[@]}"
 
       - uses: actions/upload-artifact@v4
         with:

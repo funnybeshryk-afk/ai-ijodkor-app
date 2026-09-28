@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../core/l10n.dart';
 
-/// Temporary logo until the brand assets are added.
+/// Brand logo (assets/branding/logo.png) with the app name under it.
 class AppLogo extends StatelessWidget {
   const AppLogo({super.key, this.size = 96});
 
@@ -10,22 +10,13 @@ class AppLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          width: size,
+        Image.asset(
+          'assets/branding/logo.png',
           height: size,
-          decoration: BoxDecoration(
-            color: colors.primaryContainer,
-            borderRadius: BorderRadius.circular(size / 4),
-          ),
-          child: Icon(
-            Icons.auto_awesome,
-            size: size * 0.55,
-            color: colors.onPrimaryContainer,
-          ),
+          semanticLabel: context.l10n.appTitle,
         ),
         const SizedBox(height: 12),
         Text(
