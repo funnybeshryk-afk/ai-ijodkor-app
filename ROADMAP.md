@@ -7,7 +7,7 @@
 - [x] Экран входа (email + пароль), выход, восстановление пароля
 - [x] Редирект по роли: student / parent / teacher+admin; заглушки главных экранов
 - [x] Тема и базовые виджеты
-- [x] Иконка и splash с логотипом (из intelliqos-site/public/assets/logo-icon.png)
+- [x] Иконка и splash с логотипом (знак AI Ijodkor из брендбука)
 - [x] GitHub Actions: flutter analyze + test + сборка debug APK (с секретами SUPABASE_* — сборка с ключами)
 
 ## Этап 2 — Ученик
