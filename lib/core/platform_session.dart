@@ -12,6 +12,19 @@ import 'dart:convert';
 class PlatformSessionCookies {
   const PlatformSessionCookies._();
 
+  /// The platform's language cookie (`aiij_lang`, values `uz` | `ru`).
+  static const langCookie = 'aiij_lang';
+
+  /// [url] with `?lang=` set, so the platform opens in the app's language
+  /// (its proxy stores the choice in [langCookie]). Only `uz` and `ru` are
+  /// supported there; anything else falls back to Uzbek.
+  static Uri withLang(Uri url, String languageCode) => url.replace(
+    queryParameters: {
+      ...url.queryParameters,
+      'lang': languageCode == 'ru' ? 'ru' : 'uz',
+    },
+  );
+
   static const maxChunkSize = 3180;
 
   static String cookieName(String supabaseUrl) =>

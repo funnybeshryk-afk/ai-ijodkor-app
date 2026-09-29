@@ -174,14 +174,16 @@ class _Question extends StatelessWidget {
         ),
         const SizedBox(height: AppSpace.s1),
         Text(
-          question.question,
+          question.questionIn(ru: context.contentRu),
           style: AppText.titleSm.copyWith(color: colors.ink),
         ),
         const SizedBox(height: AppSpace.s3),
         if (question.isMultipleChoice)
-          for (final option in question.options)
+          // The Uzbek option is what gets submitted and graded; only the
+          // label is translated.
+          for (final (i, option) in question.options.indexed)
             _OptionTile(
-              label: option,
+              label: question.optionLabel(i, ru: context.contentRu),
               selected: answer == option,
               onTap: enabled ? () => onChanged(option) : null,
             )

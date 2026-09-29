@@ -6,6 +6,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../core/env.dart';
 import '../../core/l10n.dart';
+import '../../core/locale_controller.dart';
 import '../../core/platform_session.dart';
 import '../../data/providers.dart';
 import '../../core/theme.dart';
@@ -41,7 +42,8 @@ final platformCookiesProvider =
 
 /// Full-screen WebView. With [withPlatformSession] the student's Supabase
 /// session is handed to the platform as cookies, so trainers open signed
-/// in. Links leaving [url]'s host open in the external browser.
+/// in, and in the app's language (`aiij_lang` cookie plus `?lang=`). Links
+/// leaving [url]'s host open in the external browser.
 class WebPageScreen extends ConsumerStatefulWidget {
   const WebPageScreen({
     super.key,
@@ -92,9 +94,15 @@ class _WebPageScreenState extends ConsumerState<WebPageScreen> {
 
   Future<void> _load() async {
     setState(() => _failed = false);
+    var url = widget.url;
     try {
       if (widget.withPlatformSession) {
-        final cookies = await ref.read(platformCookiesProvider)();
+        final lang = ref.read(localeControllerProvider).languageCode;
+        url = PlatformSessionCookies.withLang(url, lang);
+        final cookies = {
+          ...await ref.read(platformCookiesProvider)(),
+          PlatformSessionCookies.langCookie: lang == 'ru' ? 'ru' : 'uz',
+        };
         final manager = WebViewCookieManager();
         await manager.clearCookies();
         for (final entry in cookies.entries) {
@@ -107,7 +115,7 @@ class _WebPageScreenState extends ConsumerState<WebPageScreen> {
           );
         }
       }
-      await _controller.loadRequest(widget.url);
+      await _controller.loadRequest(url);
     } catch (_) {
       if (mounted) setState(() => _failed = true);
     }

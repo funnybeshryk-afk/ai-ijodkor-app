@@ -1,3 +1,5 @@
+import 'lesson.dart';
+
 /// One question of a lesson quiz as returned by the `get_lesson_quiz` RPC
 /// (migration 0019). Never contains the correct answer.
 class QuizQuestion {
@@ -6,12 +8,36 @@ class QuizQuestion {
     required this.isMultipleChoice,
     required this.question,
     this.options = const [],
+    this.questionRu,
+    this.optionsRu,
   });
 
   final String id;
   final bool isMultipleChoice;
   final String question;
+
+  /// Uzbek option texts — what is submitted and graded, always.
   final List<String> options;
+
+  /// Optional Russian translation (platform migration 0020). [optionsRu], when
+  /// present, has the same length and order as [options].
+  final String? questionRu;
+  final List<String>? optionsRu;
+
+  String questionIn({required bool ru}) =>
+      pickContent(question, questionRu, ru: ru);
+
+  /// What the student reads for `options[index]`.
+  String optionLabel(int index, {required bool ru}) {
+    final translated = optionsRu;
+    return pickContent(
+      options[index],
+      translated != null && translated.length == options.length
+          ? translated[index]
+          : null,
+      ru: ru,
+    );
+  }
 
   factory QuizQuestion.fromJson(Map<String, dynamic> json) => QuizQuestion(
     id: json['id'] as String,
@@ -21,6 +47,10 @@ class QuizQuestion {
       for (final option in (json['options'] as List?) ?? const [])
         option.toString(),
     ],
+    questionRu: json['question_ru'] as String?,
+    optionsRu: json['options_ru'] is List
+        ? [for (final o in json['options_ru'] as List) o.toString()]
+        : null,
   );
 }
 

@@ -1,3 +1,4 @@
+import 'package:ai_ijodkor/core/locale_controller.dart';
 import 'package:ai_ijodkor/data/models/lesson.dart';
 import 'package:ai_ijodkor/data/models/profile.dart';
 import 'package:ai_ijodkor/data/models/quiz.dart';
@@ -59,8 +60,14 @@ void main() {
       ..correctAnswers.addAll({'q1': 'Space', 'q2': 'Shift'});
   });
 
-  Future<void> start(WidgetTester tester) async {
-    await pumpApp(tester, auth: auth, profiles: profiles, student: repo);
+  Future<void> start(WidgetTester tester, {String? locale}) async {
+    await pumpApp(
+      tester,
+      auth: auth,
+      profiles: profiles,
+      student: repo,
+      prefs: {LocaleController.storageKey: ?locale},
+    );
     await tester.enterText(byKey('login_email'), 'kid@test.uz');
     await tester.enterText(byKey('login_password'), auth.password);
     await tester.tap(byKey('login_submit'));
@@ -233,5 +240,107 @@ void main() {
 
     expect(find.text('Digital Start'), findsOneWidget);
     expect(find.text('Raqami: AIJ-2026-000123'), findsOneWidget);
+  });
+
+  testWidgets('Russian UI shows translated content, quiz grades Uzbek', (
+    tester,
+  ) async {
+    repo
+      ..allLessons.clear()
+      ..allLessons.addAll([
+        const Lesson(
+          id: 'l1',
+          title: 'Klaviatura bilan tanishuv',
+          titleRu: 'Знакомство с клавиатурой',
+          description: 'Tugmalar',
+          descriptionRu: 'Клавиши',
+          module: 'Kompyuter asoslari',
+          moduleRu: 'Основы компьютера',
+          orderIndex: 1,
+        ),
+        // Untranslated: falls back to Uzbek, module name from l1.
+        const Lesson(
+          id: 'l2',
+          title: 'Sichqoncha',
+          module: 'Kompyuter asoslari',
+          orderIndex: 2,
+        ),
+      ])
+      ..access.add('l2')
+      ..quizzes['l1'] = const [
+        QuizQuestion(
+          id: 'q1',
+          isMultipleChoice: true,
+          question: 'Qaysi tugma bo‘sh joy qo‘yadi?',
+          questionRu: 'Какая клавиша ставит пробел?',
+          options: ['Kirish', 'Probel'],
+          optionsRu: ['Ввод', 'Пробел'],
+        ),
+      ]
+      ..correctAnswers['q1'] = 'Probel';
+    repo.certificates.add(
+      Certificate(
+        id: 'AIJ-2026-000123',
+        courseName: 'Raqamli start',
+        courseNameRu: 'Цифровой старт',
+        issuedAt: DateTime(2026, 9, 20),
+        teacherName: 'Nurbek',
+      ),
+    );
+
+    await start(tester, locale: 'ru');
+    expect(find.text('Знакомство с клавиатурой'), findsWidgets);
+    await openTab(tester, 'Уроки');
+    expect(find.text('Основы компьютера'), findsOneWidget);
+    expect(find.text('Kompyuter asoslari'), findsNothing);
+    expect(find.text('Sichqoncha'), findsOneWidget);
+
+    await tester.tap(find.text('Знакомство с клавиатурой'));
+    await tester.pumpAndSettle();
+    expect(find.text('Клавиши'), findsOneWidget);
+    await tester.tap(byKey('quiz_start'));
+    await tester.pumpAndSettle();
+    expect(find.text('Какая клавиша ставит пробел?'), findsOneWidget);
+    expect(find.text('Probel'), findsNothing);
+    await tester.tap(find.text('Пробел'));
+    await tester.pump();
+    await tester.tap(byKey('quiz_submit'));
+    await tester.pumpAndSettle();
+    // The fake grades against the Uzbek option, so passing proves the
+    // Uzbek value was submitted.
+    expect(find.text('Молодец! Урок пройден.'), findsOneWidget);
+    expect(repo.progress['l1'], ProgressStatus.completed);
+  });
+
+  test('translations fall back to Uzbek when empty or misaligned', () {
+    const lesson = Lesson(
+      id: 'x',
+      title: 'Nomi',
+      titleRu: '  ',
+      module: 'M',
+      orderIndex: 1,
+    );
+    expect(lesson.titleIn(ru: true), 'Nomi');
+    expect(lesson.descriptionIn(ru: true), isNull);
+    const q = QuizQuestion(
+      id: 'q',
+      isMultipleChoice: true,
+      question: 'Savol',
+      options: ['a', 'b'],
+      optionsRu: ['а'],
+    );
+    expect(q.optionLabel(0, ru: true), 'a');
+    expect(q.optionLabel(1, ru: false), 'b');
+    expect(
+      QuizQuestion.fromJson({
+        'id': 'q',
+        'type': 'multiple_choice',
+        'question': 'Savol',
+        'question_ru': 'Вопрос',
+        'options': ['a', 'b'],
+        'options_ru': ['а', 'б'],
+      }).optionLabel(1, ru: true),
+      'б',
+    );
   });
 }

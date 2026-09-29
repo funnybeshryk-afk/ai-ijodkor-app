@@ -126,7 +126,9 @@ class _ChildPage extends ConsumerWidget {
               const SizedBox(height: AppSpace.s5),
               _PaymentSection(child: child, overview: o),
               const SizedBox(height: AppSpace.s5),
-              _EventsSection(events: buildChildEvents(o)),
+              _EventsSection(
+                events: buildChildEvents(o, ru: context.contentRu),
+              ),
             ],
           ),
         ),

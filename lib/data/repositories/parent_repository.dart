@@ -46,8 +46,9 @@ class SupabaseParentRepository implements ParentRepository {
       _client
           .from('lessons')
           .select(
-            'id, title, description, module, order_index, content_url, '
-            'lesson_access!inner(student_id)',
+            // `*` rather than a column list: picks up the *_ru translations
+            // (migration 0020) once applied without failing before that.
+            '*, lesson_access!inner(student_id)',
           )
           .eq('lesson_access.student_id', childId)
           .order('order_index'),

@@ -55,7 +55,7 @@ class CertificatesScreen extends ConsumerWidget {
                             const SizedBox(width: AppSpace.s3),
                             Expanded(
                               child: Text(
-                                cert.courseName,
+                                cert.courseNameIn(ru: context.contentRu),
                                 style: AppText.heading.copyWith(
                                   color: colors.ink,
                                 ),

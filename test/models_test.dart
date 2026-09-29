@@ -143,5 +143,26 @@ void main() {
       );
       expect(jsonDecode(decode(cookies)), session);
     });
+
+    test('trainer URL carries the app language', () {
+      final base = Uri.parse(
+        'https://bilim.aiijodkor.uz/student/practice/logic',
+      );
+      expect(
+        PlatformSessionCookies.withLang(base, 'ru').toString(),
+        'https://bilim.aiijodkor.uz/student/practice/logic?lang=ru',
+      );
+      expect(PlatformSessionCookies.withLang(base, 'uz').queryParameters, {
+        'lang': 'uz',
+      });
+      // Unknown languages fall back to Uzbek; other parameters are kept.
+      expect(
+        PlatformSessionCookies.withLang(
+          base.replace(queryParameters: {'a': '1'}),
+          'en',
+        ).queryParameters,
+        {'a': '1', 'lang': 'uz'},
+      );
+    });
   });
 }

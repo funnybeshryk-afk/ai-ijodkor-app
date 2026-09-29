@@ -21,7 +21,8 @@ class HomeworkScreen extends ConsumerWidget {
     final l10n = context.l10n;
     final colors = context.colors;
     final lessons = ref.watch(lessonsProvider).value ?? const [];
-    final titles = {for (final l in lessons) l.id: l.title};
+    final ru = context.contentRu;
+    final titles = {for (final l in lessons) l.id: l.titleIn(ru: ru)};
     final dates = MaterialLocalizations.of(context);
 
     return Scaffold(

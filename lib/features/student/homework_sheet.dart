@@ -109,7 +109,7 @@ class _HomeworkSheetState extends ConsumerState<_HomeworkSheet> {
                     DropdownMenuItem(
                       value: lesson.id,
                       child: Text(
-                        lesson.title,
+                        lesson.titleIn(ru: context.contentRu),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
