@@ -6,6 +6,7 @@ import 'repositories/auth_repository.dart';
 import 'repositories/parent_repository.dart';
 import 'repositories/profile_repository.dart';
 import 'repositories/student_repository.dart';
+import 'repositories/teacher_repository.dart';
 
 /// `null` when the app was built without Supabase keys.
 /// Overridden in `main()` after `Supabase.initialize`.
@@ -42,4 +43,9 @@ final studentRepositoryProvider = Provider<StudentRepository?>((ref) {
 final parentRepositoryProvider = Provider<ParentRepository?>((ref) {
   final client = ref.watch(supabaseClientProvider);
   return client == null ? null : SupabaseParentRepository(client);
+});
+
+final teacherRepositoryProvider = Provider<TeacherRepository?>((ref) {
+  final client = ref.watch(supabaseClientProvider);
+  return client == null ? null : SupabaseTeacherRepository(client);
 });

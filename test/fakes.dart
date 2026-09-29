@@ -8,6 +8,7 @@ import 'package:ai_ijodkor/data/repositories/auth_repository.dart';
 import 'package:ai_ijodkor/data/repositories/profile_repository.dart';
 import 'package:ai_ijodkor/data/repositories/parent_repository.dart';
 import 'package:ai_ijodkor/data/repositories/student_repository.dart';
+import 'package:ai_ijodkor/data/repositories/teacher_repository.dart';
 import 'package:ai_ijodkor/features/parent/parent_providers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 export 'fake_parent_repository.dart';
 export 'fake_student_repository.dart';
+export 'fake_teacher_repository.dart';
 
 class FakeAuthRepository implements AuthRepository {
   FakeAuthRepository({this.password = 'secret'});
@@ -83,6 +85,7 @@ Future<void> pumpApp(
   ProfileRepository? profiles,
   StudentRepository? student,
   ParentRepository? parent,
+  TeacherRepository? teacher,
   PaymentLinks? paymentLinks,
   Map<String, Object> prefs = const {},
 }) async {
@@ -101,6 +104,7 @@ Future<void> pumpApp(
         profileRepositoryProvider.overrideWithValue(profiles),
         studentRepositoryProvider.overrideWithValue(student),
         parentRepositoryProvider.overrideWithValue(parent),
+        teacherRepositoryProvider.overrideWithValue(teacher),
         if (paymentLinks != null)
           paymentLinksProvider.overrideWithValue(paymentLinks),
       ],

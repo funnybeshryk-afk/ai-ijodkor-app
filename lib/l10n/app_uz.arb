@@ -285,9 +285,6 @@
   "homeworkSubmitShort": "Topshirish",
   "lessonViewedButton": "Darsni ko‘rdim",
   "myHomeworkLink": "Uy vazifalarim",
-  "parentSectionBody": "Ota-onalar bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha farzandingiz natijalarini saytda ko‘ring.",
-  "teacherSectionBody": "O‘qituvchi bo‘limi ilovaning keyingi versiyasida ochiladi. Hozircha o‘quvchilar va vazifalarni saytda boshqaring.",
-  "openPlatformButton": "Saytda ochish",
   "parentTitleOne": "Farzandim",
   "childLessonsOpened": "{count} ta dars ochilgan",
   "@childLessonsOpened": {
@@ -406,5 +403,168 @@
     }
   },
   "noChildrenTitle": "Farzand bog‘lanmagan",
-  "noChildrenBody": "Hisobingizga hali farzand bog‘lanmagan. O‘qituvchi yoki administratorga murojaat qiling."
+  "noChildrenBody": "Hisobingizga hali farzand bog‘lanmagan. O‘qituvchi yoki administratorga murojaat qiling.",
+  "navStudents": "O‘quvchilar",
+  "navReview": "Tekshirish",
+  "navPayments": "To‘lovlar",
+  "searchStudentsHint": "Ism bo‘yicha qidirish",
+  "studentsCount": "{count} ta o‘quvchi",
+  "@studentsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "noStudentsTitle": "O‘quvchilar yo‘q",
+  "noStudentsBody": "Yangi o‘quvchilar saytdagi o‘qituvchi panelida qo‘shiladi.",
+  "noSearchResults": "Hech kim topilmadi",
+  "archivedToggle": "Arxiv ({count})",
+  "@archivedToggle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "archivedBadge": "Arxivda",
+  "teachersButton": "O‘qituvchilar",
+  "unassignedTeacher": "O‘qituvchi biriktirilmagan",
+  "studentProgressTitle": "O‘zlashtirish",
+  "lessonsAccessTitle": "Darslarga kirish",
+  "lessonsAccessHint": "O‘quvchi faqat belgilangan darslarni ko‘radi.",
+  "noHomeworkStudent": "Vazifa topshirilmagan",
+  "parentsTitle": "Ota-onalar",
+  "noParents": "Ota-ona biriktirilmagan",
+  "parentLogin": "Login: {login}",
+  "@parentLogin": {
+    "placeholders": {
+      "login": {
+        "type": "String"
+      }
+    }
+  },
+  "certificatesSectionTitle": "Sertifikatlar",
+  "noCertificatesStudent": "Hali sertifikat berilmagan",
+  "issueCertificateButton": "Sertifikat berish",
+  "courseLabel": "Kurs",
+  "teacherNameLabel": "O‘qituvchi F.I.Sh.",
+  "directorNameLabel": "Direktor F.I.Sh.",
+  "fieldRequired": "To‘ldiring",
+  "noCourses": "Kurslar hali qo‘shilmagan",
+  "certificateIssuedMsg": "Sertifikat berildi: {id}",
+  "@certificateIssuedMsg": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "archiveButton": "Arxivga olish",
+  "archiveTitle": "O‘quvchini arxivlash",
+  "archiveBody": "O‘quvchi ilovaga va saytga kira olmaydi, lekin barcha ma’lumotlari saqlanadi. Istalgan vaqtda qaytarish mumkin.",
+  "archiveReasonLabel": "Sabab (ixtiyoriy)",
+  "unarchiveButton": "Arxivdan qaytarish",
+  "archivedDone": "O‘quvchi arxivga olindi",
+  "unarchivedDone": "O‘quvchi qaytarildi",
+  "cancelButton": "Bekor qilish",
+  "saveButton": "Saqlash",
+  "savedMessage": "Saqlandi",
+  "teacherLabel": "O‘qituvchi",
+  "changeTeacherTitle": "O‘qituvchini tanlang",
+  "noTeacherOption": "Biriktirilmagan",
+  "teacherChanged": "O‘qituvchi o‘zgartirildi",
+  "reviewTitle": "Vazifalarni tekshirish",
+  "reviewCount": "{count} ta vazifa kutmoqda",
+  "@reviewCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewEmptyTitle": "Hammasi tekshirildi",
+  "reviewEmptyBody": "Yangi uy vazifalari kelganda shu yerda paydo bo‘ladi.",
+  "approveButton": "Qabul qilish",
+  "returnButton": "Qaytarish",
+  "approveHint": "+{points} ball, dars yakunlangan deb belgilanadi",
+  "@approveHint": {
+    "placeholders": {
+      "points": {
+        "type": "int"
+      }
+    }
+  },
+  "commentLabel": "Izoh",
+  "commentOptionalHint": "Ixtiyoriy — o‘quvchi ko‘radi",
+  "returnCommentHint": "Nimani tuzatish kerakligini yozing",
+  "returnCommentRequired": "Qaytarish uchun izoh yozing",
+  "openLinkButton": "Havolani ochish",
+  "unknownStudent": "Noma’lum o‘quvchi",
+  "unknownLesson": "Noma’lum dars",
+  "groupAccessTitle": "Darslarni ochish",
+  "groupAccessHint": "Darsni barcha o‘quvchilaringizga birdaniga oching yoki yoping. Bitta o‘quvchi uchun — uning kartasida.",
+  "openCount": "{open} / {total} ochiq",
+  "@openCount": {
+    "placeholders": {
+      "open": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "openAllButton": "Hammaga ochish",
+  "closeAllButton": "Hammadan yopish",
+  "openAllConfirm": "«{lesson}» darsini barcha o‘quvchilarga ochasizmi?",
+  "@openAllConfirm": {
+    "placeholders": {
+      "lesson": {
+        "type": "String"
+      }
+    }
+  },
+  "closeAllConfirm": "«{lesson}» darsini barcha o‘quvchilardan yopasizmi? Progress va vazifalar saqlanib qoladi.",
+  "@closeAllConfirm": {
+    "placeholders": {
+      "lesson": {
+        "type": "String"
+      }
+    }
+  },
+  "noLessonsTeacher": "Darslar hali qo‘shilmagan",
+  "prevMonth": "Oldingi oy",
+  "nextMonth": "Keyingi oy",
+  "statExpected": "kutilmoqda",
+  "statCollected": "yig‘ildi",
+  "statDebtors": "qarzdor",
+  "debtorsOnly": "Faqat qarzdorlar",
+  "noDebtors": "Bu oyda qarzdorlar yo‘q",
+  "paymentNotMarked": "belgilanmagan",
+  "markPaymentTitle": "{name} · {month}",
+  "@markPaymentTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "amountLabel": "Summa, so‘m",
+  "amountInvalid": "Summani to‘g‘ri kiriting",
+  "teachersTitle": "O‘qituvchilar",
+  "teacherStudentsCount": "{count} ta o‘quvchi",
+  "@teacherStudentsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "unassignedStudentsTitle": "O‘qituvchisiz o‘quvchilar",
+  "noTeachers": "O‘qituvchilar yo‘q",
+  "pointsTotalLabel": "ball"
 }

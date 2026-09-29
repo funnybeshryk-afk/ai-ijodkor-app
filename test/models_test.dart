@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:ai_ijodkor/core/platform_session.dart';
 import 'package:ai_ijodkor/data/models/lesson.dart';
+import 'package:ai_ijodkor/data/models/parent_records.dart';
 import 'package:ai_ijodkor/data/models/profile.dart';
 import 'package:ai_ijodkor/data/models/quiz.dart';
+import 'package:ai_ijodkor/data/models/student_records.dart';
+import 'package:ai_ijodkor/data/models/teacher_records.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Lesson _lesson(String id, String module, int order) =>
@@ -163,6 +166,58 @@ void main() {
         ).queryParameters,
         {'a': '1', 'lang': 'uz'},
       );
+    });
+  });
+
+  group('teacher records', () {
+    test('periods shift across years', () {
+      expect(shiftPeriod('2026-01', -1), '2025-12');
+      expect(shiftPeriod('2026-12', 1), '2027-01');
+      expect(shiftPeriod('2026-09', 0), '2026-09');
+      expect(periodOf(DateTime(2026, 3, 5)), '2026-03');
+    });
+
+    test('payment lines default like the web panel', () {
+      const a = Person(id: 'a', fullName: 'A');
+      const b = Person(id: 'b', fullName: 'B');
+      final lines = paymentLinesFor(
+        [a, b],
+        const [
+          Payment(
+            id: '1',
+            studentId: 'a',
+            period: '2026-08',
+            amount: 300000,
+            status: PaymentStatus.paid,
+          ),
+        ],
+        '2026-09',
+      );
+      // No row this month: last known amount, unpaid, nothing saved.
+      expect(lines[0].amount, 300000);
+      expect(lines[0].isDebt, isTrue);
+      expect(lines[0].saved, isNull);
+      // Never paid: the standard fee.
+      expect(lines[1].amount, defaultMonthlyFee);
+    });
+
+    test('homework link and initials', () {
+      TeacherHomework hw(String text) => TeacherHomework(
+        id: 'h',
+        studentId: 's',
+        lessonId: 'l',
+        status: HomeworkStatus.pending,
+        submittedAt: DateTime(2026),
+        contentText: text,
+      );
+      expect(
+        hw(' https://replit.com/@a/b ').link.toString(),
+        'https://replit.com/@a/b',
+      );
+      expect(hw('javob: https://x.uz').link, isNull);
+      expect(hw('print(1)').link, isNull);
+      expect(const Person(id: 'x', fullName: 'Karimov  Aziz').initials, 'KA');
+      expect(const Person(id: 'x', fullName: '').initials, '');
     });
   });
 }
