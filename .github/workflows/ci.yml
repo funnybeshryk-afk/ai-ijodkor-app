@@ -64,6 +64,8 @@ jobs:
           SUPABASE_URL: ${{ inputs.supabase_url || secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ inputs.supabase_anon_key || secrets.SUPABASE_ANON_KEY }}
           PLATFORM_URL: ${{ inputs.platform_url || secrets.PLATFORM_URL }}
+          # Optional: crash/error reports without personal data (lib/core/sentry_scrub.dart).
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
         run: |
           defines=()
           if [ -n "$SUPABASE_URL" ] && [ -n "$SUPABASE_ANON_KEY" ]; then
@@ -75,6 +77,9 @@ jobs:
             fi
           else
             echo "::notice::SUPABASE_URL/SUPABASE_ANON_KEY secrets not set — building unconfigured APK"
+          fi
+          if [ -n "$SENTRY_DSN" ]; then
+            defines+=(--dart-define=SENTRY_DSN="$SENTRY_DSN")
           fi
           flutter build apk --debug "${defines[@]}"
 

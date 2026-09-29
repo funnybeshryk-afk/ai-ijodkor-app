@@ -5,6 +5,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'app.dart';
 import 'core/locale_controller.dart';
+import 'core/monitoring.dart';
 import 'core/supabase_init.dart';
 import 'data/providers.dart';
 
@@ -13,16 +14,18 @@ Future<void> main() async {
   final prefs = await SharedPreferences.getInstance();
   final supabaseReady = await initSupabase();
 
-  runApp(
-    ProviderScope(
-      // Errors (e.g. no network) are shown with a retry button instead.
-      retry: (_, _) => null,
-      overrides: [
-        sharedPreferencesProvider.overrideWithValue(prefs),
-        if (supabaseReady)
-          supabaseClientProvider.overrideWithValue(Supabase.instance.client),
-      ],
-      child: const AiIjodkorApp(),
+  await runWithMonitoring(
+    () => runApp(
+      ProviderScope(
+        // Errors (e.g. no network) are shown with a retry button instead.
+        retry: (_, _) => null,
+        overrides: [
+          sharedPreferencesProvider.overrideWithValue(prefs),
+          if (supabaseReady)
+            supabaseClientProvider.overrideWithValue(Supabase.instance.client),
+        ],
+        child: const AiIjodkorApp(),
+      ),
     ),
   );
 }

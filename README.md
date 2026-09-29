@@ -15,6 +15,7 @@ Flutter-приложение (Android, iOS) образовательной пр�
 | `SUPABASE_ANON_KEY` | anon (publishable) ключ                        |
 | `PLATFORM_URL`      | адрес веб-платформы (тренажёры в WebView)      |
 | `PAYMENT_URL`       | страница оплаты Click/Payme (пока нет — пусто)  |
+| `SENTRY_DSN`        | Sentry для отчётов об ошибках (необязательно; без него Sentry не запускается). Персональные данные вырезаются в `lib/core/sentry_scrub.dart` |
 | `CONTACT_TELEGRAM_URL`, `CONTACT_PHONE` | контакты центра (по умолчанию `t.me/AI_IjodkorBot`, `+998500114125`) |
 
 Удобнее всего через файл:

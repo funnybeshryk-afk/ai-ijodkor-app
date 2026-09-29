@@ -21,6 +21,10 @@ class Env {
     defaultValue: '+998500114125',
   );
 
+  /// Sentry DSN for crash/error reports. Empty = Sentry is not started and
+  /// the app behaves exactly as without it.
+  static const sentryDsn = String.fromEnvironment('SENTRY_DSN');
+
   static bool get isSupabaseConfigured =>
       supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty;
 }
