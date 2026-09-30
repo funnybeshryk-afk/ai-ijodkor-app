@@ -1,5 +1,6 @@
 import 'package:ai_ijodkor/core/locale_controller.dart';
 import 'package:ai_ijodkor/data/models/lesson.dart';
+import 'package:ai_ijodkor/data/models/lesson_section.dart';
 import 'package:ai_ijodkor/data/models/profile.dart';
 import 'package:ai_ijodkor/data/models/quiz.dart';
 import 'package:ai_ijodkor/data/models/student_records.dart';
@@ -201,6 +202,96 @@ void main() {
     expect(repo.homework, hasLength(1));
     expect(find.text('https://scratch.mit.edu/1'), findsOneWidget);
     expect(find.text('Tekshirilmoqda'), findsOneWidget);
+  });
+
+  testWidgets('a lesson with sections is shown natively, goals first', (
+    tester,
+  ) async {
+    repo
+      ..sections['l1'] = const [
+        LessonSection(
+          id: 's1',
+          orderIndex: 0,
+          kind: SectionKind.text,
+          bodyUz: '## Klaviatura\n\n- **Space** — bo‘sh joy',
+          bodyRu: '## Клавиатура\n\n- **Space** — пробел',
+        ),
+        LessonSection(
+          id: 's2',
+          orderIndex: 1,
+          kind: SectionKind.code,
+          bodyUz: '{"language":"python","code":"print(\\"salom\\")"}',
+        ),
+        LessonSection(
+          id: 's3',
+          orderIndex: 2,
+          kind: SectionKind.callout,
+          bodyUz: '{"tone":"warn","title":"Diqqat","text":"Shift + harf"}',
+        ),
+        LessonSection(
+          id: 's4',
+          orderIndex: 3,
+          kind: SectionKind.exercise,
+          bodyUz: '{"variant":"practice","label":"Sinab ko‘ring!","title":"Ismingizni yozing","text":"1. Bloknotni oching"}',
+        ),
+        LessonSection(
+          id: 's5',
+          orderIndex: 4,
+          kind: SectionKind.diagram,
+          bodyUz: '{"svg":"<svg viewBox=\\"0 0 10 10\\"><rect width=\\"10\\" height=\\"10\\" fill=\\"var(--moss)\\"/></svg>","caption":"Sxema","alt":"Yashil kvadrat"}',
+        ),
+      ]
+      ..objectives['l1'] = const [
+        LessonObjective(
+          code: '1A-CS-02',
+          titleUz: 'Kompyuter qismlarini to‘g‘ri nomlash',
+          titleRu: 'Правильно называть части компьютера',
+        ),
+      ];
+    await start(tester);
+    await openTab(tester, 'Darslar');
+    await tester.tap(find.text(_l1.title));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Kompyuter qismlarini to‘g‘ri nomlash'), findsOneWidget);
+    expect(find.text('Klaviatura'), findsOneWidget);
+    expect(find.textContaining('bo‘sh joy'), findsOneWidget);
+    expect(find.text('print("salom")'), findsOneWidget);
+    expect(find.text('PYTHON'), findsOneWidget);
+    expect(find.text('Diqqat'), findsOneWidget);
+    expect(find.text('Ismingizni yozing'), findsOneWidget);
+    expect(find.text('Sxema'), findsOneWidget);
+    // Built from sections: no content_url panel, and seeing it marks viewed.
+    expect(find.text('Dars materiali'), findsNothing);
+    expect(repo.calls, contains('viewed:l1'));
+    final goals = tester.getTopLeft(
+      find.text('Kompyuter qismlarini to‘g‘ri nomlash'),
+    );
+    final body = tester.getTopLeft(find.text('Klaviatura'));
+    expect(goals.dy, lessThan(body.dy));
+  });
+
+  testWidgets('sections that fail to load offer a retry', (tester) async {
+    repo.failSections = true;
+    await start(tester);
+    await openTab(tester, 'Darslar');
+    await tester.tap(find.text(_l1.title));
+    await tester.pumpAndSettle();
+    expect(find.text('Qayta urinish'), findsOneWidget);
+
+    repo
+      ..failSections = false
+      ..sections['l1'] = const [
+        LessonSection(
+          id: 's1',
+          orderIndex: 0,
+          kind: SectionKind.text,
+          bodyUz: 'Endi yuklandi',
+        ),
+      ];
+    await tester.tap(find.text('Qayta urinish'));
+    await tester.pumpAndSettle();
+    expect(find.text('Endi yuklandi'), findsOneWidget);
   });
 
   testWidgets('rating highlights the current student', (tester) async {

@@ -566,5 +566,10 @@
   },
   "unassignedStudentsTitle": "O‘qituvchisiz o‘quvchilar",
   "noTeachers": "O‘qituvchilar yo‘q",
-  "pointsTotalLabel": "ball"
+  "pointsTotalLabel": "ball",
+  "sectionStartButton": "Boshlash",
+  "sectionOpenVideo": "Videoni ochish",
+  "sectionImageMissing": "Rasm yuklanmadi",
+  "sectionDiagramBroken": "Sxemani ko‘rsatib bo‘lmadi",
+  "sectionLinkUnavailable": "Bu havola ilovada ochilmaydi"
 }

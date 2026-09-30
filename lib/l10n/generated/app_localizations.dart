@@ -1741,6 +1741,36 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'ball'**
   String get pointsTotalLabel;
+
+  /// No description provided for @sectionStartButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshlash'**
+  String get sectionStartButton;
+
+  /// No description provided for @sectionOpenVideo.
+  ///
+  /// In uz, this message translates to:
+  /// **'Videoni ochish'**
+  String get sectionOpenVideo;
+
+  /// No description provided for @sectionImageMissing.
+  ///
+  /// In uz, this message translates to:
+  /// **'Rasm yuklanmadi'**
+  String get sectionImageMissing;
+
+  /// No description provided for @sectionDiagramBroken.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sxemani ko‘rsatib bo‘lmadi'**
+  String get sectionDiagramBroken;
+
+  /// No description provided for @sectionLinkUnavailable.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu havola ilovada ochilmaydi'**
+  String get sectionLinkUnavailable;
 }
 
 class _AppLocalizationsDelegate

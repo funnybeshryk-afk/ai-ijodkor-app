@@ -946,4 +946,19 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get pointsTotalLabel => 'ball';
+
+  @override
+  String get sectionStartButton => 'Boshlash';
+
+  @override
+  String get sectionOpenVideo => 'Videoni ochish';
+
+  @override
+  String get sectionImageMissing => 'Rasm yuklanmadi';
+
+  @override
+  String get sectionDiagramBroken => 'Sxemani ko‘rsatib bo‘lmadi';
+
+  @override
+  String get sectionLinkUnavailable => 'Bu havola ilovada ochilmaydi';
 }

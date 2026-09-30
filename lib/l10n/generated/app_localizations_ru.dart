@@ -940,4 +940,19 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get pointsTotalLabel => 'баллов';
+
+  @override
+  String get sectionStartButton => 'Начать';
+
+  @override
+  String get sectionOpenVideo => 'Открыть видео';
+
+  @override
+  String get sectionImageMissing => 'Картинка не загрузилась';
+
+  @override
+  String get sectionDiagramBroken => 'Не удалось показать схему';
+
+  @override
+  String get sectionLinkUnavailable => 'Эта ссылка не открывается в приложении';
 }

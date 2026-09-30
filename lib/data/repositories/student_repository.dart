@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/lesson.dart';
+import '../models/lesson_section.dart';
 import '../models/quiz.dart';
 import '../models/student_records.dart';
 
@@ -24,6 +25,17 @@ abstract class StudentRepository {
   Future<int> fetchPointsTotal(String studentId);
 
   Future<List<QuizQuestion>> fetchQuiz(String lessonId);
+
+  /// The lesson's sections in order (RLS: only granted lessons). Empty when
+  /// the lesson has none — or before platform migration 0023 is applied —
+  /// and the screen then falls back to content_url.
+  Future<List<LessonSection>> fetchSections(String lessonId);
+
+  /// Objectives a teacher has approved (the AI draft is never shown).
+  Future<List<LessonObjective>> fetchObjectives(String lessonId);
+
+  /// Short-lived link to a `lesson-media` object (pictures, videos).
+  Future<Uri> lessonMediaUrl(String path);
 
   /// question id -> answer
   Future<QuizResult> submitQuiz(String lessonId, Map<String, String> answers);
@@ -155,6 +167,50 @@ class SupabaseStudentRepository implements StudentRepository {
       throw QuizException.fromMessage(e.message);
     }
   }
+
+  @override
+  Future<List<LessonSection>> fetchSections(String lessonId) async {
+    try {
+      final rows = await _client
+          .from('lesson_sections')
+          .select('id, order_index, kind, body_uz, body_ru, media_path')
+          .eq('lesson_id', lessonId)
+          .order('order_index');
+      return [for (final row in rows) ?LessonSection.fromJson(row)];
+    } on PostgrestException catch (e) {
+      // 42P01: the table isn't there yet (migration 0023 not applied).
+      if (e.code == '42P01' || e.code == 'PGRST205') return const [];
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<LessonObjective>> fetchObjectives(String lessonId) async {
+    try {
+      final rows = await _client
+          .from('lesson_objectives')
+          .select('learning_objectives(code, title_uz, title_ru)')
+          .eq('lesson_id', lessonId)
+          .eq('status', 'approved');
+      return [
+        for (final row in rows)
+          if (row['learning_objectives'] case final Map<String, dynamic> o)
+            LessonObjective(
+              code: o['code'] as String,
+              titleUz: o['title_uz'] as String,
+              titleRu: o['title_ru'] as String?,
+            ),
+      ]..sort((a, b) => a.code.compareTo(b.code));
+    } on PostgrestException catch (e) {
+      if (e.code == '42P01' || e.code == 'PGRST205') return const [];
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Uri> lessonMediaUrl(String path) async => Uri.parse(
+    await _client.storage.from('lesson-media').createSignedUrl(path, 60 * 60),
+  );
 
   @override
   Future<List<HomeworkSubmission>> fetchHomework(String studentId) async {

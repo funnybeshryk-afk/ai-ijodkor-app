@@ -273,5 +273,10 @@
   "teacherStudentsCount": "Учеников: {count}",
   "unassignedStudentsTitle": "Ученики без учителя",
   "noTeachers": "Учителей пока нет",
-  "pointsTotalLabel": "баллов"
+  "pointsTotalLabel": "баллов",
+  "sectionStartButton": "Начать",
+  "sectionOpenVideo": "Открыть видео",
+  "sectionImageMissing": "Картинка не загрузилась",
+  "sectionDiagramBroken": "Не удалось показать схему",
+  "sectionLinkUnavailable": "Эта ссылка не открывается в приложении"
 }

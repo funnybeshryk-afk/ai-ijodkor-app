@@ -12,6 +12,7 @@ import '../../widgets/async_value_view.dart';
 import '../../widgets/message_view.dart';
 import '../../widgets/ui.dart';
 import 'homework_sheet.dart';
+import 'lesson_sections.dart';
 import 'quiz_section.dart';
 import 'status_labels.dart';
 import 'student_providers.dart';
@@ -66,7 +67,10 @@ class _LessonPageState extends ConsumerState<_LessonPage> {
   @override
   void didUpdateWidget(_LessonPage old) {
     super.didUpdateWidget(old);
-    if (old.lesson.id != lesson.id) _quizOpen = false;
+    if (old.lesson.id != lesson.id) {
+      _quizOpen = false;
+      _viewedMarked = false;
+    }
   }
 
   void _openMaterial() {
@@ -87,6 +91,12 @@ class _LessonPageState extends ConsumerState<_LessonPage> {
     final track = Track.ofModule(lesson.module);
     final ru = context.contentRu;
     final description = lesson.descriptionIn(ru: ru);
+    // Teacher-approved objectives (AI4K12 / CSTA) when there are any, else
+    // the lesson description as before.
+    final objectives = ref.watch(lessonObjectivesProvider(lesson.id)).value;
+    final goals = objectives != null && objectives.isNotEmpty
+        ? [for (final o in objectives) o.titleIn(ru: ru)]
+        : _descriptionLines(description ?? '');
 
     return Scaffold(
       body: SafeArea(
@@ -133,6 +143,8 @@ class _LessonPageState extends ConsumerState<_LessonPage> {
                   ref
                     ..invalidate(progressProvider)
                     ..invalidate(quizProvider(lesson.id))
+                    ..invalidate(lessonSectionsProvider(lesson.id))
+                    ..invalidate(lessonObjectivesProvider(lesson.id))
                     ..invalidate(homeworkProvider);
                 },
                 child: ListView(
@@ -160,14 +172,7 @@ class _LessonPageState extends ConsumerState<_LessonPage> {
                       style: AppText.displayLg.copyWith(color: colors.ink),
                     ),
                     const SizedBox(height: AppSpace.s5),
-                    _MaterialPanel(
-                      hasMaterial: (lesson.contentUrl ?? '').isNotEmpty,
-                      onOpen: _openMaterial,
-                    ),
-                    if ((description ?? '').trim().isNotEmpty) ...[
-                      const SizedBox(height: AppSpace.s5),
-                      _Goals(description: description!),
-                    ],
+                    ..._content(goals),
                     const SizedBox(height: AppSpace.s5),
                     quiz.when(
                       loading: () =>
@@ -208,7 +213,69 @@ class _LessonPageState extends ConsumerState<_LessonPage> {
       ),
     );
   }
+
+  /// The lesson body: native sections when the lesson has them (goals first,
+  /// then the sections), otherwise the content_url panel of the mockup
+  /// followed by the goals.
+  List<Widget> _content(List<String> goals) {
+    final sections = ref.watch(lessonSectionsProvider(lesson.id));
+    final goalsBlock = [
+      if (goals.isNotEmpty) ...[
+        const SizedBox(height: AppSpace.s5),
+        _Goals(lines: goals),
+      ],
+    ];
+    return sections.when(
+      loading: () => [
+        const SkeletonBox(height: AppSize.mediaPanel, radius: AppRadius.lg),
+        ...goalsBlock,
+      ],
+      error: (_, _) => [
+        Panel(
+          child: ErrorRetryView(
+            onRetry: () => ref.invalidate(lessonSectionsProvider(lesson.id)),
+          ),
+        ),
+      ],
+      data: (list) {
+        if (list.isEmpty) {
+          return [
+            _MaterialPanel(
+              hasMaterial: (lesson.contentUrl ?? '').isNotEmpty,
+              onOpen: _openMaterial,
+            ),
+            ...goalsBlock,
+          ];
+        }
+        _markViewedOnce();
+        return [
+          if (goals.isNotEmpty) ...[
+            _Goals(lines: goals),
+            const SizedBox(height: AppSpace.s6),
+          ],
+          LessonSectionsView(sections: list),
+        ];
+      },
+    );
+  }
+
+  // Seeing the lesson body counts as viewing it (the content_url panel does
+  // this when opened).
+  bool _viewedMarked = false;
+  void _markViewedOnce() {
+    if (_viewedMarked) return;
+    _viewedMarked = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) ref.read(studentActionsProvider).markViewed(lesson.id);
+    });
+  }
 }
+
+List<String> _descriptionLines(String description) => description
+    .split('\n')
+    .map((l) => l.replaceFirst(RegExp(r'^\s*([-•*]|\d+[.)])\s*'), '').trim())
+    .where((l) => l.isNotEmpty)
+    .toList();
 
 /// Dark media panel with the amber play button (opens content_url).
 class _MaterialPanel extends StatelessWidget {
@@ -269,23 +336,16 @@ class _MaterialPanel extends StatelessWidget {
   }
 }
 
-/// Lesson description; several lines become the numbered «what we learn»
-/// list from the mockup.
+/// «What we learn»: approved objectives or the lesson description; several
+/// lines become the numbered list from the mockup.
 class _Goals extends StatelessWidget {
-  const _Goals({required this.description});
+  const _Goals({required this.lines});
 
-  final String description;
+  final List<String> lines;
 
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
-    final lines = description
-        .split('\n')
-        .map(
-          (l) => l.replaceFirst(RegExp(r'^\s*([-•*]|\d+[.)])\s*'), '').trim(),
-        )
-        .where((l) => l.isNotEmpty)
-        .toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
