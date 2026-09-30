@@ -219,6 +219,34 @@ abstract final class AppSize {
   static const messageMaxWidth = 420.0;
 }
 
+/// Colours for lesson diagrams. The imported SVGs keep the variable names of
+/// the original lesson pages (var(--ink), var(--moss), …); they are replaced
+/// with these brand-book values (light theme — diagrams sit on a white card
+/// in both themes, like a picture). Same table as the platform's
+/// DIAGRAM_COLORS; track colours stay track colours.
+abstract final class AppDiagram {
+  static const colors = <String, String>{
+    'card': '#FFFFFF',
+    'paper': '#FFFCF6',
+    'sand': '#F7F0E2',
+    'rule': '#ECE1CB',
+    'ink': '#241C10',
+    'ink-soft': '#7C6F58',
+    'amber': '#F2A93B',
+    'amber-ink': '#835B20',
+    'moss': '#3C6E58',
+    'sky': '#2F7FC9',
+    'sky-ink': '#1F5C93',
+    'grape': '#8858B0',
+    'grape-ink': '#6A3F8C',
+    'code-bg': '#241C10',
+    'code-fg': '#F7F0E2',
+  };
+
+  /// The card behind a diagram (brand card white).
+  static const background = Color(0xFFFFFFFF);
+}
+
 /// Font families.
 abstract final class AppFonts {
   static const display = 'Baloo 2';

@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/homework_files.dart';
 import '../../data/models/lesson.dart';
+import '../../data/models/lesson_section.dart';
 import '../../data/models/quiz.dart';
 import '../../data/models/student_records.dart';
 import '../../data/providers.dart';
@@ -110,3 +111,23 @@ class StudentActions {
 }
 
 final studentActionsProvider = Provider<StudentActions>(StudentActions.new);
+
+final lessonSectionsProvider =
+    FutureProvider.family<List<LessonSection>, String>((ref, lessonId) async {
+      final (repo, _) = await _studentContext(ref);
+      return repo.fetchSections(lessonId);
+    });
+
+final lessonObjectivesProvider =
+    FutureProvider.family<List<LessonObjective>, String>((ref, lessonId) async {
+      final (repo, _) = await _studentContext(ref);
+      return repo.fetchObjectives(lessonId);
+    });
+
+final lessonMediaUrlProvider = FutureProvider.family<Uri, String>((
+  ref,
+  path,
+) async {
+  final (repo, _) = await _studentContext(ref);
+  return repo.lessonMediaUrl(path);
+});

@@ -1,5 +1,6 @@
 import 'package:ai_ijodkor/data/homework_files.dart';
 import 'package:ai_ijodkor/data/models/lesson.dart';
+import 'package:ai_ijodkor/data/models/lesson_section.dart';
 import 'package:ai_ijodkor/data/models/quiz.dart';
 import 'package:ai_ijodkor/data/models/student_records.dart';
 import 'package:ai_ijodkor/data/repositories/student_repository.dart';
@@ -98,6 +99,27 @@ class FakeStudentRepository implements StudentRepository {
       nextLessonId: next,
     );
   }
+
+  /// lesson id -> sections / approved objectives.
+  final sections = <String, List<LessonSection>>{};
+  final objectives = <String, List<LessonObjective>>{};
+
+  /// Makes fetchSections fail (error state).
+  bool failSections = false;
+
+  @override
+  Future<List<LessonSection>> fetchSections(String lessonId) async {
+    if (failSections) throw Exception('network');
+    return sections[lessonId] ?? const [];
+  }
+
+  @override
+  Future<List<LessonObjective>> fetchObjectives(String lessonId) async =>
+      objectives[lessonId] ?? const [];
+
+  @override
+  Future<Uri> lessonMediaUrl(String path) async =>
+      Uri.parse('https://storage.test/$path');
 
   @override
   Future<List<HomeworkSubmission>> fetchHomework(String studentId) async =>
