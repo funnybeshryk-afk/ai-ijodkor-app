@@ -19,6 +19,7 @@ class HomeworkSubmission {
     required this.status,
     required this.submittedAt,
     this.contentText,
+    this.fileUrl,
     this.reviewerNotes,
     this.reviewedAt,
   });
@@ -27,6 +28,9 @@ class HomeworkSubmission {
   final String lessonId;
   final HomeworkStatus status;
   final String? contentText;
+
+  /// Storage path of the attached file (see homework_files.dart).
+  final String? fileUrl;
   final String? reviewerNotes;
   final DateTime submittedAt;
 
@@ -39,6 +43,7 @@ class HomeworkSubmission {
         lessonId: json['lesson_id'] as String,
         status: HomeworkStatus.parse(json['status'] as String?),
         contentText: json['content_text'] as String?,
+        fileUrl: json['file_url'] as String?,
         reviewerNotes: json['reviewer_notes'] as String?,
         submittedAt: DateTime.parse(json['submitted_at'] as String),
         reviewedAt: DateTime.tryParse((json['reviewed_at'] as String?) ?? ''),

@@ -1771,6 +1771,60 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Bu havola ilovada ochilmaydi'**
   String get sectionLinkUnavailable;
+
+  /// No description provided for @attachFileButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Fayl biriktirish'**
+  String get attachFileButton;
+
+  /// No description provided for @attachFileHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Rasm, PDF, ZIP, .py, .sb3 yoki Office fayli, 10 MB gacha'**
+  String get attachFileHint;
+
+  /// No description provided for @removeFileButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Faylni olib tashlash'**
+  String get removeFileButton;
+
+  /// No description provided for @fileTypeNotAllowed.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu turdagi faylni yuklab bo‘lmaydi'**
+  String get fileTypeNotAllowed;
+
+  /// No description provided for @fileEmpty.
+  ///
+  /// In uz, this message translates to:
+  /// **'Fayl bo‘sh'**
+  String get fileEmpty;
+
+  /// No description provided for @fileTooLarge.
+  ///
+  /// In uz, this message translates to:
+  /// **'Fayl 10 MB dan katta'**
+  String get fileTooLarge;
+
+  /// No description provided for @fileUploadFailed.
+  ///
+  /// In uz, this message translates to:
+  /// **'Faylni yuklab bo‘lmadi. Qaytadan urinib ko‘ring'**
+  String get fileUploadFailed;
+
+  /// No description provided for @openFileButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Faylni ochish'**
+  String get openFileButton;
+
+  /// No description provided for @fileNotSaved.
+  ///
+  /// In uz, this message translates to:
+  /// **'Fayl saqlanmagan'**
+  String get fileNotSaved;
 }
 
 class _AppLocalizationsDelegate

@@ -1,4 +1,8 @@
+import 'dart:typed_data';
+
 import 'package:ai_ijodkor/core/locale_controller.dart';
+import 'package:ai_ijodkor/data/homework_files.dart';
+import 'package:ai_ijodkor/features/student/homework_file_picker.dart';
 import 'package:ai_ijodkor/data/models/lesson.dart';
 import 'package:ai_ijodkor/data/models/lesson_section.dart';
 import 'package:ai_ijodkor/data/models/profile.dart';
@@ -61,6 +65,9 @@ void main() {
       ..correctAnswers.addAll({'q1': 'Space', 'q2': 'Shift'});
   });
 
+  // Files the fake picker hands out, one per tap on «Fayl biriktirish».
+  final picks = <PickedHomeworkFile>[];
+
   Future<void> start(WidgetTester tester, {String? locale}) async {
     await pumpApp(
       tester,
@@ -68,6 +75,11 @@ void main() {
       profiles: profiles,
       student: repo,
       prefs: {LocaleController.storageKey: ?locale},
+      overrides: [
+        homeworkFilePickerProvider.overrideWithValue(
+          () async => picks.isEmpty ? null : picks.removeAt(0),
+        ),
+      ],
     );
     await tester.enterText(byKey('login_email'), 'kid@test.uz');
     await tester.enterText(byKey('login_password'), auth.password);
@@ -292,6 +304,41 @@ void main() {
     await tester.tap(find.text('Qayta urinish'));
     await tester.pumpAndSettle();
     expect(find.text('Endi yuklandi'), findsOneWidget);
+  });
+
+  testWidgets('homework can carry a file; a refused type is explained', (
+    tester,
+  ) async {
+    picks.addAll([
+      (file: null, problem: HomeworkFileProblem.type),
+      (
+        file: HomeworkAttachment(
+          name: 'javob.py',
+          bytes: Uint8List.fromList([1, 2, 3]),
+        ),
+        problem: null,
+      ),
+    ]);
+    await start(tester);
+    await openTab(tester, 'Profil');
+    await tester.tap(find.text('Uy vazifalarim'));
+    await tester.pumpAndSettle();
+    await tester.tap(byKey('homework_fab'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(byKey('homework_attach'));
+    await tester.pumpAndSettle();
+    expect(find.text('Bu turdagi faylni yuklab bo‘lmaydi'), findsOneWidget);
+
+    await tester.tap(byKey('homework_attach'));
+    await tester.pumpAndSettle();
+    expect(find.text('javob.py'), findsOneWidget);
+    expect(find.text('Bu turdagi faylni yuklab bo‘lmaydi'), findsNothing);
+
+    await tester.enterText(byKey('homework_text'), 'Kodim ilovada');
+    await tester.tap(byKey('homework_send'));
+    await tester.pumpAndSettle();
+    expect(repo.homework.single.fileUrl, 'u1/test-id-javob.py');
   });
 
   testWidgets('rating highlights the current student', (tester) async {

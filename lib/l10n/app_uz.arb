@@ -571,5 +571,14 @@
   "sectionOpenVideo": "Videoni ochish",
   "sectionImageMissing": "Rasm yuklanmadi",
   "sectionDiagramBroken": "Sxemani ko‘rsatib bo‘lmadi",
-  "sectionLinkUnavailable": "Bu havola ilovada ochilmaydi"
+  "sectionLinkUnavailable": "Bu havola ilovada ochilmaydi",
+  "attachFileButton": "Fayl biriktirish",
+  "attachFileHint": "Rasm, PDF, ZIP, .py, .sb3 yoki Office fayli, 10 MB gacha",
+  "removeFileButton": "Faylni olib tashlash",
+  "fileTypeNotAllowed": "Bu turdagi faylni yuklab bo‘lmaydi",
+  "fileEmpty": "Fayl bo‘sh",
+  "fileTooLarge": "Fayl 10 MB dan katta",
+  "fileUploadFailed": "Faylni yuklab bo‘lmadi. Qaytadan urinib ko‘ring",
+  "openFileButton": "Faylni ochish",
+  "fileNotSaved": "Fayl saqlanmagan"
 }
