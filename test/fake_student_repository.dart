@@ -1,3 +1,4 @@
+import 'package:ai_ijodkor/data/homework_files.dart';
 import 'package:ai_ijodkor/data/models/lesson.dart';
 import 'package:ai_ijodkor/data/models/quiz.dart';
 import 'package:ai_ijodkor/data/models/student_records.dart';
@@ -107,6 +108,7 @@ class FakeStudentRepository implements StudentRepository {
     required String studentId,
     required String lessonId,
     required String text,
+    HomeworkAttachment? attachment,
   }) async {
     homework.add(
       HomeworkSubmission(
@@ -114,6 +116,9 @@ class FakeStudentRepository implements StudentRepository {
         lessonId: lessonId,
         status: HomeworkStatus.pending,
         contentText: text,
+        fileUrl: attachment == null
+            ? null
+            : homeworkObjectPath(studentId, attachment.name, 'test-id'),
         submittedAt: DateTime(2026, 9, 28),
       ),
     );

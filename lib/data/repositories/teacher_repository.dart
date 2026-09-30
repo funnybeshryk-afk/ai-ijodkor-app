@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../homework_files.dart';
 import '../models/lesson.dart';
 import '../models/parent_records.dart';
 import '../models/student_records.dart';
@@ -22,6 +23,9 @@ abstract class TeacherRepository {
 
   /// Submissions waiting for review, oldest first.
   Future<List<TeacherHomework>> fetchPendingHomework();
+
+  /// A short-lived link to a stored homework file (Storage RLS decides).
+  Future<Uri> homeworkFileUrl(String path);
 
   /// Approve (+10 points, lesson completed) or return with a comment —
   /// the platform's reviewHomework().
@@ -122,7 +126,7 @@ class SupabaseTeacherRepository implements TeacherRepository {
       _client
           .from('homework_submissions')
           .select(
-            'id, student_id, lesson_id, status, content_text, '
+            'id, student_id, lesson_id, status, content_text, file_url, '
             'reviewer_notes, submitted_at, reviewed_at',
           )
           .eq('student_id', studentId)
@@ -169,13 +173,18 @@ class SupabaseTeacherRepository implements TeacherRepository {
     final rows = await _client
         .from('homework_submissions')
         .select(
-          'id, student_id, lesson_id, status, content_text, reviewer_notes, '
-          'submitted_at, reviewed_at',
+          'id, student_id, lesson_id, status, content_text, file_url, '
+          'reviewer_notes, submitted_at, reviewed_at',
         )
         .eq('status', 'pending')
         .order('submitted_at');
     return [for (final row in rows) TeacherHomework.fromJson(row)];
   }
+
+  @override
+  Future<Uri> homeworkFileUrl(String path) async => Uri.parse(
+    await _client.storage.from(homeworkBucket).createSignedUrl(path, 60 * 60),
+  );
 
   @override
   Future<void> reviewHomework({

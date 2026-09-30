@@ -273,5 +273,14 @@
   "teacherStudentsCount": "Учеников: {count}",
   "unassignedStudentsTitle": "Ученики без учителя",
   "noTeachers": "Учителей пока нет",
-  "pointsTotalLabel": "баллов"
+  "pointsTotalLabel": "баллов",
+  "attachFileButton": "Прикрепить файл",
+  "attachFileHint": "Картинка, PDF, ZIP, .py, .sb3 или файл Office, до 10 МБ",
+  "removeFileButton": "Убрать файл",
+  "fileTypeNotAllowed": "Такой тип файла загрузить нельзя",
+  "fileEmpty": "Файл пустой",
+  "fileTooLarge": "Файл больше 10 МБ",
+  "fileUploadFailed": "Не удалось загрузить файл. Попробуйте ещё раз",
+  "openFileButton": "Открыть файл",
+  "fileNotSaved": "Файл не сохранился"
 }

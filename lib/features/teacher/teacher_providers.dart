@@ -94,6 +94,11 @@ class TeacherActions {
     return (repo, userId);
   }
 
+  Future<Uri> homeworkFileUrl(String path) async {
+    final (repo, _) = await _ctx;
+    return repo.homeworkFileUrl(path);
+  }
+
   Future<void> reviewHomework(
     TeacherHomework homework, {
     required bool approved,

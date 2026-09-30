@@ -946,4 +946,33 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get pointsTotalLabel => 'ball';
+
+  @override
+  String get attachFileButton => 'Fayl biriktirish';
+
+  @override
+  String get attachFileHint =>
+      'Rasm, PDF, ZIP, .py, .sb3 yoki Office fayli, 10 MB gacha';
+
+  @override
+  String get removeFileButton => 'Faylni olib tashlash';
+
+  @override
+  String get fileTypeNotAllowed => 'Bu turdagi faylni yuklab bo‘lmaydi';
+
+  @override
+  String get fileEmpty => 'Fayl bo‘sh';
+
+  @override
+  String get fileTooLarge => 'Fayl 10 MB dan katta';
+
+  @override
+  String get fileUploadFailed =>
+      'Faylni yuklab bo‘lmadi. Qaytadan urinib ko‘ring';
+
+  @override
+  String get openFileButton => 'Faylni ochish';
+
+  @override
+  String get fileNotSaved => 'Fayl saqlanmagan';
 }

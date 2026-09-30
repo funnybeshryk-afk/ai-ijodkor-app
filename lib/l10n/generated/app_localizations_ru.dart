@@ -940,4 +940,33 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get pointsTotalLabel => 'баллов';
+
+  @override
+  String get attachFileButton => 'Прикрепить файл';
+
+  @override
+  String get attachFileHint =>
+      'Картинка, PDF, ZIP, .py, .sb3 или файл Office, до 10 МБ';
+
+  @override
+  String get removeFileButton => 'Убрать файл';
+
+  @override
+  String get fileTypeNotAllowed => 'Такой тип файла загрузить нельзя';
+
+  @override
+  String get fileEmpty => 'Файл пустой';
+
+  @override
+  String get fileTooLarge => 'Файл больше 10 МБ';
+
+  @override
+  String get fileUploadFailed =>
+      'Не удалось загрузить файл. Попробуйте ещё раз';
+
+  @override
+  String get openFileButton => 'Открыть файл';
+
+  @override
+  String get fileNotSaved => 'Файл не сохранился';
 }

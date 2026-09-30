@@ -6,6 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../core/format.dart';
 import '../../core/l10n.dart';
 import '../../core/theme.dart';
+import '../../data/homework_files.dart';
 import '../../data/models/teacher_records.dart';
 import '../../data/repositories/teacher_repository.dart';
 import '../../widgets/ui.dart';
@@ -55,6 +56,17 @@ class _ReviewSheetState extends ConsumerState<_ReviewSheet> {
     super.dispose();
   }
 
+  Future<void> _openFile(String path) async {
+    final l10n = context.l10n;
+    final messenger = ScaffoldMessenger.of(context);
+    try {
+      final url = await ref.read(teacherActionsProvider).homeworkFileUrl(path);
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } catch (_) {
+      messenger.showSnackBar(SnackBar(content: Text(l10n.errorGeneric)));
+    }
+  }
+
   Future<void> _submit({required bool approved}) async {
     final l10n = context.l10n;
     if (!approved && _notes.text.trim().isEmpty) {
@@ -90,6 +102,7 @@ class _ReviewSheetState extends ConsumerState<_ReviewSheet> {
     final colors = context.colors;
     final h = widget.homework;
     final link = h.link;
+    final file = HomeworkFileRef.parse(h.fileUrl);
     return Padding(
       padding: EdgeInsets.fromLTRB(
         AppSpace.s5,
@@ -131,6 +144,23 @@ class _ReviewSheetState extends ConsumerState<_ReviewSheet> {
                   icon: const Icon(LucideIcons.externalLink),
                   label: Text(l10n.openLinkButton),
                 ),
+              ),
+            ],
+            if (file != null) ...[
+              const SizedBox(height: AppSpace.s2),
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: file.stored
+                    ? TextButton.icon(
+                        key: const Key('review_open_file'),
+                        onPressed: () => _openFile(file.path!),
+                        icon: const Icon(LucideIcons.paperclip),
+                        label: Text('${l10n.openFileButton}: ${file.name}'),
+                      )
+                    : Text(
+                        '${file.name} · ${l10n.fileNotSaved}',
+                        style: AppText.caption.copyWith(color: colors.inkMuted),
+                      ),
               ),
             ],
             const SizedBox(height: AppSpace.s4),

@@ -65,6 +65,15 @@ class FakeTeacherRepository implements TeacherRepository {
   Future<List<TeacherHomework>> fetchPendingHomework() async =>
       homework.where((h) => h.status == HomeworkStatus.pending).toList();
 
+  /// Paths a signed link was asked for.
+  final signedPaths = <String>[];
+
+  @override
+  Future<Uri> homeworkFileUrl(String path) async {
+    signedPaths.add(path);
+    return Uri.parse('https://storage.test/$path');
+  }
+
   @override
   Future<void> reviewHomework({
     required String submissionId,
