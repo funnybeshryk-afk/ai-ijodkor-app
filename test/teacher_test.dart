@@ -72,6 +72,7 @@ void main() {
           status: HomeworkStatus.pending,
           submittedAt: DateTime(2026, 9, 27, 10),
           contentText: 'https://replit.com/@aziz/klaviatura',
+          fileUrl: 's1/3f2b8c1e-1d2a-4b3c-9d4e-5f6a7b8c9d0e-klaviatura.png',
         ),
       )
       ..parents['s1'] = const [
@@ -217,6 +218,21 @@ void main() {
     expect(repo.points['s1']!.single.amount, 10);
     expect(repo.progress[('s1', 'l1')], ProgressStatus.completed);
     expect(find.text('Hammasi tekshirildi'), findsOneWidget);
+  });
+
+  testWidgets('review: the attached file opens through a signed link', (
+    tester,
+  ) async {
+    await start(tester);
+    await openTab(tester, 'Tekshirish');
+    await tester.tap(byKey('review_open_h1'));
+    await tester.pumpAndSettle();
+    expect(find.text('Faylni ochish: klaviatura.png'), findsOneWidget);
+    await tester.tap(byKey('review_open_file'));
+    await tester.pumpAndSettle();
+    expect(repo.signedPaths, [
+      's1/3f2b8c1e-1d2a-4b3c-9d4e-5f6a7b8c9d0e-klaviatura.png',
+    ]);
   });
 
   testWidgets('review: returning with a comment', (tester) async {

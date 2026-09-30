@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' show StorageException;
 
 import '../../core/l10n.dart';
 import '../../core/theme.dart';
+import '../../data/homework_files.dart';
 import '../../data/models/lesson.dart';
 import '../../widgets/app_text_field.dart';
 import '../../widgets/ui.dart';
+import 'homework_file_picker.dart';
 import 'student_providers.dart';
 
-/// Bottom sheet to submit homework (text or a link) for one of [lessons].
+/// Bottom sheet to submit homework (text or a link, plus an optional file)
+/// for one of [lessons].
 Future<void> showHomeworkSheet(
   BuildContext context, {
   required List<Lesson> lessons,
@@ -39,6 +43,7 @@ class _HomeworkSheetState extends ConsumerState<_HomeworkSheet> {
   late String? _lessonId =
       widget.initialLessonId ??
       (widget.lessons.isEmpty ? null : widget.lessons.first.id);
+  HomeworkAttachment? _file;
   bool _busy = false;
   String? _error;
 
@@ -46,6 +51,24 @@ class _HomeworkSheetState extends ConsumerState<_HomeworkSheet> {
   void dispose() {
     _text.dispose();
     super.dispose();
+  }
+
+  String _problemText(HomeworkFileProblem problem) {
+    final l10n = context.l10n;
+    return switch (problem) {
+      HomeworkFileProblem.type => l10n.fileTypeNotAllowed,
+      HomeworkFileProblem.empty => l10n.fileEmpty,
+      HomeworkFileProblem.tooLarge => l10n.fileTooLarge,
+    };
+  }
+
+  Future<void> _pickFile() async {
+    final picked = await ref.read(homeworkFilePickerProvider)();
+    if (!mounted || picked == null) return;
+    setState(() {
+      _file = picked.file;
+      _error = picked.problem == null ? null : _problemText(picked.problem!);
+    });
   }
 
   Future<void> _submit() async {
@@ -60,9 +83,11 @@ class _HomeworkSheetState extends ConsumerState<_HomeworkSheet> {
     try {
       await ref
           .read(studentActionsProvider)
-          .submitHomework(_lessonId!, _text.text.trim());
+          .submitHomework(_lessonId!, _text.text.trim(), attachment: _file);
       navigator.pop();
       messenger.showSnackBar(SnackBar(content: Text(l10n.homeworkSent)));
+    } on StorageException {
+      if (mounted) setState(() => _error = l10n.fileUploadFailed);
     } catch (_) {
       if (mounted) setState(() => _error = l10n.errorGeneric);
     } finally {
@@ -130,6 +155,49 @@ class _HomeworkSheetState extends ConsumerState<_HomeworkSheet> {
                   ? l10n.homeworkTextRequired
                   : null,
             ),
+            if (_file == null) ...[
+              OutlinedButton.icon(
+                key: const Key('homework_attach'),
+                onPressed: _busy ? null : _pickFile,
+                icon: const Icon(LucideIcons.paperclip),
+                label: Text(l10n.attachFileButton),
+              ),
+              const SizedBox(height: AppSpace.s1),
+              Text(
+                l10n.attachFileHint,
+                style: AppText.caption.copyWith(color: colors.inkMuted),
+              ),
+            ] else
+              Panel(
+                key: const Key('homework_file'),
+                color: colors.surfaceMuted,
+                bordered: false,
+                padding: const EdgeInsetsDirectional.only(
+                  start: AppSpace.s4,
+                  end: AppSpace.s1,
+                ),
+                child: Row(
+                  children: [
+                    Icon(LucideIcons.paperclip, color: colors.inkMuted),
+                    const SizedBox(width: AppSpace.s2),
+                    Expanded(
+                      child: Text(
+                        _file!.name,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppText.body.copyWith(color: colors.ink),
+                      ),
+                    ),
+                    IconButton(
+                      tooltip: l10n.removeFileButton,
+                      onPressed: _busy
+                          ? null
+                          : () => setState(() => _file = null),
+                      icon: const Icon(LucideIcons.x),
+                    ),
+                  ],
+                ),
+              ),
+            const SizedBox(height: AppSpace.s4),
             if (_error != null) ...[
               Text(
                 _error!,

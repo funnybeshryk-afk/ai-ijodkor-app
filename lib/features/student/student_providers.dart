@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../data/homework_files.dart';
 import '../../data/models/lesson.dart';
 import '../../data/models/quiz.dart';
 import '../../data/models/student_records.dart';
@@ -91,9 +92,18 @@ class StudentActions {
     return result;
   }
 
-  Future<void> submitHomework(String lessonId, String text) async {
+  Future<void> submitHomework(
+    String lessonId,
+    String text, {
+    HomeworkAttachment? attachment,
+  }) async {
     final (repo, id) = await _ctx;
-    await repo.submitHomework(studentId: id, lessonId: lessonId, text: text);
+    await repo.submitHomework(
+      studentId: id,
+      lessonId: lessonId,
+      text: text,
+      attachment: attachment,
+    );
     _ref.invalidate(homeworkProvider);
     _ref.invalidate(progressProvider);
   }

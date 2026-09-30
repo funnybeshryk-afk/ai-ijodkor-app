@@ -12,6 +12,7 @@ import 'package:ai_ijodkor/data/repositories/teacher_repository.dart';
 import 'package:ai_ijodkor/features/parent/parent_providers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -88,6 +89,7 @@ Future<void> pumpApp(
   TeacherRepository? teacher,
   PaymentLinks? paymentLinks,
   Map<String, Object> prefs = const {},
+  List<Override> overrides = const [],
 }) async {
   // A tall phone-like surface so whole lesson pages fit without scrolling.
   tester.view.physicalSize = const Size(900, 2000);
@@ -107,6 +109,7 @@ Future<void> pumpApp(
         teacherRepositoryProvider.overrideWithValue(teacher),
         if (paymentLinks != null)
           paymentLinksProvider.overrideWithValue(paymentLinks),
+        ...overrides,
       ],
       child: const AiIjodkorApp(),
     ),

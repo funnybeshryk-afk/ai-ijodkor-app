@@ -1,5 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import '../homework_files.dart';
 import '../models/lesson.dart';
 import '../models/quiz.dart';
 import '../models/student_records.dart';
@@ -31,10 +32,13 @@ abstract class StudentRepository {
   /// Newest first.
   Future<List<HomeworkSubmission>> fetchHomework(String studentId);
 
+  /// [attachment] is uploaded first to the student's own folder of the
+  /// `homework-files` bucket (Storage RLS, migration 0026).
   Future<void> submitHomework({
     required String studentId,
     required String lessonId,
     required String text,
+    HomeworkAttachment? attachment,
   });
 
   Future<List<LeaderboardEntry>> fetchLeaderboard();
@@ -161,8 +165,8 @@ class SupabaseStudentRepository implements StudentRepository {
     final rows = await _client
         .from('homework_submissions')
         .select(
-          'id, lesson_id, status, content_text, reviewer_notes, submitted_at, '
-          'reviewed_at',
+          'id, lesson_id, status, content_text, file_url, reviewer_notes, '
+          'submitted_at, reviewed_at',
         )
         .eq('student_id', studentId)
         .order('submitted_at', ascending: false);
@@ -174,12 +178,28 @@ class SupabaseStudentRepository implements StudentRepository {
     required String studentId,
     required String lessonId,
     required String text,
+    HomeworkAttachment? attachment,
   }) async {
+    String? filePath;
+    if (attachment != null) {
+      filePath = homeworkObjectPath(studentId, attachment.name, randomUuid());
+      await _client.storage
+          .from(homeworkBucket)
+          .uploadBinary(
+            filePath,
+            attachment.bytes,
+            fileOptions: FileOptions(
+              contentType: homeworkContentType(attachment.name),
+              upsert: false,
+            ),
+          );
+    }
     await _client.from('homework_submissions').insert({
       'student_id': studentId,
       'lesson_id': lessonId,
       'status': 'pending',
       'content_text': text,
+      'file_url': ?filePath,
     });
     // Submitting signals active work on the lesson — but never downgrade a
     // lesson that is already completed.
