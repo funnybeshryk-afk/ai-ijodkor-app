@@ -4,9 +4,11 @@ import '../../data/homework_files.dart';
 import '../../data/models/lesson.dart';
 import '../../data/models/lesson_section.dart';
 import '../../data/models/quiz.dart';
+import '../../data/models/skills.dart';
 import '../../data/models/student_records.dart';
 import '../../data/providers.dart';
 import '../../data/repositories/student_repository.dart';
+import 'tracks.dart';
 
 /// Repository + signed-in student id; throws if either is missing, which
 /// only happens outside the student area (the router keeps us out).
@@ -130,4 +132,18 @@ final lessonMediaUrlProvider = FutureProvider.family<Uri, String>((
 ) async {
   final (repo, _) = await _studentContext(ref);
   return repo.lessonMediaUrl(path);
+});
+
+/// «Ko'nikmalar»: objectives by direction with the student's level.
+final skillsProvider = FutureProvider<SkillsOverview>((ref) async {
+  final (repo, id) = await _studentContext(ref);
+  final sources = await repo.fetchSkillSources(id);
+  return buildSkills(
+    lessons: sources.lessons,
+    links: sources.links,
+    objectives: sources.objectives,
+    mastery: sources.mastery,
+    trackOrder: [for (final t in Track.values) t.name],
+    trackOf: (module) => Track.ofModule(module)?.name,
+  );
 });

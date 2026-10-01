@@ -16,6 +16,7 @@ import '../features/student/lesson_screen.dart';
 import '../features/student/lessons_screen.dart';
 import '../features/student/practice_screen.dart';
 import '../features/student/rating_screen.dart';
+import '../features/student/skills_screen.dart';
 import '../features/student/student_home_screen.dart';
 import '../features/student/student_providers.dart';
 import '../features/student/student_shell.dart';
@@ -95,6 +96,11 @@ StatefulShellRoute _studentShell(
               path: 'homework',
               parentNavigatorKey: rootKey,
               builder: (_, _) => const HomeworkScreen(),
+            ),
+            GoRoute(
+              path: 'skills',
+              parentNavigatorKey: rootKey,
+              builder: (_, _) => const SkillsScreen(),
             ),
           ],
         ),

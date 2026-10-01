@@ -102,6 +102,8 @@ class _HomeBody extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: AppSpace.section),
+        const _SkillsLink(),
+        const SizedBox(height: AppSpace.section),
         SectionHeader(
           title: l10n.tracksTitle,
           action: l10n.allLessonsLink,
@@ -137,6 +139,51 @@ class _HomeBody extends ConsumerWidget {
         const SizedBox(height: AppSpace.s2),
         const _PracticeRow(),
       ],
+    );
+  }
+}
+
+/// Link card to «Ko'nikmalar» with a one-line summary.
+class _SkillsLink extends ConsumerWidget {
+  const _SkillsLink();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final colors = context.colors;
+    // The summary is a nicety: while loading or on an error the card still opens the page.
+    final skills = ref.watch(skillsProvider).value;
+    return Panel(
+      key: const Key('skills_link'),
+      onTap: () => context.push(Routes.studentSkills),
+      child: Row(
+        children: [
+          const IconTile(icon: LucideIcons.target),
+          const SizedBox(width: AppSpace.s3),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.skillsTitle,
+                  style: AppText.heading.copyWith(color: colors.ink),
+                ),
+                Text(
+                  skills != null && skills.practised > 0
+                      ? l10n.skillsLinkSubtitle(skills.practised, skills.solved)
+                      : l10n.skillsLinkEmpty,
+                  style: AppText.caption.copyWith(color: colors.inkSoft),
+                ),
+              ],
+            ),
+          ),
+          Icon(
+            LucideIcons.chevronRight,
+            size: AppSize.iconLg,
+            color: colors.inkMuted,
+          ),
+        ],
+      ),
     );
   }
 }

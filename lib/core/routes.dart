@@ -23,6 +23,7 @@ class Routes {
   static const studentRating = '/student/rating';
   static const studentProfile = '/student/profile';
   static const studentCertificates = '/student/certificates';
+  static const studentSkills = '/student/skills';
 
   static String teacherStudent(String id) => '/teacher/students/$id';
   static const teacherReview = '/teacher/review';

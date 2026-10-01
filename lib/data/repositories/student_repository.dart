@@ -4,6 +4,7 @@ import '../homework_files.dart';
 import '../models/lesson.dart';
 import '../models/lesson_section.dart';
 import '../models/quiz.dart';
+import '../models/skills.dart';
 import '../models/student_records.dart';
 
 /// Everything the student screens read and write. All calls run under the
@@ -34,6 +35,10 @@ abstract class StudentRepository {
 
   /// Objectives a teacher has approved (the AI draft is never shown).
   Future<List<LessonObjective>> fetchObjectives(String lessonId);
+
+  /// What «Ko'nikmalar» shows: the student's mastery rows, the objectives and
+  /// their lesson links (platform migration 0029). Grouped by buildSkills.
+  Future<SkillSources> fetchSkillSources(String studentId);
 
   /// Short-lived link to a `lesson-media` object (pictures, videos).
   Future<Uri> lessonMediaUrl(String path);
@@ -207,6 +212,49 @@ class SupabaseStudentRepository implements StudentRepository {
       ]..sort((a, b) => a.code.compareTo(b.code));
     } on PostgrestException catch (e) {
       if (e.code == '42P01' || e.code == 'PGRST205') return const [];
+      rethrow;
+    }
+  }
+
+  @override
+  Future<SkillSources> fetchSkillSources(String studentId) async {
+    final lessons = await fetchLessons(studentId);
+    try {
+      final mastery = await _client
+          .from('objective_mastery')
+          .select('objective_id, level, attempts_count, solved_count')
+          .eq('student_id', studentId);
+      final objectives = await _client
+          .from('learning_objectives')
+          .select('id, code, title_uz, title_ru');
+      // RLS limits the links to lessons the student has.
+      final links = await _client
+          .from('lesson_objectives')
+          .select('lesson_id, objective_id, status');
+      return SkillSources(
+        lessons: lessons,
+        links: [
+          for (final row in links)
+            ObjectiveLink(
+              lessonId: row['lesson_id'] as String,
+              objectiveId: row['objective_id'] as String,
+              approved: row['status'] == 'approved',
+            ),
+        ],
+        objectives: [
+          for (final row in objectives)
+            Objective(
+              id: row['id'] as String,
+              code: row['code'] as String,
+              titleUz: row['title_uz'] as String,
+              titleRu: row['title_ru'] as String?,
+            ),
+        ],
+        mastery: [for (final row in mastery) Mastery.fromJson(row)],
+      );
+    } on PostgrestException catch (e) {
+      // 42P01: the tables aren't there yet (migration 0029 not applied).
+      if (e.code == '42P01' || e.code == 'PGRST205') return SkillSources.empty;
       rethrow;
     }
   }

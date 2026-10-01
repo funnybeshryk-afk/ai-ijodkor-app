@@ -1825,6 +1825,114 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Fayl saqlanmagan'**
   String get fileNotSaved;
+
+  /// No description provided for @skillsTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ko‘nikmalar'**
+  String get skillsTitle;
+
+  /// No description provided for @skillsSubtitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Vazifalarni yechgan sari har bir ko‘nikmangiz darajasi o‘sib boradi.'**
+  String get skillsSubtitle;
+
+  /// No description provided for @skillsEmptyTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hali mashq boshlanmagan'**
+  String get skillsEmptyTitle;
+
+  /// No description provided for @skillsEmptyBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'Darsdagi mashq vazifalarini yeching — bu yerda ko‘nikmalaringiz va ularning darajasi paydo bo‘ladi.'**
+  String get skillsEmptyBody;
+
+  /// No description provided for @skillsGoToLessons.
+  ///
+  /// In uz, this message translates to:
+  /// **'Darslarga o‘tish'**
+  String get skillsGoToLessons;
+
+  /// No description provided for @skillsReviewTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Takrorlash kerak'**
+  String get skillsReviewTitle;
+
+  /// No description provided for @skillsReviewHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu ko‘nikmalar hali mustahkam emas.'**
+  String get skillsReviewHint;
+
+  /// No description provided for @skillStateFresh.
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshlanmagan'**
+  String get skillStateFresh;
+
+  /// No description provided for @skillStateStart.
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshlang‘ich'**
+  String get skillStateStart;
+
+  /// No description provided for @skillStateGrowing.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘sib bormoqda'**
+  String get skillStateGrowing;
+
+  /// No description provided for @skillStateStrong.
+  ///
+  /// In uz, this message translates to:
+  /// **'Mustahkam'**
+  String get skillStateStrong;
+
+  /// No description provided for @skillSolvedCount.
+  ///
+  /// In uz, this message translates to:
+  /// **'{count} ta vazifa yechildi'**
+  String skillSolvedCount(int count);
+
+  /// No description provided for @skillsStatPractised.
+  ///
+  /// In uz, this message translates to:
+  /// **'mashq qilingan'**
+  String get skillsStatPractised;
+
+  /// No description provided for @skillsStatSolved.
+  ///
+  /// In uz, this message translates to:
+  /// **'yechilgan'**
+  String get skillsStatSolved;
+
+  /// No description provided for @skillsStatToRepeat.
+  ///
+  /// In uz, this message translates to:
+  /// **'takrorlash'**
+  String get skillsStatToRepeat;
+
+  /// No description provided for @skillsTrackOther.
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshqa'**
+  String get skillsTrackOther;
+
+  /// No description provided for @skillsLinkSubtitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'{practised} ta ko‘nikma mashq qilingan, {solved} ta vazifa yechilgan'**
+  String skillsLinkSubtitle(int practised, int solved);
+
+  /// No description provided for @skillsLinkEmpty.
+  ///
+  /// In uz, this message translates to:
+  /// **'Vazifalarni yeching — ko‘nikmalaringiz o‘sadi'**
+  String get skillsLinkEmpty;
 }
 
 class _AppLocalizationsDelegate

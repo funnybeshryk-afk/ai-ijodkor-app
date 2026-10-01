@@ -580,5 +580,40 @@
   "fileTooLarge": "Fayl 10 MB dan katta",
   "fileUploadFailed": "Faylni yuklab bo‘lmadi. Qaytadan urinib ko‘ring",
   "openFileButton": "Faylni ochish",
-  "fileNotSaved": "Fayl saqlanmagan"
+  "fileNotSaved": "Fayl saqlanmagan",
+  "skillsTitle": "Ko‘nikmalar",
+  "skillsSubtitle": "Vazifalarni yechgan sari har bir ko‘nikmangiz darajasi o‘sib boradi.",
+  "skillsEmptyTitle": "Hali mashq boshlanmagan",
+  "skillsEmptyBody": "Darsdagi mashq vazifalarini yeching — bu yerda ko‘nikmalaringiz va ularning darajasi paydo bo‘ladi.",
+  "skillsGoToLessons": "Darslarga o‘tish",
+  "skillsReviewTitle": "Takrorlash kerak",
+  "skillsReviewHint": "Bu ko‘nikmalar hali mustahkam emas.",
+  "skillStateFresh": "Boshlanmagan",
+  "skillStateStart": "Boshlang‘ich",
+  "skillStateGrowing": "O‘sib bormoqda",
+  "skillStateStrong": "Mustahkam",
+  "skillSolvedCount": "{count} ta vazifa yechildi",
+  "@skillSolvedCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "skillsStatPractised": "mashq qilingan",
+  "skillsStatSolved": "yechilgan",
+  "skillsStatToRepeat": "takrorlash",
+  "skillsTrackOther": "Boshqa",
+  "skillsLinkSubtitle": "{practised} ta ko‘nikma mashq qilingan, {solved} ta vazifa yechilgan",
+  "@skillsLinkSubtitle": {
+    "placeholders": {
+      "practised": {
+        "type": "int"
+      },
+      "solved": {
+        "type": "int"
+      }
+    }
+  },
+  "skillsLinkEmpty": "Vazifalarni yeching — ko‘nikmalaringiz o‘sadi"
 }
