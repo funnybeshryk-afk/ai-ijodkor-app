@@ -2,6 +2,7 @@ import 'package:ai_ijodkor/data/homework_files.dart';
 import 'package:ai_ijodkor/data/models/lesson.dart';
 import 'package:ai_ijodkor/data/models/lesson_section.dart';
 import 'package:ai_ijodkor/data/models/quiz.dart';
+import 'package:ai_ijodkor/data/models/skills.dart';
 import 'package:ai_ijodkor/data/models/student_records.dart';
 import 'package:ai_ijodkor/data/repositories/student_repository.dart';
 
@@ -116,6 +117,25 @@ class FakeStudentRepository implements StudentRepository {
   @override
   Future<List<LessonObjective>> fetchObjectives(String lessonId) async =>
       objectives[lessonId] ?? const [];
+
+  /// Objectives, their lesson links and the student's mastery rows.
+  final objectiveList = <Objective>[];
+  final objectiveLinks = <ObjectiveLink>[];
+  final masteryRows = <Mastery>[];
+
+  /// Makes fetchSkillSources fail (error state).
+  bool failSkills = false;
+
+  @override
+  Future<SkillSources> fetchSkillSources(String studentId) async {
+    if (failSkills) throw Exception('network');
+    return SkillSources(
+      lessons: allLessons.where((l) => access.contains(l.id)).toList(),
+      links: List.of(objectiveLinks),
+      objectives: List.of(objectiveList),
+      mastery: List.of(masteryRows),
+    );
+  }
 
   @override
   Future<Uri> lessonMediaUrl(String path) async =>

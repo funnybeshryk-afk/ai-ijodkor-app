@@ -984,4 +984,64 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get fileNotSaved => 'Файл не сохранился';
+
+  @override
+  String get skillsTitle => 'Навыки';
+
+  @override
+  String get skillsSubtitle =>
+      'С каждым решённым заданием уровень навыка растёт.';
+
+  @override
+  String get skillsEmptyTitle => 'Практика ещё не начата';
+
+  @override
+  String get skillsEmptyBody =>
+      'Решите практические задания в уроках — здесь появятся ваши навыки и их уровень.';
+
+  @override
+  String get skillsGoToLessons => 'К урокам';
+
+  @override
+  String get skillsReviewTitle => 'Стоит повторить';
+
+  @override
+  String get skillsReviewHint => 'Эти навыки пока не закреплены.';
+
+  @override
+  String get skillStateFresh => 'Не начато';
+
+  @override
+  String get skillStateStart => 'Начальный';
+
+  @override
+  String get skillStateGrowing => 'Растёт';
+
+  @override
+  String get skillStateStrong => 'Уверенно';
+
+  @override
+  String skillSolvedCount(int count) {
+    return 'решено заданий: $count';
+  }
+
+  @override
+  String get skillsStatPractised => 'отработано';
+
+  @override
+  String get skillsStatSolved => 'решено';
+
+  @override
+  String get skillsStatToRepeat => 'повторить';
+
+  @override
+  String get skillsTrackOther => 'Другое';
+
+  @override
+  String skillsLinkSubtitle(int practised, int solved) {
+    return 'Отработано навыков: $practised, решено заданий: $solved';
+  }
+
+  @override
+  String get skillsLinkEmpty => 'Решайте задания — навыки будут расти';
 }

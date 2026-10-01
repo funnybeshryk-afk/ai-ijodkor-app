@@ -990,4 +990,64 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get fileNotSaved => 'Fayl saqlanmagan';
+
+  @override
+  String get skillsTitle => 'Ko‘nikmalar';
+
+  @override
+  String get skillsSubtitle =>
+      'Vazifalarni yechgan sari har bir ko‘nikmangiz darajasi o‘sib boradi.';
+
+  @override
+  String get skillsEmptyTitle => 'Hali mashq boshlanmagan';
+
+  @override
+  String get skillsEmptyBody =>
+      'Darsdagi mashq vazifalarini yeching — bu yerda ko‘nikmalaringiz va ularning darajasi paydo bo‘ladi.';
+
+  @override
+  String get skillsGoToLessons => 'Darslarga o‘tish';
+
+  @override
+  String get skillsReviewTitle => 'Takrorlash kerak';
+
+  @override
+  String get skillsReviewHint => 'Bu ko‘nikmalar hali mustahkam emas.';
+
+  @override
+  String get skillStateFresh => 'Boshlanmagan';
+
+  @override
+  String get skillStateStart => 'Boshlang‘ich';
+
+  @override
+  String get skillStateGrowing => 'O‘sib bormoqda';
+
+  @override
+  String get skillStateStrong => 'Mustahkam';
+
+  @override
+  String skillSolvedCount(int count) {
+    return '$count ta vazifa yechildi';
+  }
+
+  @override
+  String get skillsStatPractised => 'mashq qilingan';
+
+  @override
+  String get skillsStatSolved => 'yechilgan';
+
+  @override
+  String get skillsStatToRepeat => 'takrorlash';
+
+  @override
+  String get skillsTrackOther => 'Boshqa';
+
+  @override
+  String skillsLinkSubtitle(int practised, int solved) {
+    return '$practised ta ko‘nikma mashq qilingan, $solved ta vazifa yechilgan';
+  }
+
+  @override
+  String get skillsLinkEmpty => 'Vazifalarni yeching — ko‘nikmalaringiz o‘sadi';
 }
