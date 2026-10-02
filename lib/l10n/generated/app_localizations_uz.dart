@@ -1050,4 +1050,103 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get skillsLinkEmpty => 'Vazifalarni yeching — ko‘nikmalaringiz o‘sadi';
+
+  @override
+  String reviewCardTitle(int count) {
+    return 'Bugungi takrorlash: $count ta savol';
+  }
+
+  @override
+  String get reviewCardSubtitle =>
+      'Bir necha daqiqa — yechgan savollaringizni eslab qoling.';
+
+  @override
+  String get reviewCardDone => 'Bugungi takrorlash bajarildi';
+
+  @override
+  String get reviewCardNothing => 'Bugun takrorlash yo‘q';
+
+  @override
+  String get reviewCardNextHint => 'Keyingi savollar o‘z vaqtida qaytadi.';
+
+  @override
+  String get reviewDoneTitle => 'Bugun hammasi tayyor';
+
+  @override
+  String reviewDoneBody(int count) {
+    return 'Bugun $count ta savol takrorlandi. Ertaga yangi savollar kutadi.';
+  }
+
+  @override
+  String get reviewNothingBody =>
+      'Bugun takrorlanadigan savol yo‘q. Keyingilari o‘z vaqtida keladi.';
+
+  @override
+  String reviewProgress(int index, int total) {
+    return 'Savol $index / $total';
+  }
+
+  @override
+  String get reviewCheck => 'Tekshirish';
+
+  @override
+  String get reviewNext => 'Keyingi';
+
+  @override
+  String get reviewFinish => 'Yakunlash';
+
+  @override
+  String get reviewCorrect => 'To‘g‘ri!';
+
+  @override
+  String get reviewWrong => 'Noto‘g‘ri. Bu savol ertaga qaytadi.';
+
+  @override
+  String get reviewFinishedTitle => 'Bugungi takrorlash tayyor!';
+
+  @override
+  String reviewScore(int right, int total) {
+    return '$total tadan $right to‘g‘ri';
+  }
+
+  @override
+  String reviewStreak(int days) {
+    return '$days kun ketma-ket';
+  }
+
+  @override
+  String get reviewErrorLimit =>
+      'Bugungi 10 ta takrorlash bajarildi. Ertaga davom eting.';
+
+  @override
+  String get reviewErrorNotDue => 'Bu savol bugun takrorlanmaydi.';
+
+  @override
+  String get taskMultiHint => 'Bir nechta javob bo‘lishi mumkin.';
+
+  @override
+  String get taskOrderHint =>
+      'To‘g‘ri tartibga keltiring: strelkalar bilan siljiting.';
+
+  @override
+  String get taskMatchHint => 'Har bir qatorga juftini tanlang.';
+
+  @override
+  String get taskTextHint => 'Javobingiz';
+
+  @override
+  String get taskMoveUp => 'Yuqoriga';
+
+  @override
+  String get taskMoveDown => 'Pastga';
+
+  @override
+  String get dailyReviewTitle => 'Takrorlash';
+
+  @override
+  String get dailyReviewEmptyTitle => 'Takrorlash hali yo‘q';
+
+  @override
+  String get dailyReviewEmptyBody =>
+      'Darslardagi mashq vazifalarini yeching — ular shu yerda takrorlash uchun paydo bo‘ladi.';
 }

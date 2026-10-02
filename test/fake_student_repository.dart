@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:ai_ijodkor/data/homework_files.dart';
 import 'package:ai_ijodkor/data/models/lesson.dart';
 import 'package:ai_ijodkor/data/models/lesson_section.dart';
 import 'package:ai_ijodkor/data/models/quiz.dart';
+import 'package:ai_ijodkor/data/models/review.dart';
 import 'package:ai_ijodkor/data/models/skills.dart';
 import 'package:ai_ijodkor/data/models/student_records.dart';
 import 'package:ai_ijodkor/data/repositories/student_repository.dart';
@@ -117,6 +120,50 @@ class FakeStudentRepository implements StudentRepository {
   @override
   Future<List<LessonObjective>> fetchObjectives(String lessonId) async =>
       objectives[lessonId] ?? const [];
+
+  /// «Takrorlash»: the summary, today's questions and what counts as right.
+  ReviewSummary reviewSummary = ReviewSummary.empty;
+  DailyReview dailyReview = DailyReview.empty;
+
+  /// task id -> the answer JSON that is right.
+  final reviewRight = <String, Map<String, dynamic>>{};
+  int practiceStreak = 0;
+  bool failReview = false;
+
+  /// Makes submitReview raise this (e.g. the daily limit).
+  ReviewError? reviewFailure;
+
+  @override
+  Future<ReviewSummary> fetchReviewSummary() async => reviewSummary;
+
+  @override
+  Future<DailyReview> fetchDailyReview() async {
+    if (failReview) throw Exception('network');
+    return dailyReview;
+  }
+
+  @override
+  Future<ReviewResult> submitReview(
+    String taskId,
+    Map<String, dynamic> answer, {
+    int? durationMs,
+  }) async {
+    calls.add('review:$taskId');
+    if (reviewFailure != null) throw ReviewException(reviewFailure!);
+    final right = reviewRight[taskId];
+    final correct = right != null && jsonEncode(right) == jsonEncode(answer);
+    final done = calls.where((c) => c.startsWith('review:')).length;
+    return ReviewResult(
+      correct: correct,
+      intervalDays: correct ? 3 : 1,
+      reviewedToday: done,
+      remainingDue: dailyReview.questions.length - done,
+      dayDone: done >= dailyReview.questions.length,
+    );
+  }
+
+  @override
+  Future<int> fetchPracticeStreak(String studentId) async => practiceStreak;
 
   /// Objectives, their lesson links and the student's mastery rows.
   final objectiveList = <Objective>[];

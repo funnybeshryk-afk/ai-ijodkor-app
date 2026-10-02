@@ -1044,4 +1044,102 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get skillsLinkEmpty => 'Решайте задания — навыки будут расти';
+
+  @override
+  String reviewCardTitle(int count) {
+    return 'Повторение на сегодня: $count вопросов';
+  }
+
+  @override
+  String get reviewCardSubtitle =>
+      'Несколько минут — вспомните решённые вопросы.';
+
+  @override
+  String get reviewCardDone => 'Повторение на сегодня выполнено';
+
+  @override
+  String get reviewCardNothing => 'Сегодня повторять нечего';
+
+  @override
+  String get reviewCardNextHint => 'Следующие вопросы вернутся вовремя.';
+
+  @override
+  String get reviewDoneTitle => 'На сегодня всё готово';
+
+  @override
+  String reviewDoneBody(int count) {
+    return 'Сегодня повторено вопросов: $count. Завтра будут новые.';
+  }
+
+  @override
+  String get reviewNothingBody =>
+      'На сегодня вопросов для повторения нет. Следующие придут вовремя.';
+
+  @override
+  String reviewProgress(int index, int total) {
+    return 'Вопрос $index / $total';
+  }
+
+  @override
+  String get reviewCheck => 'Проверить';
+
+  @override
+  String get reviewNext => 'Далее';
+
+  @override
+  String get reviewFinish => 'Завершить';
+
+  @override
+  String get reviewCorrect => 'Верно!';
+
+  @override
+  String get reviewWrong => 'Неверно. Этот вопрос вернётся завтра.';
+
+  @override
+  String get reviewFinishedTitle => 'Повторение на сегодня готово!';
+
+  @override
+  String reviewScore(int right, int total) {
+    return '$right из $total верно';
+  }
+
+  @override
+  String reviewStreak(int days) {
+    return '$days дн. подряд';
+  }
+
+  @override
+  String get reviewErrorLimit =>
+      'Сегодняшние 10 повторений выполнены. Продолжите завтра.';
+
+  @override
+  String get reviewErrorNotDue => 'Этот вопрос сегодня не повторяется.';
+
+  @override
+  String get taskMultiHint => 'Ответов может быть несколько.';
+
+  @override
+  String get taskOrderHint => 'Расставьте по порядку: двигайте стрелками.';
+
+  @override
+  String get taskMatchHint => 'Выберите пару для каждой строки.';
+
+  @override
+  String get taskTextHint => 'Ваш ответ';
+
+  @override
+  String get taskMoveUp => 'Выше';
+
+  @override
+  String get taskMoveDown => 'Ниже';
+
+  @override
+  String get dailyReviewTitle => 'Повторение';
+
+  @override
+  String get dailyReviewEmptyTitle => 'Повторять пока нечего';
+
+  @override
+  String get dailyReviewEmptyBody =>
+      'Решайте практические задания в уроках — они появятся здесь для повторения.';
 }

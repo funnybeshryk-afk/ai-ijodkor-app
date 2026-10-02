@@ -615,5 +615,74 @@
       }
     }
   },
-  "skillsLinkEmpty": "Vazifalarni yeching — ko‘nikmalaringiz o‘sadi"
+  "skillsLinkEmpty": "Vazifalarni yeching — ko‘nikmalaringiz o‘sadi",
+  "reviewCardTitle": "Bugungi takrorlash: {count} ta savol",
+  "@reviewCardTitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewCardSubtitle": "Bir necha daqiqa — yechgan savollaringizni eslab qoling.",
+  "reviewCardDone": "Bugungi takrorlash bajarildi",
+  "reviewCardNothing": "Bugun takrorlash yo‘q",
+  "reviewCardNextHint": "Keyingi savollar o‘z vaqtida qaytadi.",
+  "reviewDoneTitle": "Bugun hammasi tayyor",
+  "reviewDoneBody": "Bugun {count} ta savol takrorlandi. Ertaga yangi savollar kutadi.",
+  "@reviewDoneBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewNothingBody": "Bugun takrorlanadigan savol yo‘q. Keyingilari o‘z vaqtida keladi.",
+  "reviewProgress": "Savol {index} / {total}",
+  "@reviewProgress": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewCheck": "Tekshirish",
+  "reviewNext": "Keyingi",
+  "reviewFinish": "Yakunlash",
+  "reviewCorrect": "To‘g‘ri!",
+  "reviewWrong": "Noto‘g‘ri. Bu savol ertaga qaytadi.",
+  "reviewFinishedTitle": "Bugungi takrorlash tayyor!",
+  "reviewScore": "{total} tadan {right} to‘g‘ri",
+  "@reviewScore": {
+    "placeholders": {
+      "right": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewStreak": "{days} kun ketma-ket",
+  "@reviewStreak": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewErrorLimit": "Bugungi 10 ta takrorlash bajarildi. Ertaga davom eting.",
+  "reviewErrorNotDue": "Bu savol bugun takrorlanmaydi.",
+  "taskMultiHint": "Bir nechta javob bo‘lishi mumkin.",
+  "taskOrderHint": "To‘g‘ri tartibga keltiring: strelkalar bilan siljiting.",
+  "taskMatchHint": "Har bir qatorga juftini tanlang.",
+  "taskTextHint": "Javobingiz",
+  "taskMoveUp": "Yuqoriga",
+  "taskMoveDown": "Pastga",
+  "dailyReviewTitle": "Takrorlash",
+  "dailyReviewEmptyTitle": "Takrorlash hali yo‘q",
+  "dailyReviewEmptyBody": "Darslardagi mashq vazifalarini yeching — ular shu yerda takrorlash uchun paydo bo‘ladi."
 }

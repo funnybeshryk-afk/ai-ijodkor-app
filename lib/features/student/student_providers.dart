@@ -4,6 +4,7 @@ import '../../data/homework_files.dart';
 import '../../data/models/lesson.dart';
 import '../../data/models/lesson_section.dart';
 import '../../data/models/quiz.dart';
+import '../../data/models/review.dart';
 import '../../data/models/skills.dart';
 import '../../data/models/student_records.dart';
 import '../../data/providers.dart';
@@ -62,6 +63,24 @@ final quizProvider = FutureProvider.family<List<QuizQuestion>, String>((
   return repo.fetchQuiz(lessonId);
 });
 
+/// «Takrorlash»: the numbers for the card on the home screen.
+final reviewSummaryProvider = FutureProvider<ReviewSummary>((ref) async {
+  final (repo, _) = await _studentContext(ref);
+  return repo.fetchReviewSummary();
+});
+
+/// Today's review questions.
+final dailyReviewProvider = FutureProvider<DailyReview>((ref) async {
+  final (repo, _) = await _studentContext(ref);
+  return repo.fetchDailyReview();
+});
+
+/// Days in a row with a practice session (the review counts too).
+final practiceStreakProvider = FutureProvider<int>((ref) async {
+  final (repo, id) = await _studentContext(ref);
+  return repo.fetchPracticeStreak(id);
+});
+
 /// Write operations; each refreshes the providers it affects.
 class StudentActions {
   StudentActions(this._ref);
@@ -93,6 +112,25 @@ class StudentActions {
       _ref.invalidate(lessonsProvider);
     }
     return result;
+  }
+
+  /// One review answer. The providers are NOT refreshed here (the screen would
+  /// swap the session for «all done» under the student before the verdict is
+  /// seen); [finishReview] does it when the student leaves the last question.
+  Future<ReviewResult> submitReview(
+    String taskId,
+    Map<String, dynamic> answer, {
+    int? durationMs,
+  }) async {
+    final (repo, _) = await _ctx;
+    return repo.submitReview(taskId, answer, durationMs: durationMs);
+  }
+
+  void finishReview() {
+    _ref
+      ..invalidate(reviewSummaryProvider)
+      ..invalidate(dailyReviewProvider)
+      ..invalidate(practiceStreakProvider);
   }
 
   Future<void> submitHomework(

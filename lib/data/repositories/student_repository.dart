@@ -4,6 +4,8 @@ import '../homework_files.dart';
 import '../models/lesson.dart';
 import '../models/lesson_section.dart';
 import '../models/quiz.dart';
+import '../models/review.dart';
+import '../review_schedule.dart';
 import '../models/skills.dart';
 import '../models/student_records.dart';
 
@@ -39,6 +41,23 @@ abstract class StudentRepository {
   /// What «Ko'nikmalar» shows: the student's mastery rows, the objectives and
   /// their lesson links (platform migration 0029). Grouped by buildSkills.
   Future<SkillSources> fetchSkillSources(String studentId);
+
+  /// «Takrorlash» (platform migration 0032): the numbers for the home card.
+  Future<ReviewSummary> fetchReviewSummary();
+
+  /// Up to 10 questions for today, oldest debts first, without answers.
+  Future<DailyReview> fetchDailyReview();
+
+  /// One review answer; the server checks it and reschedules the task.
+  /// Throws [ReviewException].
+  Future<ReviewResult> submitReview(
+    String taskId,
+    Map<String, dynamic> answer, {
+    int? durationMs,
+  });
+
+  /// Consecutive days with a practice session (trainer_sessions, Tashkent days).
+  Future<int> fetchPracticeStreak(String studentId);
 
   /// Short-lived link to a `lesson-media` object (pictures, videos).
   Future<Uri> lessonMediaUrl(String path);
@@ -257,6 +276,65 @@ class SupabaseStudentRepository implements StudentRepository {
       if (e.code == '42P01' || e.code == 'PGRST205') return SkillSources.empty;
       rethrow;
     }
+  }
+
+  @override
+  Future<ReviewSummary> fetchReviewSummary() async {
+    try {
+      final data = await _client.rpc<dynamic>('get_review_summary');
+      return ReviewSummary.fromJson(Map<String, dynamic>.from(data as Map));
+    } on PostgrestException catch (e) {
+      // 42883 / PGRST202: the function isn't there yet (migration 0032).
+      if (e.code == '42883' || e.code == 'PGRST202') return ReviewSummary.empty;
+      rethrow;
+    }
+  }
+
+  @override
+  Future<DailyReview> fetchDailyReview() async {
+    try {
+      final data = await _client.rpc<dynamic>('get_daily_review');
+      return DailyReview.fromJson(Map<String, dynamic>.from(data as Map));
+    } on PostgrestException catch (e) {
+      if (e.code == '42883' || e.code == 'PGRST202') return DailyReview.empty;
+      rethrow;
+    }
+  }
+
+  @override
+  Future<ReviewResult> submitReview(
+    String taskId,
+    Map<String, dynamic> answer, {
+    int? durationMs,
+  }) async {
+    try {
+      final data = await _client.rpc<dynamic>(
+        'submit_review',
+        params: {
+          'p_task_id': taskId,
+          'p_answer': answer,
+          'p_duration_ms': durationMs,
+        },
+      );
+      return ReviewResult.fromJson(Map<String, dynamic>.from(data as Map));
+    } on PostgrestException catch (e) {
+      throw ReviewException.fromMessage(e.message);
+    }
+  }
+
+  @override
+  Future<int> fetchPracticeStreak(String studentId) async {
+    final rows = await _client
+        .from('trainer_sessions')
+        .select('played_at')
+        .eq('student_id', studentId);
+    final days = {
+      for (final row in rows)
+        if (DateTime.tryParse((row['played_at'] as String?) ?? '')
+            case final at?)
+          tashkentDayKey(at),
+    };
+    return streakFromDayKeys(days, DateTime.now());
   }
 
   @override

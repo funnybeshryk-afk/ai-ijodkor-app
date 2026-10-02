@@ -25,7 +25,8 @@ class StudentHomeScreen extends ConsumerWidget {
       ..invalidate(progressProvider)
       ..invalidate(pointsProvider)
       ..invalidate(homeworkProvider)
-      ..invalidate(leaderboardProvider);
+      ..invalidate(leaderboardProvider)
+      ..invalidate(reviewSummaryProvider);
     await ref.read(lessonsProvider.future);
   }
 
@@ -102,6 +103,7 @@ class _HomeBody extends ConsumerWidget {
           ],
         ),
         const SizedBox(height: AppSpace.section),
+        const _ReviewCard(),
         const _SkillsLink(),
         const SizedBox(height: AppSpace.section),
         SectionHeader(
@@ -139,6 +141,61 @@ class _HomeBody extends ConsumerWidget {
         const SizedBox(height: AppSpace.s2),
         const _PracticeRow(),
       ],
+    );
+  }
+}
+
+/// «Bugungi takrorlash: N ta savol» — hidden while the review queue is empty.
+class _ReviewCard extends ConsumerWidget {
+  const _ReviewCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final colors = context.colors;
+    final summary = ref.watch(reviewSummaryProvider).value;
+    if (summary == null || summary.queueSize == 0) {
+      return const SizedBox.shrink();
+    }
+    final waiting = summary.dueNow > 0;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppSpace.section),
+      child: Panel(
+        key: const Key('review_card'),
+        color: colors.brandTint,
+        borderColor: colors.brand,
+        onTap: () => context.push(Routes.studentReview),
+        child: Row(
+          children: [
+            const IconTile(icon: LucideIcons.repeat),
+            const SizedBox(width: AppSpace.s3),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    waiting
+                        ? l10n.reviewCardTitle(summary.dueNow)
+                        : summary.dayDone
+                        ? l10n.reviewCardDone
+                        : l10n.reviewCardNothing,
+                    style: AppText.heading.copyWith(color: colors.ink),
+                  ),
+                  Text(
+                    waiting ? l10n.reviewCardSubtitle : l10n.reviewCardNextHint,
+                    style: AppText.caption.copyWith(color: colors.inkSoft),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              LucideIcons.chevronRight,
+              size: AppSize.iconLg,
+              color: colors.inkMuted,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
