@@ -1,0 +1,279 @@
+{
+ "intervals": [
+  {
+   "name": "1 days, right",
+   "current": 1,
+   "correct": true,
+   "expected": 3
+  },
+  {
+   "name": "3 days, right",
+   "current": 3,
+   "correct": true,
+   "expected": 7
+  },
+  {
+   "name": "7 days, right",
+   "current": 7,
+   "correct": true,
+   "expected": 14
+  },
+  {
+   "name": "14 days, right",
+   "current": 14,
+   "correct": true,
+   "expected": 30
+  },
+  {
+   "name": "30 days, right",
+   "current": 30,
+   "correct": true,
+   "expected": 30
+  },
+  {
+   "name": "60 days, right",
+   "current": 60,
+   "correct": true,
+   "expected": 30
+  },
+  {
+   "name": "0 days, right",
+   "current": 0,
+   "correct": true,
+   "expected": 1
+  },
+  {
+   "name": "2 days, right",
+   "current": 2,
+   "correct": true,
+   "expected": 3
+  },
+  {
+   "name": "5 days, right",
+   "current": 5,
+   "correct": true,
+   "expected": 7
+  },
+  {
+   "name": "10 days, right",
+   "current": 10,
+   "correct": true,
+   "expected": 14
+  },
+  {
+   "name": "1 days, wrong",
+   "current": 1,
+   "correct": false,
+   "expected": 1
+  },
+  {
+   "name": "7 days, wrong",
+   "current": 7,
+   "correct": false,
+   "expected": 1
+  },
+  {
+   "name": "30 days, wrong",
+   "current": 30,
+   "correct": false,
+   "expected": 1
+  }
+ ],
+ "dueAt": [
+  {
+   "name": "afternoon, tomorrow",
+   "now": "2026-10-02T10:00:00Z",
+   "days": 1,
+   "expected": "2026-10-02T19:00:00Z"
+  },
+  {
+   "name": "afternoon, today",
+   "now": "2026-10-02T10:00:00Z",
+   "days": 0,
+   "expected": "2026-10-01T19:00:00Z"
+  },
+  {
+   "name": "last second of the Tashkent day",
+   "now": "2026-10-02T18:59:59Z",
+   "days": 1,
+   "expected": "2026-10-02T19:00:00Z"
+  },
+  {
+   "name": "first second of the next Tashkent day",
+   "now": "2026-10-02T19:00:00Z",
+   "days": 1,
+   "expected": "2026-10-03T19:00:00Z"
+  },
+  {
+   "name": "first second of the next Tashkent day, today",
+   "now": "2026-10-02T19:00:00Z",
+   "days": 0,
+   "expected": "2026-10-02T19:00:00Z"
+  },
+  {
+   "name": "30 days over a month end",
+   "now": "2026-10-02T10:00:00Z",
+   "days": 30,
+   "expected": "2026-10-31T19:00:00Z"
+  },
+  {
+   "name": "year end at 01:00 Tashkent",
+   "now": "2026-12-31T20:00:00Z",
+   "days": 1,
+   "expected": "2027-01-01T19:00:00Z"
+  },
+  {
+   "name": "14 days",
+   "now": "2026-10-02T04:00:00Z",
+   "days": 14,
+   "expected": "2026-10-15T19:00:00Z"
+  },
+  {
+   "name": "early morning Tashkent (UTC still the day before)",
+   "now": "2026-10-01T20:30:00Z",
+   "days": 1,
+   "expected": "2026-10-02T19:00:00Z"
+  }
+ ],
+ "dayKeys": [
+  {
+   "name": "noon",
+   "at": "2026-10-02T07:00:00Z",
+   "expected": "2026-10-02"
+  },
+  {
+   "name": "last second",
+   "at": "2026-10-02T18:59:59Z",
+   "expected": "2026-10-02"
+  },
+  {
+   "name": "midnight Tashkent",
+   "at": "2026-10-02T19:00:00Z",
+   "expected": "2026-10-03"
+  },
+  {
+   "name": "00:30 Tashkent is the next day",
+   "at": "2026-10-02T19:30:00Z",
+   "expected": "2026-10-03"
+  },
+  {
+   "name": "04:59 Tashkent, still UTC the day before",
+   "at": "2026-10-02T23:59:00Z",
+   "expected": "2026-10-03"
+  },
+  {
+   "name": "start of the UTC day = 05:00 Tashkent",
+   "at": "2026-10-03T00:00:00Z",
+   "expected": "2026-10-03"
+  }
+ ],
+ "isDue": [
+  {
+   "name": "due yesterday",
+   "dueAt": "2026-10-01T19:00:00Z",
+   "now": "2026-10-02T10:00:00Z",
+   "expected": true
+  },
+  {
+   "name": "due today (midnight)",
+   "dueAt": "2026-10-02T19:00:00Z",
+   "now": "2026-10-02T10:00:00Z",
+   "expected": false
+  },
+  {
+   "name": "due tomorrow midnight is not due today",
+   "dueAt": "2026-10-03T19:00:00Z",
+   "now": "2026-10-02T10:00:00Z",
+   "expected": false
+  },
+  {
+   "name": "tomorrow midnight at the last second of today",
+   "dueAt": "2026-10-03T19:00:00Z",
+   "now": "2026-10-03T18:59:59Z",
+   "expected": false
+  },
+  {
+   "name": "tomorrow midnight at the first second of tomorrow",
+   "dueAt": "2026-10-03T19:00:00Z",
+   "now": "2026-10-03T19:00:00Z",
+   "expected": true
+  },
+  {
+   "name": "far in the past",
+   "dueAt": "2026-08-01T19:00:00Z",
+   "now": "2026-10-02T10:00:00Z",
+   "expected": true
+  }
+ ],
+ "streak": [
+  {
+   "name": "no days",
+   "now": "2026-10-02T10:00:00Z",
+   "days": [],
+   "expected": 0
+  },
+  {
+   "name": "today only",
+   "now": "2026-10-02T10:00:00Z",
+   "days": [
+    "2026-10-02"
+   ],
+   "expected": 1
+  },
+  {
+   "name": "three in a row ending today",
+   "now": "2026-10-02T10:00:00Z",
+   "days": [
+    "2026-09-30",
+    "2026-10-01",
+    "2026-10-02"
+   ],
+   "expected": 3
+  },
+  {
+   "name": "ending yesterday still counts",
+   "now": "2026-10-02T10:00:00Z",
+   "days": [
+    "2026-09-30",
+    "2026-10-01"
+   ],
+   "expected": 2
+  },
+  {
+   "name": "a gap breaks it",
+   "now": "2026-10-02T10:00:00Z",
+   "days": [
+    "2026-09-28",
+    "2026-10-01",
+    "2026-10-02"
+   ],
+   "expected": 2
+  },
+  {
+   "name": "last day two days ago: broken",
+   "now": "2026-10-02T10:00:00Z",
+   "days": [
+    "2026-09-30"
+   ],
+   "expected": 0
+  },
+  {
+   "name": "after Tashkent midnight 'today' is the next day",
+   "now": "2026-10-02T19:30:00Z",
+   "days": [
+    "2026-10-02"
+   ],
+   "expected": 1
+  },
+  {
+   "name": "across a month end",
+   "now": "2026-11-01T10:00:00Z",
+   "days": [
+    "2026-10-30",
+    "2026-10-31",
+    "2026-11-01"
+   ],
+   "expected": 3
+  }
+ ]
+}

@@ -24,6 +24,7 @@ class Routes {
   static const studentProfile = '/student/profile';
   static const studentCertificates = '/student/certificates';
   static const studentSkills = '/student/skills';
+  static const studentReview = '/student/review';
 
   static String teacherStudent(String id) => '/teacher/students/$id';
   static const teacherReview = '/teacher/review';

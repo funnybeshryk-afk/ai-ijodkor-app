@@ -1933,6 +1933,174 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Vazifalarni yeching — ko‘nikmalaringiz o‘sadi'**
   String get skillsLinkEmpty;
+
+  /// No description provided for @reviewCardTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugungi takrorlash: {count} ta savol'**
+  String reviewCardTitle(int count);
+
+  /// No description provided for @reviewCardSubtitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bir necha daqiqa — yechgan savollaringizni eslab qoling.'**
+  String get reviewCardSubtitle;
+
+  /// No description provided for @reviewCardDone.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugungi takrorlash bajarildi'**
+  String get reviewCardDone;
+
+  /// No description provided for @reviewCardNothing.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun takrorlash yo‘q'**
+  String get reviewCardNothing;
+
+  /// No description provided for @reviewCardNextHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Keyingi savollar o‘z vaqtida qaytadi.'**
+  String get reviewCardNextHint;
+
+  /// No description provided for @reviewDoneTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun hammasi tayyor'**
+  String get reviewDoneTitle;
+
+  /// No description provided for @reviewDoneBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun {count} ta savol takrorlandi. Ertaga yangi savollar kutadi.'**
+  String reviewDoneBody(int count);
+
+  /// No description provided for @reviewNothingBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugun takrorlanadigan savol yo‘q. Keyingilari o‘z vaqtida keladi.'**
+  String get reviewNothingBody;
+
+  /// No description provided for @reviewProgress.
+  ///
+  /// In uz, this message translates to:
+  /// **'Savol {index} / {total}'**
+  String reviewProgress(int index, int total);
+
+  /// No description provided for @reviewCheck.
+  ///
+  /// In uz, this message translates to:
+  /// **'Tekshirish'**
+  String get reviewCheck;
+
+  /// No description provided for @reviewNext.
+  ///
+  /// In uz, this message translates to:
+  /// **'Keyingi'**
+  String get reviewNext;
+
+  /// No description provided for @reviewFinish.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yakunlash'**
+  String get reviewFinish;
+
+  /// No description provided for @reviewCorrect.
+  ///
+  /// In uz, this message translates to:
+  /// **'To‘g‘ri!'**
+  String get reviewCorrect;
+
+  /// No description provided for @reviewWrong.
+  ///
+  /// In uz, this message translates to:
+  /// **'Noto‘g‘ri. Bu savol ertaga qaytadi.'**
+  String get reviewWrong;
+
+  /// No description provided for @reviewFinishedTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugungi takrorlash tayyor!'**
+  String get reviewFinishedTitle;
+
+  /// No description provided for @reviewScore.
+  ///
+  /// In uz, this message translates to:
+  /// **'{total} tadan {right} to‘g‘ri'**
+  String reviewScore(int right, int total);
+
+  /// No description provided for @reviewStreak.
+  ///
+  /// In uz, this message translates to:
+  /// **'{days} kun ketma-ket'**
+  String reviewStreak(int days);
+
+  /// No description provided for @reviewErrorLimit.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bugungi 10 ta takrorlash bajarildi. Ertaga davom eting.'**
+  String get reviewErrorLimit;
+
+  /// No description provided for @reviewErrorNotDue.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu savol bugun takrorlanmaydi.'**
+  String get reviewErrorNotDue;
+
+  /// No description provided for @taskMultiHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bir nechta javob bo‘lishi mumkin.'**
+  String get taskMultiHint;
+
+  /// No description provided for @taskOrderHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'To‘g‘ri tartibga keltiring: strelkalar bilan siljiting.'**
+  String get taskOrderHint;
+
+  /// No description provided for @taskMatchHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Har bir qatorga juftini tanlang.'**
+  String get taskMatchHint;
+
+  /// No description provided for @taskTextHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Javobingiz'**
+  String get taskTextHint;
+
+  /// No description provided for @taskMoveUp.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yuqoriga'**
+  String get taskMoveUp;
+
+  /// No description provided for @taskMoveDown.
+  ///
+  /// In uz, this message translates to:
+  /// **'Pastga'**
+  String get taskMoveDown;
+
+  /// No description provided for @dailyReviewTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Takrorlash'**
+  String get dailyReviewTitle;
+
+  /// No description provided for @dailyReviewEmptyTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Takrorlash hali yo‘q'**
+  String get dailyReviewEmptyTitle;
+
+  /// No description provided for @dailyReviewEmptyBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'Darslardagi mashq vazifalarini yeching — ular shu yerda takrorlash uchun paydo bo‘ladi.'**
+  String get dailyReviewEmptyBody;
 }
 
 class _AppLocalizationsDelegate
