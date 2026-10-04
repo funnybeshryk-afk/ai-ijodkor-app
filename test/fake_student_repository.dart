@@ -57,6 +57,13 @@ class FakeStudentRepository implements StudentRepository {
   @override
   Future<int> fetchPointsTotal(String studentId) async => points;
 
+  /// Python tasks by lesson id (the platform page runs them).
+  final Map<String, int> codeTasks = {};
+
+  @override
+  Future<int> fetchCodeTaskCount(String lessonId) async =>
+      access.contains(lessonId) ? (codeTasks[lessonId] ?? 0) : 0;
+
   @override
   Future<List<QuizQuestion>> fetchQuiz(String lessonId) async {
     if (!access.contains(lessonId)) {

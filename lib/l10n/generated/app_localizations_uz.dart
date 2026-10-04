@@ -1149,4 +1149,15 @@ class AppLocalizationsUz extends AppLocalizations {
   @override
   String get dailyReviewEmptyBody =>
       'Darslardagi mashq vazifalarini yeching — ular shu yerda takrorlash uchun paydo bo‘ladi.';
+
+  @override
+  String get codeTasksCardTitle => 'Python mashqlari';
+
+  @override
+  String codeTasksCardBody(int count) {
+    return '$count ta vazifa · kodni yozing, u shu yerning o‘zida ishga tushadi va tekshiriladi';
+  }
+
+  @override
+  String get codeTasksOpenButton => 'Kod yozishni boshlash';
 }

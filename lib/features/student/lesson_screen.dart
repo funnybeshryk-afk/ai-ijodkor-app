@@ -11,6 +11,7 @@ import '../../data/models/quiz.dart';
 import '../../widgets/async_value_view.dart';
 import '../../widgets/message_view.dart';
 import '../../widgets/ui.dart';
+import '../common/web_page_screen.dart';
 import 'homework_sheet.dart';
 import 'lesson_sections.dart';
 import 'quiz_section.dart';
@@ -86,6 +87,8 @@ class _LessonPageState extends ConsumerState<_LessonPage> {
         ref.watch(progressProvider).value?[lesson.id] ??
         ProgressStatus.notStarted;
     final quiz = ref.watch(quizProvider(lesson.id));
+    final platformUrl = ref.watch(platformUrlProvider);
+    final codeTasks = ref.watch(codeTaskCountProvider(lesson.id));
     final module = groupLessonsByModule(widget.all)
         .firstWhere((m) => m.name == lesson.module);
     final track = Track.ofModule(lesson.module);
@@ -198,6 +201,28 @@ class _LessonPageState extends ConsumerState<_LessonPage> {
                               ),
                             ),
                     ),
+                    if (platformUrl.isNotEmpty)
+                      codeTasks.when(
+                        loading: () => const Padding(
+                          padding: EdgeInsets.only(bottom: AppSpace.s5),
+                          child: SkeletonBox(height: 120, radius: AppRadius.lg),
+                        ),
+                        // The card is an extra: a lesson without it is still
+                        // complete, so a failed read shows nothing.
+                        error: (_, _) => const SizedBox.shrink(),
+                        data: (count) => count == 0
+                            ? const SizedBox.shrink()
+                            : Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: AppSpace.s5,
+                                ),
+                                child: _CodeTasksCard(
+                                  lesson: lesson,
+                                  count: count,
+                                  platformUrl: platformUrl,
+                                ),
+                              ),
+                      ),
                     _HomeworkCard(lesson: lesson),
                   ],
                 ),
@@ -460,6 +485,75 @@ class _QuizCard extends StatelessWidget {
               height: AppSize.button,
               onPressed: onOpen,
             ),
+        ],
+      ),
+    );
+  }
+}
+
+/// Python tasks of the lesson. The code runs in the browser (Pyodide), so the
+/// card opens the platform's lesson page at its practice section, signed in.
+class _CodeTasksCard extends StatelessWidget {
+  const _CodeTasksCard({
+    required this.lesson,
+    required this.count,
+    required this.platformUrl,
+  });
+
+  final Lesson lesson;
+  final int count;
+  final String platformUrl;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final colors = context.colors;
+    return Panel(
+      radius: AppRadius.lg,
+      padding: const EdgeInsets.all(AppSpace.panel),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              const IconTile(icon: LucideIcons.code),
+              const SizedBox(width: AppSpace.s3),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.codeTasksCardTitle,
+                      style: AppText.titleSm.copyWith(color: colors.ink),
+                    ),
+                    Text(
+                      l10n.codeTasksCardBody(count),
+                      style: AppText.caption.copyWith(
+                        color: colors.inkSoft,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: AppSpace.card),
+          InverseButton(
+            key: const Key('code_tasks_open'),
+            label: l10n.codeTasksOpenButton,
+            icon: LucideIcons.play,
+            onPressed: () => Navigator.of(context, rootNavigator: true).push(
+              MaterialPageRoute<void>(
+                builder: (_) => WebPageScreen(
+                  url: Uri.parse(platformUrl)
+                      .resolve('/student/lessons/${lesson.id}#practice'),
+                  title: l10n.codeTasksCardTitle,
+                  withPlatformSession: true,
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );

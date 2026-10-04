@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/env.dart';
 import '../../data/homework_files.dart';
 import '../../data/models/lesson.dart';
 import '../../data/models/lesson_section.dart';
@@ -61,6 +62,20 @@ final quizProvider = FutureProvider.family<List<QuizQuestion>, String>((
 ) async {
   final (repo, _) = await _studentContext(ref);
   return repo.fetchQuiz(lessonId);
+});
+
+/// Address of the platform (build-time `PLATFORM_URL`); a provider so tests can
+/// set it. Empty = the app is not tied to a platform page, so the cards that
+/// open one are hidden.
+final platformUrlProvider = Provider<String>((ref) => Env.platformUrl);
+
+/// Python tasks of one lesson (they open in the platform page).
+final codeTaskCountProvider = FutureProvider.family<int, String>((
+  ref,
+  lessonId,
+) async {
+  final (repo, _) = await _studentContext(ref);
+  return repo.fetchCodeTaskCount(lessonId);
 });
 
 /// «Takrorlash»: the numbers for the card on the home screen.

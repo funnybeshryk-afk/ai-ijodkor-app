@@ -30,6 +30,11 @@ abstract class StudentRepository {
 
   Future<List<QuizQuestion>> fetchQuiz(String lessonId);
 
+  /// How many Python (code) tasks the lesson has for the student. The tasks
+  /// themselves run in the platform page (Pyodide in the browser); 0 when there
+  /// are none or they cannot be read.
+  Future<int> fetchCodeTaskCount(String lessonId);
+
   /// The lesson's sections in order (RLS: only granted lessons). Empty when
   /// the lesson has none — or before platform migration 0023 is applied —
   /// and the screen then falls back to content_url.
@@ -162,6 +167,21 @@ class SupabaseStudentRepository implements StudentRepository {
       0,
       (sum, row) => sum + (row['amount'] as num).toInt(),
     );
+  }
+
+  @override
+  Future<int> fetchCodeTaskCount(String lessonId) async {
+    try {
+      final rows = await _client.rpc<List<dynamic>>(
+        'get_lesson_tasks',
+        params: {'p_lesson_id': lessonId},
+      );
+      return rows.where((row) => (row as Map)['type'] == 'code').length;
+    } on PostgrestException {
+      // Before platform migration 0027 the function does not exist; a lesson
+      // without access is refused. Neither is an error worth showing.
+      return 0;
+    }
   }
 
   @override
