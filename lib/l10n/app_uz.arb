@@ -684,5 +684,15 @@
   "taskMoveDown": "Pastga",
   "dailyReviewTitle": "Takrorlash",
   "dailyReviewEmptyTitle": "Takrorlash hali yo‘q",
-  "dailyReviewEmptyBody": "Darslardagi mashq vazifalarini yeching — ular shu yerda takrorlash uchun paydo bo‘ladi."
+  "dailyReviewEmptyBody": "Darslardagi mashq vazifalarini yeching — ular shu yerda takrorlash uchun paydo bo‘ladi.",
+  "codeTasksCardTitle": "Python mashqlari",
+  "codeTasksCardBody": "{count} ta vazifa · kodni yozing, u shu yerning o‘zida ishga tushadi va tekshiriladi",
+  "codeTasksOpenButton": "Kod yozishni boshlash",
+  "@codeTasksCardBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

@@ -1142,4 +1142,15 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get dailyReviewEmptyBody =>
       'Решайте практические задания в уроках — они появятся здесь для повторения.';
+
+  @override
+  String get codeTasksCardTitle => 'Задания по Python';
+
+  @override
+  String codeTasksCardBody(int count) {
+    return '$count зад. · пишите код — он запускается и проверяется прямо здесь';
+  }
+
+  @override
+  String get codeTasksOpenButton => 'Начать писать код';
 }

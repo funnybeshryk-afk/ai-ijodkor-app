@@ -333,5 +333,8 @@
   "taskMoveDown": "Ниже",
   "dailyReviewTitle": "Повторение",
   "dailyReviewEmptyTitle": "Повторять пока нечего",
-  "dailyReviewEmptyBody": "Решайте практические задания в уроках — они появятся здесь для повторения."
+  "dailyReviewEmptyBody": "Решайте практические задания в уроках — они появятся здесь для повторения.",
+  "codeTasksCardTitle": "Задания по Python",
+  "codeTasksCardBody": "{count} зад. · пишите код — он запускается и проверяется прямо здесь",
+  "codeTasksOpenButton": "Начать писать код"
 }

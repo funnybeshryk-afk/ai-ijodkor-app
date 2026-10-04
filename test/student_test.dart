@@ -3,12 +3,14 @@ import 'dart:typed_data';
 import 'package:ai_ijodkor/core/locale_controller.dart';
 import 'package:ai_ijodkor/data/homework_files.dart';
 import 'package:ai_ijodkor/features/student/homework_file_picker.dart';
+import 'package:ai_ijodkor/features/student/student_providers.dart';
 import 'package:ai_ijodkor/data/models/lesson.dart';
 import 'package:ai_ijodkor/data/models/lesson_section.dart';
 import 'package:ai_ijodkor/data/models/profile.dart';
 import 'package:ai_ijodkor/data/models/quiz.dart';
 import 'package:ai_ijodkor/data/models/student_records.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';
 
 import 'fakes.dart';
@@ -68,7 +70,11 @@ void main() {
   // Files the fake picker hands out, one per tap on «Fayl biriktirish».
   final picks = <PickedHomeworkFile>[];
 
-  Future<void> start(WidgetTester tester, {String? locale}) async {
+  Future<void> start(
+    WidgetTester tester, {
+    String? locale,
+    List<Override> extraOverrides = const [],
+  }) async {
     await pumpApp(
       tester,
       auth: auth,
@@ -79,6 +85,7 @@ void main() {
         homeworkFilePickerProvider.overrideWithValue(
           () async => picks.isEmpty ? null : picks.removeAt(0),
         ),
+        ...extraOverrides,
       ],
     );
     await tester.enterText(byKey('login_email'), 'kid@test.uz');
@@ -150,6 +157,60 @@ void main() {
     expect(computer.dy, lessThan(python.dy));
     // Not granted -> not listed.
     expect(find.text(_l2.title), findsNothing);
+  });
+
+  group('Python tasks of a lesson', () {
+    Future<void> openLesson(
+      WidgetTester tester, {
+      String platformUrl = 'https://platform.test',
+    }) async {
+      await start(
+        tester,
+        extraOverrides: [platformUrlProvider.overrideWithValue(platformUrl)],
+      );
+      await openTab(tester, 'Darslar');
+      await tester.tap(find.text(_l1.title));
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('the card appears when the lesson has code tasks', (
+      tester,
+    ) async {
+      repo.codeTasks['l1'] = 3;
+      await openLesson(tester);
+      expect(find.text('Python mashqlari'), findsOneWidget);
+      expect(find.textContaining('3 ta vazifa'), findsOneWidget);
+      expect(byKey('code_tasks_open'), findsOneWidget);
+    });
+
+    testWidgets('no card without code tasks', (tester) async {
+      await openLesson(tester);
+      expect(find.text('Python mashqlari'), findsNothing);
+      // The rest of the lesson is there.
+      expect(byKey('quiz_start'), findsOneWidget);
+    });
+
+    testWidgets('no card when the app has no platform address', (tester) async {
+      repo.codeTasks['l1'] = 3;
+      await openLesson(tester, platformUrl: '');
+      expect(find.text('Python mashqlari'), findsNothing);
+    });
+
+    testWidgets('the card is in Russian when the app is', (tester) async {
+      repo.codeTasks['l1'] = 2;
+      await start(
+        tester,
+        locale: 'ru',
+        extraOverrides: [
+          platformUrlProvider.overrideWithValue('https://platform.test'),
+        ],
+      );
+      await openTab(tester, 'Уроки');
+      await tester.tap(find.text(_l1.title));
+      await tester.pumpAndSettle();
+      expect(find.text('Задания по Python'), findsOneWidget);
+      expect(find.text('Начать писать код'), findsOneWidget);
+    });
   });
 
   testWidgets('quiz: failing shows the threshold, passing unlocks next', (

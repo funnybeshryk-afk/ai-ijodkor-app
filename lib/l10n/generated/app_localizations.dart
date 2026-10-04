@@ -2101,6 +2101,24 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Darslardagi mashq vazifalarini yeching — ular shu yerda takrorlash uchun paydo bo‘ladi.'**
   String get dailyReviewEmptyBody;
+
+  /// No description provided for @codeTasksCardTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Python mashqlari'**
+  String get codeTasksCardTitle;
+
+  /// No description provided for @codeTasksCardBody.
+  ///
+  /// In uz, this message translates to:
+  /// **'{count} ta vazifa · kodni yozing, u shu yerning o‘zida ishga tushadi va tekshiriladi'**
+  String codeTasksCardBody(int count);
+
+  /// No description provided for @codeTasksOpenButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kod yozishni boshlash'**
+  String get codeTasksOpenButton;
 }
 
 class _AppLocalizationsDelegate
