@@ -105,10 +105,13 @@ class _PaymentsScreenState extends ConsumerState<PaymentsScreen> {
                     );
                   }
                   final lines = paymentLinesFor(list, rows, period);
-                  final expected = lines.fold<num>(0, (s, e) => s + e.amount);
+                  final expected = lines.fold<num>(
+                    0,
+                    (s, e) => s + (e.amount ?? 0),
+                  );
                   final collected = lines
                       .where((e) => !e.isDebt)
-                      .fold<num>(0, (s, e) => s + e.amount);
+                      .fold<num>(0, (s, e) => s + (e.amount ?? 0));
                   final debtors = lines.where((e) => e.isDebt).length;
                   final visible = _debtorsOnly
                       ? lines.where((e) => e.isDebt).toList()
@@ -226,7 +229,9 @@ class _PaymentRow extends StatelessWidget {
                   style: AppText.bodyStrong.copyWith(color: colors.ink),
                 ),
                 Text(
-                  formatMoney(context, line.amount),
+                  line.amount == null
+                      ? l10n.amountNotSet
+                      : formatMoney(context, line.amount!),
                   style: AppText.caption.copyWith(color: colors.inkMuted),
                 ),
               ],

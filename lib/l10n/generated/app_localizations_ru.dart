@@ -925,6 +925,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get amountInvalid => 'Введите корректную сумму';
 
   @override
+  String get amountNotSet => 'сумма не указана';
+
+  @override
   String get teachersTitle => 'Учителя';
 
   @override

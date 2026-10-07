@@ -555,6 +555,7 @@
   },
   "amountLabel": "Summa, so‘m",
   "amountInvalid": "Summani to‘g‘ri kiriting",
+  "amountNotSet": "summa belgilanmagan",
   "teachersTitle": "O‘qituvchilar",
   "teacherStudentsCount": "{count} ta o‘quvchi",
   "@teacherStudentsCount": {

@@ -269,6 +269,7 @@
   "markPaymentTitle": "{name} · {month}",
   "amountLabel": "Сумма, сум",
   "amountInvalid": "Введите корректную сумму",
+  "amountNotSet": "сумма не указана",
   "teachersTitle": "Учителя",
   "teacherStudentsCount": "Учеников: {count}",
   "unassignedStudentsTitle": "Ученики без учителя",

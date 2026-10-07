@@ -16,7 +16,7 @@ Future<void> showPaymentSheet(
   BuildContext context, {
   required Person student,
   required String period,
-  required num amount,
+  required num? amount,
   required PaymentStatus status,
 }) => showModalBottomSheet<void>(
   context: context,
@@ -40,7 +40,9 @@ class _PaymentSheet extends ConsumerStatefulWidget {
 
   final Person student;
   final String period;
-  final num amount;
+
+  /// null: no amount yet — the field starts empty.
+  final num? amount;
   final PaymentStatus status;
 
   @override
@@ -49,7 +51,7 @@ class _PaymentSheet extends ConsumerStatefulWidget {
 
 class _PaymentSheetState extends ConsumerState<_PaymentSheet> {
   late final _amount = TextEditingController(
-    text: widget.amount.round().toString(),
+    text: widget.amount?.round().toString() ?? '',
   );
   late PaymentStatus _status = widget.status;
   bool _busy = false;
@@ -145,6 +147,24 @@ class _PaymentSheetState extends ConsumerState<_PaymentSheet> {
               labelText: l10n.amountLabel,
               errorText: _error,
             ),
+          ),
+          const SizedBox(height: AppSpace.s2),
+          Wrap(
+            spacing: AppSpace.s2,
+            children: [
+              for (final tariff in monthlyTariffs)
+                ChoiceChip(
+                  key: Key('payment_tariff_$tariff'),
+                  label: Text(formatAmount(tariff)),
+                  selected: _amount.text.trim() == '$tariff',
+                  onSelected: _busy
+                      ? null
+                      : (_) => setState(() {
+                          _amount.text = '$tariff';
+                          _error = null;
+                        }),
+                ),
+            ],
           ),
           const SizedBox(height: AppSpace.s5),
           PrimaryButton(

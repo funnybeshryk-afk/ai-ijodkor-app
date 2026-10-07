@@ -524,7 +524,7 @@ class _PaymentsSection extends StatelessWidget {
               for (final period in periods)
                 () {
                   final p = saved[period];
-                  final amount = p?.amount ?? latestAmount ?? defaultMonthlyFee;
+                  final amount = p?.amount ?? latestAmount;
                   final year = int.parse(period.substring(0, 4));
                   final month = int.parse(period.substring(5, 7));
                   return ListTile(
@@ -535,7 +535,9 @@ class _PaymentsSection extends StatelessWidget {
                       style: AppText.bodyStrong.copyWith(color: colors.ink),
                     ),
                     subtitle: Text(
-                      formatMoney(context, amount),
+                      amount == null
+                          ? l10n.amountNotSet
+                          : formatMoney(context, amount),
                       style: AppText.caption.copyWith(color: colors.inkMuted),
                     ),
                     trailing: p == null

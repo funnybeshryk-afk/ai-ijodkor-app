@@ -310,9 +310,16 @@ void main() {
     await start(tester);
     await openTab(tester, 'To‘lovlar');
 
-    // Aziz: nothing saved -> default fee, counted as a debtor.
-    expect(find.text(formatAmount(650000)), findsOneWidget); // expected
-    expect(find.text(formatAmount(300000)), findsOneWidget); // collected
+    // Aziz: nothing saved and no history -> no amount, counted as a debtor.
+    // Expected and collected both come to Dilnoza's 300 000.
+    expect(find.text(formatAmount(300000)), findsNWidgets(2));
+    expect(
+      find.descendant(
+        of: byKey('payment_s1'),
+        matching: find.text('summa belgilanmagan'),
+      ),
+      findsOneWidget,
+    );
     expect(
       find.descendant(
         of: byKey('payment_s1'),
@@ -328,10 +335,21 @@ void main() {
 
     await tester.tap(byKey('payment_s1'));
     await tester.pumpAndSettle();
-    await tester.enterText(byKey('payment_amount'), '350000');
+    // No standard fee: the field starts empty and the two prices are buttons.
+    expect(
+      tester.widget<TextField>(byKey('payment_amount')).controller!.text,
+      isEmpty,
+    );
+    expect(byKey('payment_tariff_100000'), findsOneWidget);
+    await tester.tap(byKey('payment_tariff_150000'));
+    await tester.pumpAndSettle();
+    expect(
+      tester.widget<TextField>(byKey('payment_amount')).controller!.text,
+      '150000',
+    );
     await tester.tap(byKey('payment_save'));
     await tester.pumpAndSettle();
-    expect(repo.calls, ['pay:s1:$period:350000:paid']);
+    expect(repo.calls, ['pay:s1:$period:150000:paid']);
     expect(find.text('Bu oyda qarzdorlar yo‘q'), findsOneWidget);
 
     // Previous month: nobody has paid yet.
