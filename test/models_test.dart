@@ -177,7 +177,7 @@ void main() {
       expect(periodOf(DateTime(2026, 3, 5)), '2026-03');
     });
 
-    test('payment lines default like the web panel', () {
+    test('payment lines default like the web panel (no standard fee)', () {
       const a = Person(id: 'a', fullName: 'A');
       const b = Person(id: 'b', fullName: 'B');
       final lines = paymentLinesFor(
@@ -197,8 +197,9 @@ void main() {
       expect(lines[0].amount, 300000);
       expect(lines[0].isDebt, isTrue);
       expect(lines[0].saved, isNull);
-      // Never paid: the standard fee.
-      expect(lines[1].amount, defaultMonthlyFee);
+      // Never paid: no amount until the teacher picks or types one.
+      expect(lines[1].amount, isNull);
+      expect(monthlyTariffs, [100000, 150000]);
     });
 
     test('homework link and initials', () {

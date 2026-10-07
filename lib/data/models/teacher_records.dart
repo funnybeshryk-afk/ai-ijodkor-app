@@ -193,12 +193,15 @@ String shiftPeriod(String period, int months) {
   return '${index ~/ 12}-${(index % 12 + 1).toString().padLeft(2, '0')}';
 }
 
-/// Standard monthly fee — the platform's DEFAULT_AMOUNT (payments-panel).
-const defaultMonthlyFee = 350000;
+/// The two monthly prices by the child's age (7–9 and 10–15), offered as
+/// quick buttons — the platform's payments panel has the same two. There is
+/// no "standard fee": a student's age is not stored, so a student without
+/// payment history has no amount until the teacher picks or types one.
+const monthlyTariffs = [100000, 150000];
 
 /// One student's line in the payments list for a month: the saved row, or
-/// a default (last known amount, else the standard fee; unpaid) — exactly
-/// like the platform's payments panel. Nothing is written until saved.
+/// a default (last known amount, else none; unpaid) — like the platform's
+/// payments panel. Nothing is written until saved.
 class PaymentLine {
   const PaymentLine({
     required this.student,
@@ -208,7 +211,9 @@ class PaymentLine {
   });
 
   final Person student;
-  final num amount;
+
+  /// null: no row this month and no earlier payment to copy.
+  final num? amount;
   final PaymentStatus status;
   final Payment? saved;
 
@@ -230,7 +235,7 @@ List<PaymentLine> paymentLinesFor(
         return PaymentLine(
           student: student,
           saved: saved,
-          amount: saved?.amount ?? latest?.amount ?? defaultMonthlyFee,
+          amount: saved?.amount ?? latest?.amount,
           status: saved?.status ?? PaymentStatus.unpaid,
         );
       }(),

@@ -1712,6 +1712,12 @@ abstract class AppLocalizations {
   /// **'Summani to‘g‘ri kiriting'**
   String get amountInvalid;
 
+  /// No description provided for @amountNotSet.
+  ///
+  /// In uz, this message translates to:
+  /// **'summa belgilanmagan'**
+  String get amountNotSet;
+
   /// No description provided for @teachersTitle.
   ///
   /// In uz, this message translates to:

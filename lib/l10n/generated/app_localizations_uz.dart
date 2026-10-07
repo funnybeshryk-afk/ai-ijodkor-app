@@ -931,6 +931,9 @@ class AppLocalizationsUz extends AppLocalizations {
   String get amountInvalid => 'Summani to‘g‘ri kiriting';
 
   @override
+  String get amountNotSet => 'summa belgilanmagan';
+
+  @override
   String get teachersTitle => 'O‘qituvchilar';
 
   @override
