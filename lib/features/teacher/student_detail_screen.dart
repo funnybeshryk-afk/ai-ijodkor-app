@@ -229,7 +229,7 @@ class _HeaderCard extends ConsumerWidget {
             children: [
               Expanded(
                 child: StatTile(
-                  value: formatAmount(d.pointsTotal),
+                  value: d.xp == null ? '…' : formatAmount(d.xp!),
                   label: l10n.tilePoints,
                   color: colors.ink,
                 ),

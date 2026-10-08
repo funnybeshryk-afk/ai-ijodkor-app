@@ -5,7 +5,7 @@ import 'package:ai_ijodkor/data/models/teacher_records.dart';
 import 'package:ai_ijodkor/data/repositories/teacher_repository.dart';
 
 /// In-memory teacher data with the same write rules as the real one
-/// (approve = +10 points and completed; group access only adds missing rows).
+/// (approve = completed, no points row — the platform counts them; group access only adds missing rows).
 class FakeTeacherRepository implements TeacherRepository {
   final students = <Person>[];
   final teachers = <Person>[];
@@ -96,15 +96,6 @@ class FakeTeacherRepository implements TeacherRepository {
     );
     if (approved) {
       progress[(h.studentId, h.lessonId)] = ProgressStatus.completed;
-      points
-          .putIfAbsent(h.studentId, () => [])
-          .add(
-            PointsEntry(
-              amount: homeworkApprovedPoints,
-              reason: homeworkApprovedReason,
-              createdAt: DateTime(2026, 9, 28),
-            ),
-          );
     }
   }
 

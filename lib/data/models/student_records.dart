@@ -50,24 +50,46 @@ class HomeworkSubmission {
       );
 }
 
-/// A row of `get_class_leaderboard()` (this week's trainer score).
-class LeaderboardEntry {
-  const LeaderboardEntry({
+/// The rating period: the month (the main one, from the 1st, Tashkent time;
+/// everybody starts from zero) or the week (from Monday).
+enum RatingPeriod {
+  month('month'),
+  week('week');
+
+  const RatingPeriod(this.dbValue);
+
+  final String dbValue;
+}
+
+/// A row of `get_rating(period)`: the top three, the student's own place and
+/// the place right above it.
+class RatingRow {
+  const RatingRow({
+    required this.place,
     required this.studentId,
     required this.fullName,
-    required this.totalScore,
+    required this.points,
+    required this.isMe,
+    required this.totalStudents,
   });
 
+  final int place;
   final String studentId;
   final String fullName;
-  final int totalScore;
+  final int points;
+  final bool isMe;
 
-  factory LeaderboardEntry.fromJson(Map<String, dynamic> json) =>
-      LeaderboardEntry(
-        studentId: json['student_id'] as String,
-        fullName: (json['full_name'] as String?) ?? '',
-        totalScore: (json['total_score'] as num).toInt(),
-      );
+  /// Students in the whole platform rating.
+  final int totalStudents;
+
+  factory RatingRow.fromJson(Map<String, dynamic> json) => RatingRow(
+    place: (json['place'] as num).toInt(),
+    studentId: json['student_id'] as String,
+    fullName: (json['full_name'] as String?) ?? '',
+    points: (json['points'] as num).toInt(),
+    isMe: (json['is_me'] as bool?) ?? false,
+    totalStudents: (json['total_students'] as num?)?.toInt() ?? 0,
+  );
 }
 
 class Certificate {

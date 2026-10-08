@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../homework_files.dart';
+import '../xp.dart';
 import '../models/lesson.dart';
 import '../models/parent_records.dart';
 import '../models/student_records.dart';
@@ -27,8 +28,9 @@ abstract class TeacherRepository {
   /// A short-lived link to a stored homework file (Storage RLS decides).
   Future<Uri> homeworkFileUrl(String path);
 
-  /// Approve (+10 points, lesson completed) or return with a comment —
-  /// the platform's reviewHomework().
+  /// Approve (lesson completed; the points are counted by the platform from
+  /// the approved submission) or return with a comment — the platform's
+  /// reviewHomework().
   Future<void> reviewHomework({
     required String submissionId,
     required bool approved,
@@ -84,10 +86,6 @@ abstract class TeacherRepository {
   /// Admin only; null unassigns.
   Future<void> assignTeacher(String studentId, String? teacherId);
 }
-
-/// Points for an approved homework — same amount and reason as the web.
-const homeworkApprovedPoints = 10;
-const homeworkApprovedReason = 'Uy vazifasi tasdiqlandi';
 
 class SupabaseTeacherRepository implements TeacherRepository {
   SupabaseTeacherRepository(this._client);
@@ -157,6 +155,7 @@ class SupabaseTeacherRepository implements TeacherRepository {
     ]);
     Map<String, dynamic> m(dynamic row) =>
         Map<String, dynamic>.from(row as Map);
+    final xp = await fetchXpOrNull(_client, studentId);
     return StudentDetail(
       progress: [for (final r in results[0]) ProgressRow.fromJson(m(r))],
       homework: [for (final r in results[1]) TeacherHomework.fromJson(m(r))],
@@ -165,6 +164,7 @@ class SupabaseTeacherRepository implements TeacherRepository {
       openLessonIds: {for (final r in results[4]) m(r)['lesson_id'] as String},
       certificates: [for (final r in results[5]) Certificate.fromJson(m(r))],
       parents: [for (final r in results[6]) StudentParent.fromJson(m(r))],
+      xp: xp,
     );
   }
 
@@ -215,11 +215,9 @@ class SupabaseTeacherRepository implements TeacherRepository {
       'status': 'completed',
       'updated_at': now,
     }, onConflict: 'student_id,lesson_id');
-    await _client.from('points_ledger').insert({
-      'student_id': submission['student_id'],
-      'amount': homeworkApprovedPoints,
-      'reason': homeworkApprovedReason,
-    });
+    // No points_ledger row: since platform migration 0040 the points of a
+    // homework are counted from the approved submission itself (its
+    // reviewed_at), at the price the owner set in app_settings.points_rules.
   }
 
   @override

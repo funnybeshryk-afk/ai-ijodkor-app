@@ -13,7 +13,7 @@ const _noOnlinePayment = PaymentLinks(
   phone: '+998500114125',
 );
 
-ChildOverview _overview({List<Payment> payments = const []}) {
+ChildOverview _overview({List<Payment> payments = const [], int? xp = 1240}) {
   final now = DateTime.now();
   return ChildOverview(
     lessons: const [
@@ -67,6 +67,7 @@ ChildOverview _overview({List<Payment> payments = const []}) {
       ),
     ],
     payments: payments,
+    xp: xp,
   );
 }
 
@@ -109,6 +110,15 @@ void main() {
     expect(find.text('tekshiruvda'), findsOneWidget);
     expect(find.text('1 240'), findsOneWidget);
     expect(find.text('To‘lov ma’lumotlari hali kiritilmagan'), findsOneWidget);
+  });
+
+  testWidgets('XP that cannot be read yet is a placeholder, never 0', (
+    tester,
+  ) async {
+    parents.overviews['c1'] = _overview(xp: null);
+    await start(tester);
+    expect(find.text('…'), findsOneWidget);
+    expect(find.text('1 240'), findsNothing);
   });
 
   testWidgets('unpaid month without online payment shows amount and contact', (

@@ -8,7 +8,6 @@ import '../../core/l10n.dart';
 import '../../core/theme.dart';
 import '../../data/homework_files.dart';
 import '../../data/models/teacher_records.dart';
-import '../../data/repositories/teacher_repository.dart';
 import '../../widgets/ui.dart';
 import 'teacher_providers.dart';
 import 'teacher_widgets.dart';
@@ -180,7 +179,7 @@ class _ReviewSheetState extends ConsumerState<_ReviewSheet> {
             ),
             const SizedBox(height: AppSpace.s2),
             Text(
-              l10n.approveHint(homeworkApprovedPoints),
+              l10n.approveHint,
               style: AppText.caption.copyWith(color: colors.inkSoft),
             ),
             const SizedBox(height: AppSpace.s4),

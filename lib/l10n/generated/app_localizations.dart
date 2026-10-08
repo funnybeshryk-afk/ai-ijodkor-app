@@ -749,20 +749,14 @@ abstract class AppLocalizations {
   /// No description provided for @ratingTitle.
   ///
   /// In uz, this message translates to:
-  /// **'Sinfdagi reyting'**
+  /// **'Reyting'**
   String get ratingTitle;
 
   /// No description provided for @ratingSubtitle.
   ///
   /// In uz, this message translates to:
-  /// **'Shu haftadagi mashqlar ballari. Har dushanba yangilanadi.'**
+  /// **'Butun platforma bo‘yicha bitta reyting. Har oyning 1-sanasida hamma noldan boshlaydi.'**
   String get ratingSubtitle;
-
-  /// No description provided for @ratingEmpty.
-  ///
-  /// In uz, this message translates to:
-  /// **'Bu hafta hali hech kim mashq qilmadi. Birinchi bo‘ling!'**
-  String get ratingEmpty;
 
   /// No description provided for @ratingYou.
   ///
@@ -893,13 +887,13 @@ abstract class AppLocalizations {
   /// No description provided for @statRank.
   ///
   /// In uz, this message translates to:
-  /// **'guruh reytingida'**
+  /// **'oy reytingida'**
   String get statRank;
 
   /// No description provided for @statNotRanked.
   ///
   /// In uz, this message translates to:
-  /// **'bu hafta reytingda yo‘q'**
+  /// **'bu oy reytingda yo‘q'**
   String get statNotRanked;
 
   /// No description provided for @tracksTitle.
@@ -1553,8 +1547,8 @@ abstract class AppLocalizations {
   /// No description provided for @approveHint.
   ///
   /// In uz, this message translates to:
-  /// **'+{points} ball, dars yakunlangan deb belgilanadi'**
-  String approveHint(int points);
+  /// **'Dars yakunlangan deb belgilanadi. Ballni platforma o‘zi hisoblaydi.'**
+  String get approveHint;
 
   /// No description provided for @commentLabel.
   ///
@@ -2125,6 +2119,60 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Kod yozishni boshlash'**
   String get codeTasksOpenButton;
+
+  /// No description provided for @ratingTabMonth.
+  ///
+  /// In uz, this message translates to:
+  /// **'Oy'**
+  String get ratingTabMonth;
+
+  /// No description provided for @ratingTabWeek.
+  ///
+  /// In uz, this message translates to:
+  /// **'Hafta'**
+  String get ratingTabWeek;
+
+  /// No description provided for @ratingEmptyMonth.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu oy hali ball to‘planmagan — birinchi bo‘ling!'**
+  String get ratingEmptyMonth;
+
+  /// No description provided for @ratingEmptyWeek.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu hafta hali ball to‘planmagan — birinchi bo‘ling!'**
+  String get ratingEmptyWeek;
+
+  /// No description provided for @ratingYourPlace.
+  ///
+  /// In uz, this message translates to:
+  /// **'Siz {place}-o‘rindasiz · {total} o‘quvchi ichida'**
+  String ratingYourPlace(int place, int total);
+
+  /// No description provided for @ratingXpTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Barcha vaqt: sizning XP'**
+  String get ratingXpTitle;
+
+  /// No description provided for @ratingXpNote.
+  ///
+  /// In uz, this message translates to:
+  /// **'Bu reyting emas — faqat sizning shaxsiy yutug‘ingiz. U hech qachon nolga tushmaydi.'**
+  String get ratingXpNote;
+
+  /// No description provided for @dataUpdating.
+  ///
+  /// In uz, this message translates to:
+  /// **'Ma‘lumot yangilanmoqda'**
+  String get dataUpdating;
+
+  /// No description provided for @dataUpdatingHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Birozdan keyin qayta urinib ko‘ring.'**
+  String get dataUpdatingHint;
 }
 
 class _AppLocalizationsDelegate

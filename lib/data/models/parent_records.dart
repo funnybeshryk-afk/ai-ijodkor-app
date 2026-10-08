@@ -107,6 +107,7 @@ class ChildOverview {
     required this.homework,
     required this.points,
     required this.payments,
+    this.xp,
   });
 
   /// Lessons the child has been granted.
@@ -115,6 +116,10 @@ class ChildOverview {
   final List<HomeworkSubmission> homework;
   final List<PointsEntry> points;
   final List<Payment> payments;
+
+  /// All-time XP (the same score as the platform rating); null while the
+  /// database cannot answer yet — the screen then shows a placeholder.
+  final int? xp;
 
   int get completedCount => lessons
       .where(
@@ -127,8 +132,6 @@ class ChildOverview {
   /// Share of granted lessons completed, 0..1.
   double get completion =>
       lessons.isEmpty ? 0 : completedCount / lessons.length;
-
-  int get pointsTotal => points.fold(0, (sum, e) => sum + e.amount);
 
   int countHomework(HomeworkStatus status) =>
       homework.where((h) => h.status == status).length;

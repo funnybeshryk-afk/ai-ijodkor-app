@@ -8,6 +8,7 @@ import 'package:ai_ijodkor/data/models/review.dart';
 import 'package:ai_ijodkor/data/models/skills.dart';
 import 'package:ai_ijodkor/data/models/student_records.dart';
 import 'package:ai_ijodkor/data/repositories/student_repository.dart';
+import 'package:ai_ijodkor/data/xp.dart';
 
 /// In-memory stand-in for Supabase. The quiz is graded here the same way
 /// the `submit_lesson_quiz` RPC does it, so screens can be tested end to end.
@@ -18,14 +19,21 @@ class FakeStudentRepository implements StudentRepository {
   /// Granted lesson ids (lesson_access).
   final access = <String>{};
   final progress = <String, ProgressStatus>{};
-  int points = 0;
+
+  /// All-time XP (students_xp).
+  int xp = 0;
+
+  /// The database cannot answer yet (a platform migration is not applied).
+  bool dataUpdating = false;
 
   /// lesson id -> questions; and question id -> correct answer.
   final quizzes = <String, List<QuizQuestion>>{};
   final correctAnswers = <String, String>{};
 
   final homework = <HomeworkSubmission>[];
-  final leaderboard = <LeaderboardEntry>[];
+
+  /// Rows of get_rating by period.
+  final ratings = <RatingPeriod, List<RatingRow>>{};
   final certificates = <Certificate>[];
 
   /// Recorded calls, for assertions.
@@ -55,7 +63,10 @@ class FakeStudentRepository implements StudentRepository {
   }
 
   @override
-  Future<int> fetchPointsTotal(String studentId) async => points;
+  Future<int> fetchXp(String studentId) async {
+    if (dataUpdating) throw const DataUpdatingException('students_xp');
+    return xp;
+  }
 
   /// Python tasks by lesson id (the platform page runs them).
   final Map<String, int> codeTasks = {};
@@ -221,7 +232,11 @@ class FakeStudentRepository implements StudentRepository {
   }
 
   @override
-  Future<List<LeaderboardEntry>> fetchLeaderboard() async => leaderboard;
+  Future<List<RatingRow>> fetchRating(RatingPeriod period) async {
+    calls.add('rating:${period.dbValue}');
+    if (dataUpdating) throw const DataUpdatingException('get_rating');
+    return ratings[period] ?? const [];
+  }
 
   @override
   Future<List<Certificate>> fetchCertificates(String studentId) async =>

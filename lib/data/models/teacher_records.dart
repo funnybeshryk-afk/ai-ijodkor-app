@@ -147,6 +147,7 @@ class StudentDetail {
     required this.openLessonIds,
     required this.certificates,
     required this.parents,
+    this.xp,
   });
 
   final List<ProgressRow> progress;
@@ -163,7 +164,9 @@ class StudentDetail {
   final List<Certificate> certificates;
   final List<StudentParent> parents;
 
-  int get pointsTotal => points.fold(0, (sum, e) => sum + e.amount);
+  /// All-time XP (the same score as the platform rating); null while the
+  /// database cannot answer yet — the screen then shows a placeholder.
+  final int? xp;
 
   ProgressStatus statusOf(String lessonId) =>
       progress.where((p) => p.lessonId == lessonId).firstOrNull?.status ??
