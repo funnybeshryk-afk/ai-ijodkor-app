@@ -357,15 +357,11 @@ class AppLocalizationsUz extends AppLocalizations {
   String get trainerTeacherSimulator => 'AI-shogirdga tushuntirish';
 
   @override
-  String get ratingTitle => 'Sinfdagi reyting';
+  String get ratingTitle => 'Reyting';
 
   @override
   String get ratingSubtitle =>
-      'Shu haftadagi mashqlar ballari. Har dushanba yangilanadi.';
-
-  @override
-  String get ratingEmpty =>
-      'Bu hafta hali hech kim mashq qilmadi. Birinchi bo‘ling!';
+      'Butun platforma bo‘yicha bitta reyting. Har oyning 1-sanasida hamma noldan boshlaydi.';
 
   @override
   String get ratingYou => 'Siz';
@@ -448,10 +444,10 @@ class AppLocalizationsUz extends AppLocalizations {
   String get statLessonsDone => 'darslar yakunlandi';
 
   @override
-  String get statRank => 'guruh reytingida';
+  String get statRank => 'oy reytingida';
 
   @override
-  String get statNotRanked => 'bu hafta reytingda yo‘q';
+  String get statNotRanked => 'bu oy reytingda yo‘q';
 
   @override
   String get tracksTitle => 'Yo‘nalishlar';
@@ -839,9 +835,8 @@ class AppLocalizationsUz extends AppLocalizations {
   String get returnButton => 'Qaytarish';
 
   @override
-  String approveHint(int points) {
-    return '+$points ball, dars yakunlangan deb belgilanadi';
-  }
+  String get approveHint =>
+      'Dars yakunlangan deb belgilanadi. Ballni platforma o‘zi hisoblaydi.';
 
   @override
   String get commentLabel => 'Izoh';
@@ -1163,4 +1158,36 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get codeTasksOpenButton => 'Kod yozishni boshlash';
+
+  @override
+  String get ratingTabMonth => 'Oy';
+
+  @override
+  String get ratingTabWeek => 'Hafta';
+
+  @override
+  String get ratingEmptyMonth =>
+      'Bu oy hali ball to‘planmagan — birinchi bo‘ling!';
+
+  @override
+  String get ratingEmptyWeek =>
+      'Bu hafta hali ball to‘planmagan — birinchi bo‘ling!';
+
+  @override
+  String ratingYourPlace(int place, int total) {
+    return 'Siz $place-o‘rindasiz · $total o‘quvchi ichida';
+  }
+
+  @override
+  String get ratingXpTitle => 'Barcha vaqt: sizning XP';
+
+  @override
+  String get ratingXpNote =>
+      'Bu reyting emas — faqat sizning shaxsiy yutug‘ingiz. U hech qachon nolga tushmaydi.';
+
+  @override
+  String get dataUpdating => 'Ma‘lumot yangilanmoqda';
+
+  @override
+  String get dataUpdatingHint => 'Birozdan keyin qayta urinib ko‘ring.';
 }

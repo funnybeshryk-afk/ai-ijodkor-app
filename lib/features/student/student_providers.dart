@@ -35,9 +35,11 @@ final progressProvider = FutureProvider<Map<String, ProgressStatus>>((
   return repo.fetchProgress(id);
 });
 
-final pointsProvider = FutureProvider<int>((ref) async {
+/// All-time XP (the same score as the rating). Errors (also «the database
+/// cannot answer yet») are shown as a placeholder, never as 0.
+final xpProvider = FutureProvider<int>((ref) async {
   final (repo, id) = await _studentContext(ref);
-  return repo.fetchPointsTotal(id);
+  return repo.fetchXp(id);
 });
 
 final homeworkProvider = FutureProvider<List<HomeworkSubmission>>((ref) async {
@@ -45,9 +47,13 @@ final homeworkProvider = FutureProvider<List<HomeworkSubmission>>((ref) async {
   return repo.fetchHomework(id);
 });
 
-final leaderboardProvider = FutureProvider<List<LeaderboardEntry>>((ref) async {
+/// The platform rating of a period (month by default on the screen).
+final ratingProvider = FutureProvider.family<List<RatingRow>, RatingPeriod>((
+  ref,
+  period,
+) async {
   final (repo, _) = await _studentContext(ref);
-  return repo.fetchLeaderboard();
+  return repo.fetchRating(period);
 });
 
 final certificatesProvider = FutureProvider<List<Certificate>>((ref) async {

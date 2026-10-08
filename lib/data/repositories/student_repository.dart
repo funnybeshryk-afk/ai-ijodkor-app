@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../homework_files.dart';
+import '../xp.dart';
 import '../models/lesson.dart';
 import '../models/lesson_section.dart';
 import '../models/quiz.dart';
@@ -26,7 +27,10 @@ abstract class StudentRepository {
   /// updateLessonProgressAction on the web).
   Future<void> markCompleted(String studentId, String lessonId);
 
-  Future<int> fetchPointsTotal(String studentId);
+  /// All-time XP: the same score as the rating (platform migration 0040),
+  /// counted from the events themselves. Throws [DataUpdatingException] when
+  /// the database cannot answer yet.
+  Future<int> fetchXp(String studentId);
 
   Future<List<QuizQuestion>> fetchQuiz(String lessonId);
 
@@ -82,7 +86,10 @@ abstract class StudentRepository {
     HomeworkAttachment? attachment,
   });
 
-  Future<List<LeaderboardEntry>> fetchLeaderboard();
+  /// The platform rating of a period: the top three, the student's own place
+  /// and the place right above it (`get_rating`, platform migration 0040).
+  /// Throws [DataUpdatingException] when the database cannot answer yet.
+  Future<List<RatingRow>> fetchRating(RatingPeriod period);
 
   /// Newest first.
   Future<List<Certificate>> fetchCertificates(String studentId);
@@ -158,16 +165,8 @@ class SupabaseStudentRepository implements StudentRepository {
       _upsertStatus(studentId, lessonId, ProgressStatus.completed);
 
   @override
-  Future<int> fetchPointsTotal(String studentId) async {
-    final rows = await _client
-        .from('points_ledger')
-        .select('amount')
-        .eq('student_id', studentId);
-    return rows.fold<int>(
-      0,
-      (sum, row) => sum + (row['amount'] as num).toInt(),
-    );
-  }
+  Future<int> fetchXp(String studentId) async =>
+      (await fetchXpOf(_client, [studentId]))[studentId] ?? 0;
 
   @override
   Future<int> fetchCodeTaskCount(String lessonId) async {
@@ -414,12 +413,19 @@ class SupabaseStudentRepository implements StudentRepository {
   }
 
   @override
-  Future<List<LeaderboardEntry>> fetchLeaderboard() async {
-    final rows = await _client.rpc<List<dynamic>>('get_class_leaderboard');
-    return [
-      for (final row in rows)
-        LeaderboardEntry.fromJson(Map<String, dynamic>.from(row as Map)),
-    ]..sort((a, b) => b.totalScore.compareTo(a.totalScore));
+  Future<List<RatingRow>> fetchRating(RatingPeriod period) async {
+    try {
+      final rows = await _client.rpc<List<dynamic>>(
+        'get_rating',
+        params: {'p_period': period.dbValue},
+      );
+      return [
+        for (final row in rows)
+          RatingRow.fromJson(Map<String, dynamic>.from(row as Map)),
+      ]..sort((a, b) => a.place.compareTo(b.place));
+    } on PostgrestException catch (e) {
+      throw DataUpdatingException('get_rating', e);
+    }
   }
 
   @override

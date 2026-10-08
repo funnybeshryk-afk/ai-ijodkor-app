@@ -146,9 +146,8 @@
   "trainerPromptChecklist": "Prompt tekshiruvchisi",
   "trainerExperimentLab": "Promptni solishtirish",
   "trainerTeacherSimulator": "AI-shogirdga tushuntirish",
-  "ratingTitle": "Sinfdagi reyting",
-  "ratingSubtitle": "Shu haftadagi mashqlar ballari. Har dushanba yangilanadi.",
-  "ratingEmpty": "Bu hafta hali hech kim mashq qilmadi. Birinchi bo‘ling!",
+  "ratingTitle": "Reyting",
+  "ratingSubtitle": "Butun platforma bo‘yicha bitta reyting. Har oyning 1-sanasida hamma noldan boshlaydi.",
   "ratingYou": "Siz",
   "ratingScore": "{score} ball",
   "@ratingScore": {
@@ -222,8 +221,8 @@
     }
   },
   "statLessonsDone": "darslar yakunlandi",
-  "statRank": "guruh reytingida",
-  "statNotRanked": "bu hafta reytingda yo‘q",
+  "statRank": "oy reytingida",
+  "statNotRanked": "bu oy reytingda yo‘q",
   "tracksTitle": "Yo‘nalishlar",
   "allLessonsLink": "Barcha darslar",
   "trackLocked": "yopiq",
@@ -487,14 +486,7 @@
   "reviewEmptyBody": "Yangi uy vazifalari kelganda shu yerda paydo bo‘ladi.",
   "approveButton": "Qabul qilish",
   "returnButton": "Qaytarish",
-  "approveHint": "+{points} ball, dars yakunlangan deb belgilanadi",
-  "@approveHint": {
-    "placeholders": {
-      "points": {
-        "type": "int"
-      }
-    }
-  },
+  "approveHint": "Dars yakunlangan deb belgilanadi. Ballni platforma o‘zi hisoblaydi.",
   "commentLabel": "Izoh",
   "commentOptionalHint": "Ixtiyoriy — o‘quvchi ko‘radi",
   "returnCommentHint": "Nimani tuzatish kerakligini yozing",
@@ -692,6 +684,25 @@
   "@codeTasksCardBody": {
     "placeholders": {
       "count": {
+        "type": "int"
+      }
+    }
+  },
+  "ratingTabMonth": "Oy",
+  "ratingTabWeek": "Hafta",
+  "ratingEmptyMonth": "Bu oy hali ball to‘planmagan — birinchi bo‘ling!",
+  "ratingEmptyWeek": "Bu hafta hali ball to‘planmagan — birinchi bo‘ling!",
+  "ratingYourPlace": "Siz {place}-o‘rindasiz · {total} o‘quvchi ichida",
+  "ratingXpTitle": "Barcha vaqt: sizning XP",
+  "ratingXpNote": "Bu reyting emas — faqat sizning shaxsiy yutug‘ingiz. U hech qachon nolga tushmaydi.",
+  "dataUpdating": "Ma‘lumot yangilanmoqda",
+  "dataUpdatingHint": "Birozdan keyin qayta urinib ko‘ring.",
+  "@ratingYourPlace": {
+    "placeholders": {
+      "place": {
+        "type": "int"
+      },
+      "total": {
         "type": "int"
       }
     }

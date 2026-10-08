@@ -300,7 +300,7 @@ class _ChildCard extends StatelessWidget {
               const SizedBox(width: AppSpace.s2),
               Expanded(
                 child: _Tile(
-                  value: formatAmount(o.pointsTotal),
+                  value: o.xp == null ? '…' : formatAmount(o.xp!),
                   label: l10n.tilePoints,
                   color: colors.ink,
                 ),

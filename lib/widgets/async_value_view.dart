@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../core/l10n.dart';
+import '../data/xp.dart';
 import 'message_view.dart';
 import 'ui.dart';
 
@@ -29,7 +30,9 @@ class AsyncValueView<T> extends StatelessWidget {
     return value.when(
       data: builder,
       loading: () => loading ?? const SkeletonList(),
-      error: (_, _) => ErrorRetryView(onRetry: onRetry),
+      error: (error, _) => error is DataUpdatingException
+          ? DataUpdatingView(onRetry: onRetry)
+          : ErrorRetryView(onRetry: onRetry),
     );
   }
 }
@@ -46,6 +49,31 @@ class ErrorRetryView extends StatelessWidget {
     return MessageView(
       icon: LucideIcons.wifiOff,
       title: l10n.errorGeneric,
+      actions: [
+        PrimaryButton(
+          label: l10n.retryButton,
+          icon: LucideIcons.refreshCw,
+          onPressed: onRetry,
+        ),
+      ],
+    );
+  }
+}
+
+/// «Ma'lumot yangilanmoqda»: the database cannot answer yet (a newer platform
+/// migration is not applied). Shown instead of numbers — never zeros.
+class DataUpdatingView extends StatelessWidget {
+  const DataUpdatingView({super.key, required this.onRetry});
+
+  final VoidCallback onRetry;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    return MessageView(
+      icon: LucideIcons.refreshCw,
+      title: l10n.dataUpdating,
+      message: l10n.dataUpdatingHint,
       actions: [
         PrimaryButton(
           label: l10n.retryButton,

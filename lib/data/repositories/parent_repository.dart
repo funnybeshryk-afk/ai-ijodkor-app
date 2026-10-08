@@ -1,6 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../models/lesson.dart';
+import '../xp.dart';
 import '../models/parent_records.dart';
 import '../models/student_records.dart';
 
@@ -75,12 +76,14 @@ class SupabaseParentRepository implements ParentRepository {
           .eq('student_id', childId)
           .order('period', ascending: false),
     ]);
+    final xp = await fetchXpOrNull(_client, childId);
     return ChildOverview(
       lessons: [for (final r in results[0]) Lesson.fromJson(r)],
       progress: [for (final r in results[1]) ProgressRow.fromJson(r)],
       homework: [for (final r in results[2]) HomeworkSubmission.fromJson(r)],
       points: [for (final r in results[3]) PointsEntry.fromJson(r)],
       payments: [for (final r in results[4]) Payment.fromJson(r)],
+      xp: xp,
     );
   }
 }

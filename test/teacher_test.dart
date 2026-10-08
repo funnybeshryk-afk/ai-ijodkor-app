@@ -192,7 +192,7 @@ void main() {
     expect(find.text('Arxivga olish'), findsOneWidget);
   });
 
-  testWidgets('review: return needs a comment, approve gives points', (
+  testWidgets('review: return needs a comment, approve completes the lesson', (
     tester,
   ) async {
     await start(tester);
@@ -215,7 +215,8 @@ void main() {
     await tester.tap(byKey('review_approve'));
     await tester.pumpAndSettle();
     expect(repo.calls, ['review:h1:true:Zo‘r!']);
-    expect(repo.points['s1']!.single.amount, 10);
+    // The points are counted by the platform from the approved homework, not written by the app.
+    expect(repo.points['s1'], isNull);
     expect(repo.progress[('s1', 'l1')], ProgressStatus.completed);
     expect(find.text('Hammasi tekshirildi'), findsOneWidget);
   });

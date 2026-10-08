@@ -50,7 +50,7 @@ void main() {
     repo = FakeStudentRepository()
       ..allLessons.addAll([_p1, _l2, _l1])
       ..access.addAll(['l1', 'p1'])
-      ..points = 25
+      ..xp = 25
       ..quizzes['l1'] = const [
         QuizQuestion(
           id: 'q1',
@@ -116,13 +116,16 @@ void main() {
         submittedAt: DateTime(2026, 9, 27),
       ),
     );
-    repo.leaderboard.add(
-      const LeaderboardEntry(
+    repo.ratings[RatingPeriod.month] = const [
+      RatingRow(
+        place: 1,
         studentId: 'u1',
         fullName: 'Karimov Ali',
-        totalScore: 40,
+        points: 40,
+        isMe: true,
+        totalStudents: 12,
       ),
-    );
+    ];
     await start(tester);
 
     expect(find.text('Xayrli kun,'), findsOneWidget);
@@ -402,26 +405,117 @@ void main() {
     expect(repo.homework.single.fileUrl, 'u1/test-id-javob.py');
   });
 
-  testWidgets('rating highlights the current student', (tester) async {
-    repo.leaderboard.addAll(const [
-      LeaderboardEntry(
+  testWidgets('rating: the month is the main tab, own place after a gap', (
+    tester,
+  ) async {
+    repo.xp = 130;
+    repo.ratings[RatingPeriod.month] = const [
+      RatingRow(
+        place: 1,
         studentId: 'u2',
         fullName: 'Aliyev Vali',
-        totalScore: 90,
+        points: 90,
+        isMe: false,
+        totalStudents: 30,
       ),
-      LeaderboardEntry(
+      RatingRow(
+        place: 2,
+        studentId: 'u3',
+        fullName: 'Sodiqov Sami',
+        points: 80,
+        isMe: false,
+        totalStudents: 30,
+      ),
+      RatingRow(
+        place: 3,
+        studentId: 'u4',
+        fullName: 'Rustamov Rahim',
+        points: 70,
+        isMe: false,
+        totalStudents: 30,
+      ),
+      RatingRow(
+        place: 9,
+        studentId: 'u5',
+        fullName: 'Qodirov Qosim',
+        points: 20,
+        isMe: false,
+        totalStudents: 30,
+      ),
+      RatingRow(
+        place: 10,
         studentId: 'u1',
         fullName: 'Karimov Ali',
-        totalScore: 70,
+        points: 15,
+        isMe: true,
+        totalStudents: 30,
       ),
-    ]);
+    ];
+    repo.ratings[RatingPeriod.week] = const [
+      RatingRow(
+        place: 1,
+        studentId: 'u1',
+        fullName: 'Karimov Ali',
+        points: 5,
+        isMe: true,
+        totalStudents: 30,
+      ),
+    ];
     await start(tester);
     await openTab(tester, 'Reyting');
 
+    expect(repo.calls, contains('rating:month'));
     expect(find.text('Aliyev Vali'), findsOneWidget);
     expect(find.text('Karimov Ali (Siz)'), findsOneWidget);
     expect(byKey('rating_me'), findsOneWidget);
+    expect(find.text('10-o‘rindasiz', findRichText: true), findsNothing);
+    expect(find.textContaining('Siz 10-o‘rindasiz'), findsOneWidget);
+    expect(find.textContaining('30 o‘quvchi ichida'), findsOneWidget);
+    // All time is XP, not a rating.
+    expect(find.text('Barcha vaqt: sizning XP'), findsOneWidget);
+    expect(find.text('130'), findsOneWidget);
+
+    await tester.tap(find.text('Hafta'));
+    await tester.pumpAndSettle();
+    expect(repo.calls, contains('rating:week'));
+    expect(find.text('Aliyev Vali'), findsNothing);
+    expect(find.text('Karimov Ali (Siz)'), findsOneWidget);
   });
+
+  testWidgets('rating: a period nobody scored in says so, not an empty table', (
+    tester,
+  ) async {
+    repo.ratings[RatingPeriod.month] = const [
+      RatingRow(
+        place: 1,
+        studentId: 'u1',
+        fullName: 'Karimov Ali',
+        points: 0,
+        isMe: true,
+        totalStudents: 12,
+      ),
+    ];
+    await start(tester);
+    await openTab(tester, 'Reyting');
+    expect(
+      find.text('Bu oy hali ball to‘planmagan — birinchi bo‘ling!'),
+      findsOneWidget,
+    );
+  });
+
+  testWidgets(
+    'when the database cannot answer yet, rating and XP say so — never zeros',
+    (tester) async {
+      repo.dataUpdating = true;
+      await start(tester);
+      // Home: the XP pill and the place are placeholders.
+      expect(find.text('…'), findsWidgets);
+      expect(find.text('0'), findsNothing);
+      await openTab(tester, 'Reyting');
+      expect(find.text('Ma‘lumot yangilanmoqda'), findsOneWidget);
+      expect(find.text('Qayta urinish'), findsOneWidget);
+    },
+  );
 
   testWidgets('certificates are listed', (tester) async {
     repo.certificates.add(

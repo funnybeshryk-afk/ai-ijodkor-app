@@ -23,9 +23,9 @@ class StudentHomeScreen extends ConsumerWidget {
     ref
       ..invalidate(lessonsProvider)
       ..invalidate(progressProvider)
-      ..invalidate(pointsProvider)
+      ..invalidate(xpProvider)
       ..invalidate(homeworkProvider)
-      ..invalidate(leaderboardProvider)
+      ..invalidate(ratingProvider(RatingPeriod.month))
       ..invalidate(reviewSummaryProvider);
     await ref.read(lessonsProvider.future);
   }
@@ -253,7 +253,7 @@ class _Header extends ConsumerWidget {
     final l10n = context.l10n;
     final colors = context.colors;
     final name = ref.watch(currentProfileProvider).value?.givenName ?? '';
-    final points = ref.watch(pointsProvider).value;
+    final points = ref.watch(xpProvider).value;
     return Row(
       children: [
         Container(
@@ -483,20 +483,24 @@ class _StatTile extends StatelessWidget {
   }
 }
 
-/// Place in this week's class leaderboard.
+/// Place in the platform rating of this month.
 class _RankTile extends ConsumerWidget {
   const _RankTile();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    final me = ref.watch(currentUserIdProvider).value;
-    final board = ref.watch(leaderboardProvider).value;
-    if (board == null) return const SkeletonBox(height: AppSize.statTile);
-    final index = board.indexWhere((e) => e.studentId == me);
+    final board = ref.watch(ratingProvider(RatingPeriod.month));
+    // «Data is updating» (the database cannot answer yet) is a dash, not a place.
+    if (board.hasError) {
+      return _StatTile(value: '—', label: l10n.dataUpdating);
+    }
+    final rows = board.value;
+    if (rows == null) return const SkeletonBox(height: AppSize.statTile);
+    final mine = rows.where((r) => r.isMe).firstOrNull;
     return _StatTile(
-      value: index < 0 ? '—' : '#${index + 1}',
-      label: index < 0 ? l10n.statNotRanked : l10n.statRank,
+      value: mine == null ? '—' : '#${mine.place}',
+      label: mine == null ? l10n.statNotRanked : l10n.statRank,
     );
   }
 }

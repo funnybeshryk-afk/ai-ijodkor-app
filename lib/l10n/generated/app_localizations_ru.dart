@@ -353,15 +353,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get trainerTeacherSimulator => 'Объясни ИИ-ученику';
 
   @override
-  String get ratingTitle => 'Рейтинг класса';
+  String get ratingTitle => 'Рейтинг';
 
   @override
   String get ratingSubtitle =>
-      'Баллы за тренажёры на этой неделе. Обновляется каждый понедельник.';
-
-  @override
-  String get ratingEmpty =>
-      'На этой неделе ещё никто не занимался. Будь первым!';
+      'Один рейтинг на всю платформу. С 1-го числа каждого месяца все начинают с нуля.';
 
   @override
   String get ratingYou => 'Ты';
@@ -444,10 +440,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get statLessonsDone => 'уроков пройдено';
 
   @override
-  String get statRank => 'в рейтинге группы';
+  String get statRank => 'в рейтинге месяца';
 
   @override
-  String get statNotRanked => 'на этой неделе нет в рейтинге';
+  String get statNotRanked => 'в этом месяце нет в рейтинге';
 
   @override
   String get tracksTitle => 'Направления';
@@ -833,9 +829,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get returnButton => 'Вернуть';
 
   @override
-  String approveHint(int points) {
-    return '+$points баллов, урок будет отмечен как завершённый';
-  }
+  String get approveHint =>
+      'Урок будет отмечен как завершённый. Баллы платформа посчитает сама.';
 
   @override
   String get commentLabel => 'Комментарий';
@@ -1156,4 +1151,36 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get codeTasksOpenButton => 'Начать писать код';
+
+  @override
+  String get ratingTabMonth => 'Месяц';
+
+  @override
+  String get ratingTabWeek => 'Неделя';
+
+  @override
+  String get ratingEmptyMonth =>
+      'В этом месяце баллов пока нет — станьте первым!';
+
+  @override
+  String get ratingEmptyWeek =>
+      'На этой неделе баллов пока нет — станьте первым!';
+
+  @override
+  String ratingYourPlace(int place, int total) {
+    return 'Вы на $place-м месте · среди $total учеников';
+  }
+
+  @override
+  String get ratingXpTitle => 'За всё время: ваши XP';
+
+  @override
+  String get ratingXpNote =>
+      'Это не рейтинг, а ваше личное достижение. Оно никогда не обнуляется.';
+
+  @override
+  String get dataUpdating => 'Данные обновляются';
+
+  @override
+  String get dataUpdatingHint => 'Попробуйте ещё раз чуть позже.';
 }
