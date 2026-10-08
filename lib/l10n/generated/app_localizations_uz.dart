@@ -1190,4 +1190,32 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get dataUpdatingHint => 'Birozdan keyin qayta urinib ko‘ring.';
+
+  @override
+  String get offlineGameButton => 'Kutayotganda o‘ynash';
+
+  @override
+  String get offlineGameTitle => 'Internet yo‘q';
+
+  @override
+  String get offlineGameHint =>
+      'Sakrash uchun ekranga bosing. Kaktuslardan oshib o‘ting!';
+
+  @override
+  String get offlineGameStart => 'Boshlash uchun bosing';
+
+  @override
+  String get offlineGameScore => 'Natija';
+
+  @override
+  String get offlineGameBest => 'Rekord';
+
+  @override
+  String get offlineGameOver => 'O‘yin tugadi';
+
+  @override
+  String get offlineGameNewRecord => 'Yangi rekord!';
+
+  @override
+  String get offlineGameAgain => 'Qayta o‘ynash';
 }

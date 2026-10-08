@@ -1183,4 +1183,32 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get dataUpdatingHint => 'Попробуйте ещё раз чуть позже.';
+
+  @override
+  String get offlineGameButton => 'Поиграть, пока ждёшь';
+
+  @override
+  String get offlineGameTitle => 'Нет интернета';
+
+  @override
+  String get offlineGameHint =>
+      'Нажимай на экран, чтобы прыгать. Перепрыгивай кактусы!';
+
+  @override
+  String get offlineGameStart => 'Нажми, чтобы начать';
+
+  @override
+  String get offlineGameScore => 'Счёт';
+
+  @override
+  String get offlineGameBest => 'Рекорд';
+
+  @override
+  String get offlineGameOver => 'Игра окончена';
+
+  @override
+  String get offlineGameNewRecord => 'Новый рекорд!';
+
+  @override
+  String get offlineGameAgain => 'Сыграть ещё';
 }

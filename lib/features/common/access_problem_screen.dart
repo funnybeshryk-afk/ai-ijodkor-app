@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../core/auth_gate.dart';
 import '../../core/l10n.dart';
 import '../../data/providers.dart';
+import '../../widgets/async_value_view.dart';
 import '../../widgets/message_view.dart';
 import '../../widgets/sign_out_button.dart';
 import '../../widgets/ui.dart';
@@ -41,6 +42,7 @@ class AccessProblemScreen extends ConsumerWidget {
                 icon: LucideIcons.refreshCw,
                 onPressed: () => ref.invalidate(currentProfileProvider),
               ),
+            if (isError) const OfflineGameButton(),
             const SignOutButton(),
           ],
         ),

@@ -2173,6 +2173,60 @@ abstract class AppLocalizations {
   /// In uz, this message translates to:
   /// **'Birozdan keyin qayta urinib ko‘ring.'**
   String get dataUpdatingHint;
+
+  /// No description provided for @offlineGameButton.
+  ///
+  /// In uz, this message translates to:
+  /// **'Kutayotganda o‘ynash'**
+  String get offlineGameButton;
+
+  /// No description provided for @offlineGameTitle.
+  ///
+  /// In uz, this message translates to:
+  /// **'Internet yo‘q'**
+  String get offlineGameTitle;
+
+  /// No description provided for @offlineGameHint.
+  ///
+  /// In uz, this message translates to:
+  /// **'Sakrash uchun ekranga bosing. Kaktuslardan oshib o‘ting!'**
+  String get offlineGameHint;
+
+  /// No description provided for @offlineGameStart.
+  ///
+  /// In uz, this message translates to:
+  /// **'Boshlash uchun bosing'**
+  String get offlineGameStart;
+
+  /// No description provided for @offlineGameScore.
+  ///
+  /// In uz, this message translates to:
+  /// **'Natija'**
+  String get offlineGameScore;
+
+  /// No description provided for @offlineGameBest.
+  ///
+  /// In uz, this message translates to:
+  /// **'Rekord'**
+  String get offlineGameBest;
+
+  /// No description provided for @offlineGameOver.
+  ///
+  /// In uz, this message translates to:
+  /// **'O‘yin tugadi'**
+  String get offlineGameOver;
+
+  /// No description provided for @offlineGameNewRecord.
+  ///
+  /// In uz, this message translates to:
+  /// **'Yangi rekord!'**
+  String get offlineGameNewRecord;
+
+  /// No description provided for @offlineGameAgain.
+  ///
+  /// In uz, this message translates to:
+  /// **'Qayta o‘ynash'**
+  String get offlineGameAgain;
 }
 
 class _AppLocalizationsDelegate
