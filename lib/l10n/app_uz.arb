@@ -706,5 +706,14 @@
         "type": "int"
       }
     }
-  }
+  },
+  "offlineGameButton": "Kutayotganda o‘ynash",
+  "offlineGameTitle": "Internet yo‘q",
+  "offlineGameHint": "Sakrash uchun ekranga bosing. Kaktuslardan oshib o‘ting!",
+  "offlineGameStart": "Boshlash uchun bosing",
+  "offlineGameScore": "Natija",
+  "offlineGameBest": "Rekord",
+  "offlineGameOver": "O‘yin tugadi",
+  "offlineGameNewRecord": "Yangi rekord!",
+  "offlineGameAgain": "Qayta o‘ynash"
 }

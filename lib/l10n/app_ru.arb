@@ -345,5 +345,14 @@
   "ratingXpTitle": "За всё время: ваши XP",
   "ratingXpNote": "Это не рейтинг, а ваше личное достижение. Оно никогда не обнуляется.",
   "dataUpdating": "Данные обновляются",
-  "dataUpdatingHint": "Попробуйте ещё раз чуть позже."
+  "dataUpdatingHint": "Попробуйте ещё раз чуть позже.",
+  "offlineGameButton": "Поиграть, пока ждёшь",
+  "offlineGameTitle": "Нет интернета",
+  "offlineGameHint": "Нажимай на экран, чтобы прыгать. Перепрыгивай кактусы!",
+  "offlineGameStart": "Нажми, чтобы начать",
+  "offlineGameScore": "Счёт",
+  "offlineGameBest": "Рекорд",
+  "offlineGameOver": "Игра окончена",
+  "offlineGameNewRecord": "Новый рекорд!",
+  "offlineGameAgain": "Сыграть ещё"
 }

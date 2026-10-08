@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../core/l10n.dart';
+import '../features/offline/offline_game_screen.dart';
 import '../data/xp.dart';
+import '../core/theme.dart';
 import 'message_view.dart';
 import 'ui.dart';
 
@@ -55,7 +57,25 @@ class ErrorRetryView extends StatelessWidget {
           icon: LucideIcons.refreshCw,
           onPressed: onRetry,
         ),
+        const OfflineGameButton(),
       ],
+    );
+  }
+}
+
+/// Outlined «play while you wait» button under a connection error.
+class OfflineGameButton extends StatelessWidget {
+  const OfflineGameButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton.icon(
+      style: OutlinedButton.styleFrom(
+        minimumSize: const Size.fromHeight(AppSize.button),
+      ),
+      icon: const Icon(LucideIcons.gamepad2, size: AppSize.iconBtn),
+      label: Text(context.l10n.offlineGameButton),
+      onPressed: () => OfflineGameScreen.open(context),
     );
   }
 }
