@@ -10,7 +10,7 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appTitle => 'AI IJODKOR';
+  String get appTitle => 'Izlan';
 
   @override
   String get loading => 'Загрузка...';
@@ -390,7 +390,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get certificateVerifyButton => 'Посмотреть сертификат';
 
   @override
-  String get logoLabel => 'Знак AI Ijodkor';
+  String get logoLabel => 'Знак Izlan';
 
   @override
   String get loginTagline =>

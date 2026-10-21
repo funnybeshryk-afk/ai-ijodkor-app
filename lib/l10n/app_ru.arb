@@ -1,6 +1,6 @@
 {
   "@@locale": "ru",
-  "appTitle": "AI IJODKOR",
+  "appTitle": "Izlan",
   "loading": "Загрузка...",
   "loginTitle": "Добро пожаловать!",
   "loginSubtitle": "Войдите в свой аккаунт",
@@ -117,7 +117,7 @@
   "certificateIssued": "Дата выдачи: {date}",
   "certificateTeacher": "Учитель: {name}",
   "certificateVerifyButton": "Посмотреть сертификат",
-  "logoLabel": "Знак AI Ijodkor",
+  "logoLabel": "Знак Izlan",
   "loginTagline": "Искусственный интеллект и программирование — для учеников, родителей и учителей",
   "loginNote": "Логин и пароль выдаёт учитель. Родители входят здесь же.",
   "emailHint": "imya@primer.uz",

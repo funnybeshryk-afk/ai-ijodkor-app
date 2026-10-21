@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:ai_ijodkor/app.dart';
-import 'package:ai_ijodkor/core/locale_controller.dart';
-import 'package:ai_ijodkor/data/models/profile.dart';
-import 'package:ai_ijodkor/data/providers.dart';
-import 'package:ai_ijodkor/data/repositories/auth_repository.dart';
-import 'package:ai_ijodkor/data/repositories/profile_repository.dart';
-import 'package:ai_ijodkor/data/repositories/parent_repository.dart';
-import 'package:ai_ijodkor/data/repositories/student_repository.dart';
-import 'package:ai_ijodkor/data/repositories/teacher_repository.dart';
-import 'package:ai_ijodkor/features/parent/parent_providers.dart';
+import 'package:izlan/app.dart';
+import 'package:izlan/core/locale_controller.dart';
+import 'package:izlan/data/models/profile.dart';
+import 'package:izlan/data/providers.dart';
+import 'package:izlan/data/repositories/auth_repository.dart';
+import 'package:izlan/data/repositories/profile_repository.dart';
+import 'package:izlan/data/repositories/parent_repository.dart';
+import 'package:izlan/data/repositories/student_repository.dart';
+import 'package:izlan/data/repositories/teacher_repository.dart';
+import 'package:izlan/features/parent/parent_providers.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
@@ -111,7 +111,7 @@ Future<void> pumpApp(
           paymentLinksProvider.overrideWithValue(paymentLinks),
         ...overrides,
       ],
-      child: const AiIjodkorApp(),
+      child: const IzlanApp(),
     ),
   );
   await tester.pumpAndSettle();

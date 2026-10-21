@@ -1,5 +1,5 @@
-import 'package:ai_ijodkor/data/models/parent_records.dart';
-import 'package:ai_ijodkor/data/repositories/parent_repository.dart';
+import 'package:izlan/data/models/parent_records.dart';
+import 'package:izlan/data/repositories/parent_repository.dart';
 
 /// In-memory parent data; set [failOverview] to simulate a network error.
 class FakeParentRepository implements ParentRepository {

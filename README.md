@@ -1,6 +1,6 @@
-# AI IJODKOR — мобильное приложение
+# Izlan — мобильное приложение (ранее AI IJODKOR)
 
-Flutter-приложение (Android, iOS) образовательной программы AI IJODKOR.
+Flutter-приложение (Android, iOS) образовательной платформы codeducation.uz (приложение называется Izlan).
 Работает поверх той же базы Supabase, что и веб-платформа `ai-ijodkor-platform`.
 Спецификация — в [CLAUDE.md](CLAUDE.md), план — в [ROADMAP.md](ROADMAP.md).
 

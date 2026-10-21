@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:ai_ijodkor/data/homework_files.dart';
+import 'package:izlan/data/homework_files.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 const s = '00000000-0000-0000-0000-000000000201';

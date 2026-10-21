@@ -1,8 +1,8 @@
-import 'package:ai_ijodkor/data/models/lesson.dart';
-import 'package:ai_ijodkor/data/models/parent_records.dart';
-import 'package:ai_ijodkor/data/models/profile.dart';
-import 'package:ai_ijodkor/data/models/student_records.dart';
-import 'package:ai_ijodkor/features/parent/parent_providers.dart';
+import 'package:izlan/data/models/lesson.dart';
+import 'package:izlan/data/models/parent_records.dart';
+import 'package:izlan/data/models/profile.dart';
+import 'package:izlan/data/models/student_records.dart';
+import 'package:izlan/features/parent/parent_providers.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'fakes.dart';
@@ -171,7 +171,7 @@ void main() {
     await start(
       tester,
       links: const PaymentLinks(
-        paymentUrl: 'https://bilim.aiijodkor.uz/pay',
+        paymentUrl: 'https://codeducation.uz/pay',
         telegramUrl: 'https://t.me/x',
         phone: '+1',
       ),

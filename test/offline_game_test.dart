@@ -1,15 +1,15 @@
 import 'dart:math';
 
-import 'package:ai_ijodkor/features/offline/offline_game_screen.dart';
-import 'package:ai_ijodkor/features/offline/runner_engine.dart';
-import 'package:ai_ijodkor/features/offline/runner_sprites.dart';
-import 'package:ai_ijodkor/widgets/async_value_view.dart';
+import 'package:izlan/features/offline/offline_game_screen.dart';
+import 'package:izlan/features/offline/runner_engine.dart';
+import 'package:izlan/features/offline/runner_sprites.dart';
+import 'package:izlan/widgets/async_value_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:ai_ijodkor/core/locale_controller.dart';
-import 'package:ai_ijodkor/core/theme.dart';
-import 'package:ai_ijodkor/core/l10n.dart';
+import 'package:izlan/core/locale_controller.dart';
+import 'package:izlan/core/theme.dart';
+import 'package:izlan/core/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';

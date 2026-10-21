@@ -1,5 +1,5 @@
-import 'package:ai_ijodkor/core/locale_controller.dart';
-import 'package:ai_ijodkor/data/models/profile.dart';
+import 'package:izlan/core/locale_controller.dart';
+import 'package:izlan/data/models/profile.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -38,7 +38,7 @@ void main() {
 
   testWidgets('signed out user sees login in Uzbek by default', (tester) async {
     await pumpApp(tester, auth: auth, profiles: profiles);
-    expect(find.text('AI IJODKOR'), findsOneWidget);
+    expect(find.text('Izlan'), findsOneWidget);
     expect(find.text('Kirish'), findsOneWidget);
     expect(
       find.text(

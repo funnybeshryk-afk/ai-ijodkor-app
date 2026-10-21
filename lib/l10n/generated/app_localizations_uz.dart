@@ -10,7 +10,7 @@ class AppLocalizationsUz extends AppLocalizations {
   AppLocalizationsUz([String locale = 'uz']) : super(locale);
 
   @override
-  String get appTitle => 'AI IJODKOR';
+  String get appTitle => 'Izlan';
 
   @override
   String get loading => 'Yuklanmoqda...';
@@ -394,7 +394,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get certificateVerifyButton => 'Sertifikatni ko‘rish';
 
   @override
-  String get logoLabel => 'AI Ijodkor belgisi';
+  String get logoLabel => 'Izlan belgisi';
 
   @override
   String get loginTagline =>

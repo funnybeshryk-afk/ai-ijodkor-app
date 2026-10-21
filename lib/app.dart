@@ -7,8 +7,8 @@ import 'core/locale_controller.dart';
 import 'core/router.dart';
 import 'core/theme.dart';
 
-class AiIjodkorApp extends ConsumerWidget {
-  const AiIjodkorApp({super.key});
+class IzlanApp extends ConsumerWidget {
+  const IzlanApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

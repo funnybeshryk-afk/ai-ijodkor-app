@@ -18,7 +18,7 @@ fun signingValue(property: String, env: String): String? =
     keyProperties.getProperty(property) ?: System.getenv(env)
 
 android {
-    namespace = "uz.aiijodkor.ai_ijodkor"
+    namespace = "uz.codeducation.izlan"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -29,7 +29,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "uz.aiijodkor.ai_ijodkor"
+        applicationId = "uz.codeducation.izlan"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

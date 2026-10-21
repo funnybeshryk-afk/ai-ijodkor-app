@@ -1,6 +1,6 @@
-import 'package:ai_ijodkor/core/auth_gate.dart';
-import 'package:ai_ijodkor/core/routes.dart';
-import 'package:ai_ijodkor/data/models/profile.dart';
+import 'package:izlan/core/auth_gate.dart';
+import 'package:izlan/core/routes.dart';
+import 'package:izlan/data/models/profile.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

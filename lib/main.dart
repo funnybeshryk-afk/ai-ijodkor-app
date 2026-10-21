@@ -24,7 +24,7 @@ Future<void> main() async {
           if (supabaseReady)
             supabaseClientProvider.overrideWithValue(Supabase.instance.client),
         ],
-        child: const AiIjodkorApp(),
+        child: const IzlanApp(),
       ),
     ),
   );

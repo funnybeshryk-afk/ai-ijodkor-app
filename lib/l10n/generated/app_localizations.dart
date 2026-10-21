@@ -101,7 +101,7 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In uz, this message translates to:
-  /// **'AI IJODKOR'**
+  /// **'Izlan'**
   String get appTitle;
 
   /// No description provided for @loading.
@@ -803,7 +803,7 @@ abstract class AppLocalizations {
   /// No description provided for @logoLabel.
   ///
   /// In uz, this message translates to:
-  /// **'AI Ijodkor belgisi'**
+  /// **'Izlan belgisi'**
   String get logoLabel;
 
   /// No description provided for @loginTagline.

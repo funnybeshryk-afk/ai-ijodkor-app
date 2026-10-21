@@ -1,7 +1,7 @@
-import 'package:ai_ijodkor/core/theme.dart';
-import 'package:ai_ijodkor/data/markdown.dart';
-import 'package:ai_ijodkor/data/models/lesson_section.dart';
-import 'package:ai_ijodkor/features/student/lesson_sections.dart';
+import 'package:izlan/core/theme.dart';
+import 'package:izlan/data/markdown.dart';
+import 'package:izlan/data/models/lesson_section.dart';
+import 'package:izlan/features/student/lesson_sections.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

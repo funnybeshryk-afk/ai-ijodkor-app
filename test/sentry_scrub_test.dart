@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ai_ijodkor/core/sentry_scrub.dart';
+import 'package:izlan/core/sentry_scrub.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 

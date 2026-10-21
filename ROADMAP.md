@@ -1,4 +1,4 @@
-# ROADMAP — AI IJODKOR app
+# ROADMAP — Izlan app (ранее AI IJODKOR)
 
 ## Этап 1 — Каркас и вход
 - [x] Flutter-проект (Android + iOS), структура из CLAUDE.md, riverpod, go_router
@@ -78,6 +78,7 @@
 
 ## Этап 6 — Публикация
 - [x] Отчёты об ошибках в Sentry (`SENTRY_DSN`, без персональных данных детей) — этап 0 международного роадмапа
+- [x] Переименование: приложение Izlan, пакет `uz.codeducation.izlan`, сайт codeducation.uz (знак в логотипе пока прежний — решение за владельцем)
 - [x] Release-сборка и подпись: ключ из `key.properties`/секретов, workflow «Release bundle» собирает подписанный `.aab`,
       CI на каждом PR проверяет release-бандл (см. `docs/PLAY-RELEASE.md`)
 - [ ] Ключ загрузки, секреты, карточка и политика конфиденциальности в Play Console — владелец; затем внутреннее тестирование → прод
