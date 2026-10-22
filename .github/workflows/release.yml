@@ -48,6 +48,36 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      # Fail in seconds, not after a 6-minute build, and say which secret is wrong.
+      - name: Check the upload keystore
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/check.jks" \
+            || { echo "::error::ANDROID_KEYSTORE_BASE64 is not valid base64"; exit 1; }
+          for name in ANDROID_KEYSTORE_PASSWORD ANDROID_KEY_ALIAS ANDROID_KEY_PASSWORD; do
+            value="${!name}"
+            if [ "$value" != "$(printf '%s' "$value" | tr -d '[:space:]')" ]; then
+              echo "::error::$name contains spaces or a line break (re-enter it without them)"
+              bad=1
+            fi
+          done
+          [ -z "${bad:-}" ] || exit 1
+          if ! keytool -list -keystore "$RUNNER_TEMP/check.jks" -storepass "$ANDROID_KEYSTORE_PASSWORD" > "$RUNNER_TEMP/list.txt" 2>&1; then
+            echo "::error::ANDROID_KEYSTORE_PASSWORD does not open the keystore (or ANDROID_KEYSTORE_BASE64 is a different file)"
+            exit 1
+          fi
+          if ! grep -qi "^$ANDROID_KEY_ALIAS," "$RUNNER_TEMP/list.txt"; then
+            echo "::error::ANDROID_KEY_ALIAS is not in the keystore; aliases there:"
+            grep -iE "^[^,]+, .*(PrivateKeyEntry|trustedCertEntry)" "$RUNNER_TEMP/list.txt" | cut -d, -f1 || true
+            exit 1
+          fi
+          if ! keytool -keypasswd -keystore "$RUNNER_TEMP/check.jks" -storepass "$ANDROID_KEYSTORE_PASSWORD" \
+              -alias "$ANDROID_KEY_ALIAS" -keypass "$ANDROID_KEY_PASSWORD" -new "$ANDROID_KEY_PASSWORD" > /dev/null 2>&1; then
+            echo "::error::ANDROID_KEY_PASSWORD is not the password of this key"
+            exit 1
+          fi
+          echo "Keystore, alias and passwords are consistent."
+          rm -f "$RUNNER_TEMP/check.jks"
+
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
