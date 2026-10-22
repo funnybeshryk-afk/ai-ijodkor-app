@@ -78,7 +78,7 @@ flutter build apk --debug
 (`context.colors`, `AppSpace`, `AppRadius`, `AppText`); в виджетах их не
 переопределяем. Шрифты лежат в `assets/fonts/` (SIL OFL), иконки —
 `lucide_icons_flutter` (пакет `lucide_icons` не собирается на текущем Flutter).
-Знак AI Ijodkor рисуется `BrandMark` (`lib/widgets/brand_mark.dart`) по SVG из
+Знак Izlan рисуется `BrandMark` (`lib/widgets/brand_mark.dart`) по SVG из
 брендбука.
 
 ## Иконка и splash

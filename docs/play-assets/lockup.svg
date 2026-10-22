@@ -1,0 +1,15 @@
+<svg width="900" height="220" viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .word { font-family: "Poppins"; font-weight: 600; font-size: 92px; fill: #17213B; letter-spacing: 1px; }
+    .tag { font-family: "Inter"; font-weight: 500; font-size: 26px; fill: #6B7384; letter-spacing: 3px; }
+  </style>
+  <g transform="translate(20,30)">
+    <circle cx="80" cy="80" r="62" fill="none" stroke="#17213B" stroke-width="9" />
+    <polygon points="80,33 98,80 80,80 62,80" fill="#F2A93B" />
+    <polygon points="80,127 62,80 80,80 98,80" fill="#17213B" />
+    <circle cx="80" cy="80" r="8" fill="#FFFFFF" />
+    <circle cx="80" cy="80" r="8" fill="none" stroke="#17213B" stroke-width="3.6" />
+  </g>
+  <text x="200" y="128" class="word">IZLAN</text>
+  <text x="203" y="168" class="tag">O&#8217;RGAN · YARAT · RIVOJLAN</text>
+</svg>
