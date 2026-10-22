@@ -83,6 +83,21 @@ jobs:
           fi
           flutter build apk --debug "${defines[@]}"
 
+      # Proves the release configuration (R8, signing, bundle) on every PR.
+      # The throwaway key exists only in this job and the bundle is NOT
+      # uploaded: real bundles come from the «Release bundle» workflow.
+      - name: Build release bundle (throwaway key)
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ci-throwaway
+          ANDROID_KEY_ALIAS: ci
+          ANDROID_KEY_PASSWORD: ci-throwaway
+        run: |
+          keytool -genkeypair -storetype JKS -keyalg RSA -keysize 2048 -validity 1 \
+            -keystore "$RUNNER_TEMP/ci.jks" -alias ci \
+            -storepass "$ANDROID_KEYSTORE_PASSWORD" -keypass "$ANDROID_KEY_PASSWORD" \
+            -dname "CN=ci"
+          ANDROID_KEYSTORE_FILE="$RUNNER_TEMP/ci.jks" flutter build appbundle --release
+
       - uses: actions/upload-artifact@v4
         with:
           name: app-debug-apk

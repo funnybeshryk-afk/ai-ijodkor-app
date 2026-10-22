@@ -1,14 +1,14 @@
 import 'dart:convert';
 
-import 'package:ai_ijodkor/data/homework_files.dart';
-import 'package:ai_ijodkor/data/models/lesson.dart';
-import 'package:ai_ijodkor/data/models/lesson_section.dart';
-import 'package:ai_ijodkor/data/models/quiz.dart';
-import 'package:ai_ijodkor/data/models/review.dart';
-import 'package:ai_ijodkor/data/models/skills.dart';
-import 'package:ai_ijodkor/data/models/student_records.dart';
-import 'package:ai_ijodkor/data/repositories/student_repository.dart';
-import 'package:ai_ijodkor/data/xp.dart';
+import 'package:izlan/data/homework_files.dart';
+import 'package:izlan/data/models/lesson.dart';
+import 'package:izlan/data/models/lesson_section.dart';
+import 'package:izlan/data/models/quiz.dart';
+import 'package:izlan/data/models/review.dart';
+import 'package:izlan/data/models/skills.dart';
+import 'package:izlan/data/models/student_records.dart';
+import 'package:izlan/data/repositories/student_repository.dart';
+import 'package:izlan/data/xp.dart';
 
 /// In-memory stand-in for Supabase. The quiz is graded here the same way
 /// the `submit_lesson_quiz` RPC does it, so screens can be tested end to end.

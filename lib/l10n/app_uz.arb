@@ -1,6 +1,6 @@
 {
   "@@locale": "uz",
-  "appTitle": "AI IJODKOR",
+  "appTitle": "Izlan",
   "loading": "Yuklanmoqda...",
   "loginTitle": "Xush kelibsiz!",
   "loginSubtitle": "Hisobingizga kiring",
@@ -183,7 +183,7 @@
     }
   },
   "certificateVerifyButton": "Sertifikatni ko‘rish",
-  "logoLabel": "AI Ijodkor belgisi",
+  "logoLabel": "Izlan belgisi",
   "loginTagline": "Sun’iy intellekt va dasturlash — o‘quvchilar, ota-onalar va o‘qituvchilar uchun",
   "loginNote": "Login va parolni o‘qituvchingiz beradi. Ota-onalar ham shu yerdan kiradi.",
   "emailHint": "ism@misol.uz",
@@ -706,5 +706,14 @@
         "type": "int"
       }
     }
-  }
+  },
+  "offlineGameButton": "Kutayotganda o‘ynash",
+  "offlineGameTitle": "Internet yo‘q",
+  "offlineGameHint": "Sakrash uchun ekranga bosing. Kaktuslardan oshib o‘ting!",
+  "offlineGameStart": "Boshlash uchun bosing",
+  "offlineGameScore": "Natija",
+  "offlineGameBest": "Rekord",
+  "offlineGameOver": "O‘yin tugadi",
+  "offlineGameNewRecord": "Yangi rekord!",
+  "offlineGameAgain": "Qayta o‘ynash"
 }

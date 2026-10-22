@@ -10,7 +10,7 @@ class AppLocalizationsUz extends AppLocalizations {
   AppLocalizationsUz([String locale = 'uz']) : super(locale);
 
   @override
-  String get appTitle => 'AI IJODKOR';
+  String get appTitle => 'Izlan';
 
   @override
   String get loading => 'Yuklanmoqda...';
@@ -394,7 +394,7 @@ class AppLocalizationsUz extends AppLocalizations {
   String get certificateVerifyButton => 'Sertifikatni ko‘rish';
 
   @override
-  String get logoLabel => 'AI Ijodkor belgisi';
+  String get logoLabel => 'Izlan belgisi';
 
   @override
   String get loginTagline =>
@@ -1190,4 +1190,32 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get dataUpdatingHint => 'Birozdan keyin qayta urinib ko‘ring.';
+
+  @override
+  String get offlineGameButton => 'Kutayotganda o‘ynash';
+
+  @override
+  String get offlineGameTitle => 'Internet yo‘q';
+
+  @override
+  String get offlineGameHint =>
+      'Sakrash uchun ekranga bosing. Kaktuslardan oshib o‘ting!';
+
+  @override
+  String get offlineGameStart => 'Boshlash uchun bosing';
+
+  @override
+  String get offlineGameScore => 'Natija';
+
+  @override
+  String get offlineGameBest => 'Rekord';
+
+  @override
+  String get offlineGameOver => 'O‘yin tugadi';
+
+  @override
+  String get offlineGameNewRecord => 'Yangi rekord!';
+
+  @override
+  String get offlineGameAgain => 'Qayta o‘ynash';
 }

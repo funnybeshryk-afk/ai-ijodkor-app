@@ -10,7 +10,7 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get appTitle => 'AI IJODKOR';
+  String get appTitle => 'Izlan';
 
   @override
   String get loading => 'Загрузка...';
@@ -390,7 +390,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get certificateVerifyButton => 'Посмотреть сертификат';
 
   @override
-  String get logoLabel => 'Знак AI Ijodkor';
+  String get logoLabel => 'Знак Izlan';
 
   @override
   String get loginTagline =>
@@ -1183,4 +1183,32 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get dataUpdatingHint => 'Попробуйте ещё раз чуть позже.';
+
+  @override
+  String get offlineGameButton => 'Поиграть, пока ждёшь';
+
+  @override
+  String get offlineGameTitle => 'Нет интернета';
+
+  @override
+  String get offlineGameHint =>
+      'Нажимай на экран, чтобы прыгать. Перепрыгивай кактусы!';
+
+  @override
+  String get offlineGameStart => 'Нажми, чтобы начать';
+
+  @override
+  String get offlineGameScore => 'Счёт';
+
+  @override
+  String get offlineGameBest => 'Рекорд';
+
+  @override
+  String get offlineGameOver => 'Игра окончена';
+
+  @override
+  String get offlineGameNewRecord => 'Новый рекорд!';
+
+  @override
+  String get offlineGameAgain => 'Сыграть ещё';
 }

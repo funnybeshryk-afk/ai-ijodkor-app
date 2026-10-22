@@ -1,4 +1,4 @@
-package uz.aiijodkor.ai_ijodkor
+package uz.codeducation.izlan
 
 import io.flutter.embedding.android.FlutterActivity
 

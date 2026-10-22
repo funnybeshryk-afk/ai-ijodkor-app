@@ -205,6 +205,7 @@ abstract final class AppSize {
   static const rankBadge = 36.0;
   static const playButton = 72.0;
   static const mediaPanel = 196.0;
+  static const gamePanel = 220.0;
   static const listRow = 64.0;
   static const statTile = 76.0;
   static const progressBar = 8.0;

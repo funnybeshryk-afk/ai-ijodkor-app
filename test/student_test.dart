@@ -1,14 +1,14 @@
 import 'dart:typed_data';
 
-import 'package:ai_ijodkor/core/locale_controller.dart';
-import 'package:ai_ijodkor/data/homework_files.dart';
-import 'package:ai_ijodkor/features/student/homework_file_picker.dart';
-import 'package:ai_ijodkor/features/student/student_providers.dart';
-import 'package:ai_ijodkor/data/models/lesson.dart';
-import 'package:ai_ijodkor/data/models/lesson_section.dart';
-import 'package:ai_ijodkor/data/models/profile.dart';
-import 'package:ai_ijodkor/data/models/quiz.dart';
-import 'package:ai_ijodkor/data/models/student_records.dart';
+import 'package:izlan/core/locale_controller.dart';
+import 'package:izlan/data/homework_files.dart';
+import 'package:izlan/features/student/homework_file_picker.dart';
+import 'package:izlan/features/student/student_providers.dart';
+import 'package:izlan/data/models/lesson.dart';
+import 'package:izlan/data/models/lesson_section.dart';
+import 'package:izlan/data/models/profile.dart';
+import 'package:izlan/data/models/quiz.dart';
+import 'package:izlan/data/models/student_records.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/misc.dart' show Override;
 import 'package:flutter_test/flutter_test.dart';

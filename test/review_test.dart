@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:ai_ijodkor/core/locale_controller.dart';
-import 'package:ai_ijodkor/data/models/lesson.dart';
-import 'package:ai_ijodkor/data/models/profile.dart';
-import 'package:ai_ijodkor/data/models/review.dart';
-import 'package:ai_ijodkor/data/review_schedule.dart';
-import 'package:ai_ijodkor/features/student/task_answer_input.dart';
-import 'package:ai_ijodkor/core/routes.dart';
+import 'package:izlan/core/locale_controller.dart';
+import 'package:izlan/data/models/lesson.dart';
+import 'package:izlan/data/models/profile.dart';
+import 'package:izlan/data/models/review.dart';
+import 'package:izlan/data/review_schedule.dart';
+import 'package:izlan/features/student/task_answer_input.dart';
+import 'package:izlan/core/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_test/flutter_test.dart';

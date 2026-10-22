@@ -1,0 +1,103 @@
+name: Release bundle
+
+# Builds the signed Android App Bundle (.aab) for Google Play. Run by hand:
+# Actions → Release bundle → Run workflow. The upload keystore comes from
+# repository secrets (see docs/PLAY-RELEASE.md); only the public anon key is
+# used for Supabase — never service_role.
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_name:
+        description: Version name shown to users (empty = from pubspec.yaml)
+        required: false
+      build_number:
+        description: Version code, must grow with every upload (empty = from pubspec.yaml)
+        required: false
+
+jobs:
+  bundle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+      PLATFORM_URL: ${{ secrets.PLATFORM_URL }}
+      SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+      KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+      ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+      ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+      ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check secrets
+        run: |
+          missing=0
+          for name in SUPABASE_URL SUPABASE_ANON_KEY PLATFORM_URL KEYSTORE_BASE64 \
+              ANDROID_KEYSTORE_PASSWORD ANDROID_KEY_ALIAS ANDROID_KEY_PASSWORD; do
+            if [ -z "${!name}" ]; then
+              echo "::error::Secret for $name is not set (see docs/PLAY-RELEASE.md)"
+              missing=1
+            fi
+          done
+          exit $missing
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Generate localizations
+        run: flutter gen-l10n
+
+      - name: Analyze and test
+        run: |
+          flutter analyze
+          flutter test
+
+      - name: Restore upload keystore
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/upload.jks"
+          echo "ANDROID_KEYSTORE_FILE=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"
+
+      - name: Build signed App Bundle
+        run: |
+          args=(
+            --dart-define=SUPABASE_URL="$SUPABASE_URL"
+            --dart-define=SUPABASE_ANON_KEY="$SUPABASE_ANON_KEY"
+            --dart-define=PLATFORM_URL="$PLATFORM_URL"
+          )
+          if [ -n "$SENTRY_DSN" ]; then
+            args+=(--dart-define=SENTRY_DSN="$SENTRY_DSN")
+          fi
+          if [ -n "${{ inputs.build_name }}" ]; then
+            args+=(--build-name="${{ inputs.build_name }}")
+          fi
+          if [ -n "${{ inputs.build_number }}" ]; then
+            args+=(--build-number="${{ inputs.build_number }}")
+          fi
+          flutter build appbundle --release "${args[@]}"
+
+      - name: Verify the bundle is not debug-signed
+        run: |
+          keytool -printcert -jarfile build/app/outputs/bundle/release/app-release.aab \
+            | tee /tmp/cert.txt
+          if grep -qi "Android Debug" /tmp/cert.txt; then
+            echo "::error::The bundle is signed with the debug key"
+            exit 1
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: app-release-aab
+          path: build/app/outputs/bundle/release/app-release.aab
+          retention-days: 30

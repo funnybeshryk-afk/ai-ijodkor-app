@@ -1,8 +1,8 @@
-import 'package:ai_ijodkor/data/models/lesson.dart';
-import 'package:ai_ijodkor/data/models/parent_records.dart';
-import 'package:ai_ijodkor/data/models/student_records.dart';
-import 'package:ai_ijodkor/data/models/teacher_records.dart';
-import 'package:ai_ijodkor/data/repositories/teacher_repository.dart';
+import 'package:izlan/data/models/lesson.dart';
+import 'package:izlan/data/models/parent_records.dart';
+import 'package:izlan/data/models/student_records.dart';
+import 'package:izlan/data/models/teacher_records.dart';
+import 'package:izlan/data/repositories/teacher_repository.dart';
 
 /// In-memory teacher data with the same write rules as the real one
 /// (approve = completed, no points row — the platform counts them; group access only adds missing rows).

@@ -1,12 +1,12 @@
 import 'dart:convert';
 
-import 'package:ai_ijodkor/core/platform_session.dart';
-import 'package:ai_ijodkor/data/models/lesson.dart';
-import 'package:ai_ijodkor/data/models/parent_records.dart';
-import 'package:ai_ijodkor/data/models/profile.dart';
-import 'package:ai_ijodkor/data/models/quiz.dart';
-import 'package:ai_ijodkor/data/models/student_records.dart';
-import 'package:ai_ijodkor/data/models/teacher_records.dart';
+import 'package:izlan/core/platform_session.dart';
+import 'package:izlan/data/models/lesson.dart';
+import 'package:izlan/data/models/parent_records.dart';
+import 'package:izlan/data/models/profile.dart';
+import 'package:izlan/data/models/quiz.dart';
+import 'package:izlan/data/models/student_records.dart';
+import 'package:izlan/data/models/teacher_records.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Lesson _lesson(String id, String module, int order) =>
@@ -148,12 +148,10 @@ void main() {
     });
 
     test('trainer URL carries the app language', () {
-      final base = Uri.parse(
-        'https://bilim.aiijodkor.uz/student/practice/logic',
-      );
+      final base = Uri.parse('https://codeducation.uz/student/practice/logic');
       expect(
         PlatformSessionCookies.withLang(base, 'ru').toString(),
-        'https://bilim.aiijodkor.uz/student/practice/logic?lang=ru',
+        'https://codeducation.uz/student/practice/logic?lang=ru',
       );
       expect(PlatformSessionCookies.withLang(base, 'uz').queryParameters, {
         'lang': 'uz',

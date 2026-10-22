@@ -1,7 +1,7 @@
-import 'package:ai_ijodkor/core/locale_controller.dart';
-import 'package:ai_ijodkor/data/models/lesson.dart';
-import 'package:ai_ijodkor/data/models/profile.dart';
-import 'package:ai_ijodkor/data/models/skills.dart';
+import 'package:izlan/core/locale_controller.dart';
+import 'package:izlan/data/models/lesson.dart';
+import 'package:izlan/data/models/profile.dart';
+import 'package:izlan/data/models/skills.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'fakes.dart';
