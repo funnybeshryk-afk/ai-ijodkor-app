@@ -70,11 +70,24 @@ jobs:
             grep -iE "^[^,]+, .*(PrivateKeyEntry|trustedCertEntry)" "$RUNNER_TEMP/list.txt" | cut -d, -f1 || true
             exit 1
           fi
-          if ! keytool -keypasswd -keystore "$RUNNER_TEMP/check.jks" -storepass "$ANDROID_KEYSTORE_PASSWORD" \
-              -alias "$ANDROID_KEY_ALIAS" -keypass "$ANDROID_KEY_PASSWORD" -new "$ANDROID_KEY_PASSWORD" > /dev/null 2>&1; then
+          # keytool -keypasswd does not work on PKCS12 (the default type since
+          # JDK 9), so check the key password per type. In a PKCS12 store the
+          # key password is the store password; in JKS, copying the entry with
+          # -srckeypass fails if the key password is wrong.
+          if grep -qi "^Keystore type: PKCS12" "$RUNNER_TEMP/list.txt"; then
+            if [ "$ANDROID_KEY_PASSWORD" != "$ANDROID_KEYSTORE_PASSWORD" ]; then
+              echo "::error::ANDROID_KEY_PASSWORD must equal ANDROID_KEYSTORE_PASSWORD for a PKCS12 keystore"
+              exit 1
+            fi
+          elif ! keytool -importkeystore -noprompt -srckeystore "$RUNNER_TEMP/check.jks" \
+              -srcstorepass "$ANDROID_KEYSTORE_PASSWORD" -srcalias "$ANDROID_KEY_ALIAS" \
+              -srckeypass "$ANDROID_KEY_PASSWORD" -destkeystore "$RUNNER_TEMP/check.p12" \
+              -deststoretype PKCS12 -deststorepass "$ANDROID_KEYSTORE_PASSWORD" \
+              -destkeypass "$ANDROID_KEYSTORE_PASSWORD" > /dev/null 2>&1; then
             echo "::error::ANDROID_KEY_PASSWORD is not the password of this key"
             exit 1
           fi
+          rm -f "$RUNNER_TEMP/check.p12"
           echo "Keystore, alias and passwords are consistent."
           rm -f "$RUNNER_TEMP/check.jks"
 
