@@ -1199,7 +1199,7 @@ class AppLocalizationsUz extends AppLocalizations {
 
   @override
   String get offlineGameHint =>
-      'Sakrash uchun ekranga bosing. Kaktuslardan oshib o‘ting!';
+      'Sakrash uchun ekranga bosing. Robot-o‘quvchi baglar va kitoblar uyumidan oshib o‘tsin!';
 
   @override
   String get offlineGameStart => 'Boshlash uchun bosing';

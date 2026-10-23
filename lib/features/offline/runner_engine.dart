@@ -1,7 +1,7 @@
 import 'dart:math';
 
-/// Pure game logic of the offline runner (no Flutter): a little dinosaur jumps
-/// over cacti. World units are logical pixels; y grows downwards.
+/// Pure game logic of the offline runner (no Flutter): the Izlan student robot
+/// jumps over bugs and stacks of books. World units are logical pixels; y grows downwards.
 ///
 /// The world is [worldHeight] tall and as wide as the screen needs; the
 /// painter scales it to the canvas.
@@ -18,8 +18,8 @@ abstract final class RunnerWorld {
   static const playerWidth = 14 * cell;
   static const playerHeight = 14 * cell;
 
-  static const cactusWidth = 9 * cell;
-  static const cactusHeight = 12 * cell;
+  static const obstacleWidth = 9 * cell;
+  static const obstacleHeight = 12 * cell;
 
   /// Hitboxes are a bit smaller than sprites: a near miss counts as a miss.
   static const hitInset = 4.0;
@@ -42,15 +42,18 @@ abstract final class RunnerWorld {
 
 enum RunnerPhase { ready, running, over }
 
-class Cactus {
-  Cactus(this.x, this.count);
+class Obstacle {
+  Obstacle(this.x, this.count, {this.isBug = false});
 
   double x;
 
-  /// Cacti standing next to each other (1–3).
+  /// Obstacles standing next to each other (1–3).
   final int count;
 
-  double get width => count * RunnerWorld.cactusWidth + (count - 1) * 2;
+  /// Look only: a bug or a stack of books (same size, same hitbox).
+  final bool isBug;
+
+  double get width => count * RunnerWorld.obstacleWidth + (count - 1) * 2;
 }
 
 class RunnerGame {
@@ -68,7 +71,8 @@ class RunnerGame {
   double _distance = 0;
   double groundOffset = 0;
   double runTime = 0;
-  final cacti = <Cactus>[];
+  final obstacles = <Obstacle>[];
+  int _spawned = 0;
   double _worldWidth = 400;
   double _nextGap = 0;
 
@@ -95,7 +99,8 @@ class RunnerGame {
     _distance = 0;
     runTime = 0;
     newRecord = false;
-    cacti.clear();
+    obstacles.clear();
+    _spawned = 0;
     _nextGap = _randomGap();
   }
 
@@ -108,7 +113,7 @@ class RunnerGame {
   void step(double dt, double worldWidth) {
     _worldWidth = worldWidth;
     if (phase != RunnerPhase.running) return;
-    // Long frames (app paused) must not teleport the dinosaur through a cactus.
+    // Long frames (app paused) must not teleport the robot through an obstacle.
     final h = dt.clamp(0.0, 0.05);
 
     runTime += h;
@@ -125,21 +130,28 @@ class RunnerGame {
       _velocityY = 0;
     }
 
-    for (final c in cacti) {
-      c.x -= dx;
+    for (final o in obstacles) {
+      o.x -= dx;
     }
-    cacti.removeWhere((c) => c.x + c.width < -8);
+    obstacles.removeWhere((o) => o.x + o.width < -8);
 
     _nextGap -= dx;
-    final lastRight = cacti.isEmpty ? 0.0 : cacti.last.x + cacti.last.width;
+    final lastRight = obstacles.isEmpty
+        ? 0.0
+        : obstacles.last.x + obstacles.last.width;
     if (_nextGap <= 0 && lastRight < _worldWidth) {
-      cacti.add(
-        Cactus(_worldWidth + 8, 1 + _random.nextInt(RunnerWorld.maxCluster)),
+      obstacles.add(
+        Obstacle(
+          _worldWidth + 8,
+          1 + _random.nextInt(RunnerWorld.maxCluster),
+          isBug: _spawned.isOdd,
+        ),
       );
+      _spawned++;
       _nextGap = _randomGap();
     }
 
-    if (_hitsCactus()) {
+    if (_hitsObstacle()) {
       phase = RunnerPhase.over;
       if (score > bestScore) {
         bestScore = score;
@@ -148,19 +160,20 @@ class RunnerGame {
     }
   }
 
-  bool _hitsCactus() {
+  bool _hitsObstacle() {
     const inset = RunnerWorld.hitInset;
     final left = RunnerWorld.playerX + inset;
     final right = RunnerWorld.playerX + RunnerWorld.playerWidth - inset;
     final bottom = playerY + RunnerWorld.playerHeight - inset;
     final top = playerY + inset;
-    final cactusTop = RunnerWorld.groundY - RunnerWorld.cactusHeight + inset;
-    for (final c in cacti) {
-      final cl = c.x + inset;
-      final cr = c.x + c.width - inset;
+    final obstacleTop =
+        RunnerWorld.groundY - RunnerWorld.obstacleHeight + inset;
+    for (final o in obstacles) {
+      final cl = o.x + inset;
+      final cr = o.x + o.width - inset;
       if (right > cl &&
           left < cr &&
-          bottom > cactusTop &&
+          bottom > obstacleTop &&
           top < RunnerWorld.groundY) {
         return true;
       }

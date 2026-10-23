@@ -709,7 +709,7 @@
   },
   "offlineGameButton": "Kutayotganda o‘ynash",
   "offlineGameTitle": "Internet yo‘q",
-  "offlineGameHint": "Sakrash uchun ekranga bosing. Kaktuslardan oshib o‘ting!",
+  "offlineGameHint": "Sakrash uchun ekranga bosing. Robot-o‘quvchi baglar va kitoblar uyumidan oshib o‘tsin!",
   "offlineGameStart": "Boshlash uchun bosing",
   "offlineGameScore": "Natija",
   "offlineGameBest": "Rekord",

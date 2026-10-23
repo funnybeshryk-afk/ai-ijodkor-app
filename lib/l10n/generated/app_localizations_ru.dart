@@ -1192,7 +1192,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get offlineGameHint =>
-      'Нажимай на экран, чтобы прыгать. Перепрыгивай кактусы!';
+      'Нажимай на экран, чтобы прыгать. Помоги роботу-ученику перепрыгнуть баги и стопки книг!';
 
   @override
   String get offlineGameStart => 'Нажми, чтобы начать';
