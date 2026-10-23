@@ -48,6 +48,49 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      # Fail in seconds, not after a 6-minute build, and say which secret is wrong.
+      - name: Check the upload keystore
+        run: |
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/check.jks" \
+            || { echo "::error::ANDROID_KEYSTORE_BASE64 is not valid base64"; exit 1; }
+          for name in ANDROID_KEYSTORE_PASSWORD ANDROID_KEY_ALIAS ANDROID_KEY_PASSWORD; do
+            value="${!name}"
+            if [ "$value" != "$(printf '%s' "$value" | tr -d '[:space:]')" ]; then
+              echo "::error::$name contains spaces or a line break (re-enter it without them)"
+              bad=1
+            fi
+          done
+          [ -z "${bad:-}" ] || exit 1
+          if ! keytool -list -keystore "$RUNNER_TEMP/check.jks" -storepass "$ANDROID_KEYSTORE_PASSWORD" > "$RUNNER_TEMP/list.txt" 2>&1; then
+            echo "::error::ANDROID_KEYSTORE_PASSWORD does not open the keystore (or ANDROID_KEYSTORE_BASE64 is a different file)"
+            exit 1
+          fi
+          if ! grep -qi "^$ANDROID_KEY_ALIAS," "$RUNNER_TEMP/list.txt"; then
+            echo "::error::ANDROID_KEY_ALIAS is not in the keystore; aliases there:"
+            grep -iE "^[^,]+, .*(PrivateKeyEntry|trustedCertEntry)" "$RUNNER_TEMP/list.txt" | cut -d, -f1 || true
+            exit 1
+          fi
+          # keytool -keypasswd does not work on PKCS12 (the default type since
+          # JDK 9), so check the key password per type. In a PKCS12 store the
+          # key password is the store password; in JKS, copying the entry with
+          # -srckeypass fails if the key password is wrong.
+          if grep -qi "^Keystore type: PKCS12" "$RUNNER_TEMP/list.txt"; then
+            if [ "$ANDROID_KEY_PASSWORD" != "$ANDROID_KEYSTORE_PASSWORD" ]; then
+              echo "::error::ANDROID_KEY_PASSWORD must equal ANDROID_KEYSTORE_PASSWORD for a PKCS12 keystore"
+              exit 1
+            fi
+          elif ! keytool -importkeystore -noprompt -srckeystore "$RUNNER_TEMP/check.jks" \
+              -srcstorepass "$ANDROID_KEYSTORE_PASSWORD" -srcalias "$ANDROID_KEY_ALIAS" \
+              -srckeypass "$ANDROID_KEY_PASSWORD" -destkeystore "$RUNNER_TEMP/check.p12" \
+              -deststoretype PKCS12 -deststorepass "$ANDROID_KEYSTORE_PASSWORD" \
+              -destkeypass "$ANDROID_KEYSTORE_PASSWORD" > /dev/null 2>&1; then
+            echo "::error::ANDROID_KEY_PASSWORD is not the password of this key"
+            exit 1
+          fi
+          rm -f "$RUNNER_TEMP/check.p12"
+          echo "Keystore, alias and passwords are consistent."
+          rm -f "$RUNNER_TEMP/check.jks"
+
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
