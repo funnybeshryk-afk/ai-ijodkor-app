@@ -2189,7 +2189,7 @@ abstract class AppLocalizations {
   /// No description provided for @offlineGameHint.
   ///
   /// In uz, this message translates to:
-  /// **'Sakrash uchun ekranga bosing. Kaktuslardan oshib o‘ting!'**
+  /// **'Sakrash uchun ekranga bosing. Robot-o‘quvchi baglar va kitoblar uyumidan oshib o‘tsin!'**
   String get offlineGameHint;
 
   /// No description provided for @offlineGameStart.

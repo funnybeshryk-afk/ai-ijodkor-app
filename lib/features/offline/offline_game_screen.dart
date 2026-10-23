@@ -15,7 +15,7 @@ import 'runner_sprites.dart';
 
 const _bestScoreKey = 'offline_runner_best';
 
-/// «Internet yo‘q»: a tiny jumping-dinosaur game to pass the time while the
+/// «Internet yo‘q»: a tiny jumping-robot game to pass the time while the
 /// connection is down. Works without any network; the record is kept locally.
 class OfflineGameScreen extends ConsumerStatefulWidget {
   const OfflineGameScreen({super.key});
@@ -66,7 +66,7 @@ class _OfflineGameScreenState extends ConsumerState<OfflineGameScreen>
     }
   }
 
-  /// The clock only ticks while the dinosaur runs: no frames (and no battery
+  /// The clock only ticks while the robot runs: no frames (and no battery
   /// use) on the start and game-over panels.
   void _sync() {
     _ticker.muted = _game.phase != RunnerPhase.running;
@@ -327,25 +327,29 @@ class _RunnerPainter extends CustomPainter {
       );
     }
 
-    final cactusPaint = Paint()..color = colors.success;
-    for (final c in game.cacti) {
-      for (var i = 0; i < c.count; i++) {
+    final bugPaint = Paint()..color = colors.danger;
+    final booksPaint = Paint()..color = colors.brandStrong;
+    for (final o in game.obstacles) {
+      for (var i = 0; i < o.count; i++) {
         canvas.save();
         canvas.translate(
-          c.x + i * (RunnerWorld.cactusWidth + 2),
-          RunnerWorld.groundY - RunnerWorld.cactusHeight,
+          o.x + i * (RunnerWorld.obstacleWidth + 2),
+          RunnerWorld.groundY - RunnerWorld.obstacleHeight,
         );
-        canvas.drawPath(_path(cactus), cactusPaint);
+        canvas.drawPath(
+          _path(o.isBug ? bug : bookStack),
+          o.isBug ? bugPaint : booksPaint,
+        );
         canvas.restore();
       }
     }
 
     final stepFrame = game.onGround && (game.runTime * 10).floor().isOdd;
-    final legs = stepFrame ? dinoLegsB : dinoLegsA;
+    final legs = stepFrame ? robotLegsB : robotLegsA;
     canvas.save();
     canvas.translate(RunnerWorld.playerX, game.playerY);
-    canvas.drawPath(_path(dinoIdle), Paint()..color = colors.ink);
-    canvas.translate(0, dinoIdle.length * RunnerWorld.cell);
+    canvas.drawPath(_path(robotIdle), Paint()..color = colors.ink);
+    canvas.translate(0, robotIdle.length * RunnerWorld.cell);
     canvas.drawPath(_path(legs), Paint()..color = colors.ink);
     canvas.restore();
   }
