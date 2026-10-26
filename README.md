@@ -83,9 +83,9 @@ flutter build apk --debug
 
 ## Иконка и splash
 
-Исходники — `assets/branding/`: знак AI Ijodkor из брендбука (`ijodkor-mark.svg`),
-растеризованный в `icon.png` (на белом), `icon_foreground.png` (adaptive icon),
-`splash.png` и `splash_android12.png`. После замены картинок:
+Исходники — `assets/branding/`: знак AI Ijodkor из брендбука (`ijodkor-mark.svg`; растры — `tool/gen_brand_assets.mjs`),
+растеризованный в `icon.png` (янтарный фон, знак цвета ink), `icon_foreground.png` (adaptive icon),
+`splash.png`, `splash_dark.png` и `splash_android12.png`. После замены картинок:
 
 ```bash
 dart run flutter_launcher_icons
