@@ -2,26 +2,22 @@ import 'package:flutter/material.dart';
 
 import '../core/theme.dart';
 
-/// The Izlan mark (izlan-logo/mark.svg — a compass ring with a two-tone needle
-/// on a 48×48 grid). The north needle is always amber; the ring and the south
-/// needle take [color] (defaults to the ink color so it reads in both themes).
+/// The master AI Ijodkor mark (assets/branding/ijodkor-mark.svg: hat, open book, spark; viewBox
+/// 40×40) — the same drawing as on aiijodkor.uz and codeducation.uz. Never redraw it; only the
+/// container varies. Amber by default ([color] only for a one-off like ink on an amber surface).
 class BrandMark extends StatelessWidget {
   const BrandMark({super.key, this.size = 60, this.color});
 
   final double size;
 
-  /// Ring and south needle; defaults to the text color.
+  /// Defaults to the brand amber.
   final Color? color;
 
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
       size: Size.square(size),
-      painter: _MarkPainter(
-        color ?? context.colors.ink,
-        context.colors.brand,
-        context.colors.surfaceCard,
-      ),
+      painter: _MarkPainter(color ?? context.colors.brand),
     );
   }
 }
@@ -49,55 +45,67 @@ class LogoBadge extends StatelessWidget {
           border: Border.all(color: colors.border),
         ),
         alignment: Alignment.center,
-        child: BrandMark(size: size * 0.68),
+        child: BrandMark(size: size * 0.75),
       ),
     );
   }
 }
 
 class _MarkPainter extends CustomPainter {
-  _MarkPainter(this.color, this.accent, this.hub);
+  _MarkPainter(this.color);
 
   final Color color;
-  final Color accent;
-  final Color hub;
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.scale(size.width / 48, size.height / 48);
-    final ring = Paint()
+    canvas.scale(size.width / 40, size.height / 40);
+    final fill = Paint()..color = color;
+    final stroke = Paint()
       ..color = color
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.6;
-    canvas.drawCircle(const Offset(24, 24), 18, ring);
+      ..strokeWidth = 2.1
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+
+    // Hat: M20 5 34 12.5 20 20 6 12.5Z
     canvas.drawPath(
       Path()
-        ..moveTo(24, 9)
-        ..lineTo(28.2, 24)
-        ..lineTo(19.8, 24)
+        ..moveTo(20, 5)
+        ..lineTo(34, 12.5)
+        ..lineTo(20, 20)
+        ..lineTo(6, 12.5)
         ..close(),
-      Paint()..color = accent,
+      fill,
     );
+    // Book: M11.5 16v7c0 2.8 4 5 8.5 5s8.5-2.2 8.5-5v-7
     canvas.drawPath(
       Path()
-        ..moveTo(24, 39)
-        ..lineTo(19.8, 24)
-        ..lineTo(28.2, 24)
-        ..close(),
-      Paint()..color = color,
+        ..moveTo(11.5, 16)
+        ..lineTo(11.5, 23)
+        ..cubicTo(11.5, 25.8, 15.5, 28, 20, 28)
+        ..cubicTo(24.5, 28, 28.5, 25.8, 28.5, 23)
+        ..lineTo(28.5, 16),
+      stroke,
     );
-    canvas.drawCircle(const Offset(24, 24), 2.3, Paint()..color = hub);
-    canvas.drawCircle(
-      const Offset(24, 24),
-      2.3,
-      Paint()
-        ..color = color
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.1,
+    // Tassel: M34 12.5v7.5, circle (34, 22) r 1.7
+    canvas.drawLine(const Offset(34, 12.5), const Offset(34, 20), stroke);
+    canvas.drawCircle(const Offset(34, 22), 1.7, fill);
+    // Spark: M28 26.5l1 2.3 2.3 1-2.3 1-1 2.3-1-2.3-2.3-1 2.3-1Z
+    canvas.drawPath(
+      Path()
+        ..moveTo(28, 26.5)
+        ..lineTo(29, 28.8)
+        ..lineTo(31.3, 29.8)
+        ..lineTo(29, 30.8)
+        ..lineTo(28, 33.1)
+        ..lineTo(27, 30.8)
+        ..lineTo(24.7, 29.8)
+        ..lineTo(27, 28.8)
+        ..close(),
+      fill,
     );
   }
 
   @override
-  bool shouldRepaint(_MarkPainter old) =>
-      old.color != color || old.accent != accent || old.hub != hub;
+  bool shouldRepaint(_MarkPainter old) => old.color != color;
 }
