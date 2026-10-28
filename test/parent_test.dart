@@ -171,7 +171,7 @@ void main() {
     await start(
       tester,
       links: const PaymentLinks(
-        paymentUrl: 'https://codeducation.uz/pay',
+        paymentUrl: 'https://bilim.aiijodkor.uz/pay',
         telegramUrl: 'https://t.me/x',
         phone: '+1',
       ),

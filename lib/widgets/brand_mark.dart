@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../core/theme.dart';
 
 /// The master AI Ijodkor mark (assets/branding/ijodkor-mark.svg: hat, open book, spark; viewBox
-/// 40×40) — the same drawing as on aiijodkor.uz and codeducation.uz. Never redraw it; only the
+/// 40×40) — the same drawing as on aiijodkor.uz and bilim.aiijodkor.uz. Never redraw it; only the
 /// container varies. Amber by default ([color] only for a one-off like ink on an amber surface).
 class BrandMark extends StatelessWidget {
   const BrandMark({super.key, this.size = 60, this.color});
