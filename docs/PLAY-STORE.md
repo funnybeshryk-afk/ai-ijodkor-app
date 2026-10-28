@@ -10,7 +10,7 @@
 | Категория | Образование (Education) |
 | Язык по умолчанию | O‘zbek (Lotin); добавить русский |
 | Пакет | `uz.codeducation.izlan` (⚠ менять нельзя после первой загрузки) |
-| Контакты | сайт https://codeducation.uz, e-mail ⚠, телефон +998 50 011 41 25 |
+| Контакты | сайт https://bilim.aiijodkor.uz, e-mail ⚠, телефон +998 50 011 41 25 |
 | Политика конфиденциальности | ⚠ нужен публичный URL (черновик текста — `docs/PRIVACY-DRAFT.md`; на платформе страницы `/privacy` пока нет) |
 
 ### Краткое описание (до 80 знаков)
@@ -19,7 +19,7 @@
 
 ### Полное описание
 **uz**
-Izlan — bolalar va o‘smirlar (7–18 yosh) uchun dasturlash va sun’iy intellektni o‘rganish ilovasi. Ilova codeducation.uz platformasi bilan ishlaydi: o‘quvchi, ota-ona va o‘qituvchi bitta hisob orqali kiradi.
+Izlan — bolalar va o‘smirlar (7–18 yosh) uchun dasturlash va sun’iy intellektni o‘rganish ilovasi. Ilova bilim.aiijodkor.uz platformasi bilan ishlaydi: o‘quvchi, ota-ona va o‘qituvchi bitta hisob orqali kiradi.
 
 O‘quvchi uchun:
 • o‘qituvchi ochgan darslar, video va amaliy topshiriqlar;
@@ -35,7 +35,7 @@ O‘qituvchi uchun: o‘quvchilar ro‘yxati, vazifalarni tekshirish, darslarga 
 Ilovaga kirish uchun markaz bergan login kerak. Reklama yo‘q.
 
 **ru**
-Izlan — приложение для обучения программированию и искусственному интеллекту детей и подростков (7–18 лет). Работает с платформой codeducation.uz: ученик, родитель и учитель входят под одной учётной записью.
+Izlan — приложение для обучения программированию и искусственному интеллекту детей и подростков (7–18 лет). Работает с платформой bilim.aiijodkor.uz: ученик, родитель и учитель входят под одной учётной записью.
 
 Ученику: уроки, которые открыл учитель, видео и практические задания; загрузка домашних работ и оценка учителя; баллы, XP, рейтинг месяца и недели; тренажёры (Python, Excel, программирование блоками и другие); сертификаты; мини-игра без интернета.
 Родителю: дети, их прогресс, домашние задания и статус оплат — максимально просто.
@@ -77,7 +77,7 @@ Izlan — приложение для обучения программиров�
 Приложение закрыто логином → в «Доступ к приложению» укажите **тестовые аккаунты** (ученик, учитель, родитель) на отдельном тестовом классе без настоящих детей и инструкцию: «Введите логин и пароль на первом экране».
 
 ## 6. Чек-лист перед выпуском
-- [ ] Домен codeducation.uz активен; `PLATFORM_URL=https://codeducation.uz` в секретах (иначе WebView-тренажёры не откроются).
+- [ ] Домен bilim.aiijodkor.uz активен; `PLATFORM_URL=https://bilim.aiijodkor.uz` в секретах (иначе WebView-тренажёры не откроются).
 - [ ] Политика конфиденциальности опубликована, URL вписан в карточку и в приложение (⚠ ссылку на неё стоит добавить в профиль — отдельная маленькая задача).
 - [ ] Ключ загрузки и 7 секретов (`docs/PLAY-RELEASE.md`), «Release bundle» собрал `.aab`.
 - [ ] Пакет `uz.codeducation.izlan` подтверждён.

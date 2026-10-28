@@ -148,10 +148,10 @@ void main() {
     });
 
     test('trainer URL carries the app language', () {
-      final base = Uri.parse('https://codeducation.uz/student/practice/logic');
+      final base = Uri.parse('https://bilim.aiijodkor.uz/student/practice/logic');
       expect(
         PlatformSessionCookies.withLang(base, 'ru').toString(),
-        'https://codeducation.uz/student/practice/logic?lang=ru',
+        'https://bilim.aiijodkor.uz/student/practice/logic?lang=ru',
       );
       expect(PlatformSessionCookies.withLang(base, 'uz').queryParameters, {
         'lang': 'uz',
